@@ -1,0 +1,286 @@
+[
+  {
+    "outputFileName": "wwwroot/css/main.min.css",
+    "inputFiles": [
+      "wwwroot/css/dataTables.bootstrap.min.css",
+      "wwwroot/css/simple-sidebar.css",
+      "wwwroot/css/jquery.mCustomScrollbar.css",
+      "wwwroot/css/novolayout.css",
+      "wwwroot/css/site.css",
+      "wwwroot/css/bootstrap-Liberty.css",
+      "wwwroot/css/custom_bootstrap.css",
+      "wwwroot/css/chosen.css",
+      "wwwroot/css/vida.css"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/css/font-awesome.min.css",
+    "inputFiles": [ "wwwroot/lib/font-awesome/css/font-awesome.css" ]
+  },
+
+  {
+    "outputFileName": "wwwroot/css/jquery.dataTables.min.css",
+    "inputFiles": [
+      "wwwroot/css/jquery.dataTables.css"
+    ]
+  },
+
+
+  {
+    "outputFileName": "wwwroot/css/theme.min.css",
+    "inputFiles": [
+      "wwwroot/css/theme/azul.css"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/css/bootstrap.min.css",
+    "inputFiles": [
+      "wwwroot/css/bootstrap.css",
+      "wwwroot/css/datepicker.css",
+      "wwwroot/css/animate.css"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/css/select2.min.css",
+    "inputFiles": [
+      "wwwroot/css/select2.css"
+    ]
+  },
+
+
+  {
+    "outputFileName": "wwwroot/js/jquery.min.js",
+    "inputFiles": [
+      "wwwroot/js/jquery-1.8.2.min.js",
+      "wwwroot/js/jquery.mCustomScrollbar.js",
+      "wwwroot/js/chosen.jquery.min.js",
+      "wwwroot/js/jquery.autocomplete.js",
+      "wwwroot/js/jquery.alphanum.js"
+
+
+
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/jquery.validate.unobtrusive.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery-validation/dist/jquery.validate.min.js",
+      "wwwroot/js/jquery.unobtrusive-ajax.js",
+      "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+      "wwwroot/js/customValidate.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/jquery.dataTables.min.js",
+    "inputFiles": [
+      "wwwroot/js/jquery.dataTables.js"
+
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/lib/DataTables/datatables.min.js",
+    "inputFiles": [
+      "wwwroot/js/datatables.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/css/datatables.css",
+    "inputFiles": [ "wwwroot/lib/DataTables/datatables.min.css" ]
+  },
+
+
+  {
+    "outputFileName": "wwwroot/js/jquery.placeholder.min.js",
+    "inputFiles": [
+      "wwwroot/js/jquery.placeholder.js"
+    ]
+  },
+
+
+  {
+    "outputFileName": "wwwroot/js/jqueryui.min.js",
+    "inputFiles": [
+      "wwwroot/js/jquery-ui-1.11.1.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/bootstrap.min.js",
+    "inputFiles": [
+      "wwwroot/js/bootstrap.js",
+      "wwwroot/js/bootstrap-datepicker.js",
+      "wwwroot/js/locales/bootstrap-datepicker.pt-BR.js",
+      "wwwroot/js/respond.min.js",
+      "wwwroot/js/bootstrap-notify.js",
+      "wwwroot/js/Notification.js"
+
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/js/site.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/jquery.mask.min.js",
+    "inputFiles": [
+      "wwwroot/js/jquery.mask.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/select2.min.js",
+    "inputFiles": [
+      "wwwroot/js/jquery.mousewheel.js",
+      "wwwroot/js/select2.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/auth.min.js",
+    "inputFiles": [
+      "wwwroot/js/service/Auth/AuthService.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/cotacao.js",
+    "inputFiles": [
+      "wwwroot/js/service/Cotacao/CotacaoService.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/estipulante.js",
+    "inputFiles": [
+      "wwwroot/js/service/Cotacao/EstipulanteService.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/questionario.js",
+    "inputFiles": [
+      "wwwroot/js/service/Questionario/QuestionarioService.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/seguradora.js",
+    "inputFiles": [
+      "wwwroot/js/service/Seguradora/SeguradoraService.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/produtocomercial.js",
+    "inputFiles": [
+      "wwwroot/js/service/ProdutoComercial/ProdutoComercialService.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/planocondicoescomerciais.js",
+    "inputFiles": [
+      //"wwwroot/js/service/PlanoCondicoesComerciais/PlanoCondicoesComerciaisService.js",
+      "wwwroot/js/service/PlanoCondicoesComerciais/PlanoCondicoesComerciaisRefatoradoService.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/relacaodevidaspopupservice.js",
+    "inputFiles": [
+      "wwwroot/js/service/RelacaoDeVidas/RelacaoDeVidasPopUpService.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/cobertura.js",
+    "inputFiles": [
+      "wwwroot/js/service/PlanoCondicoesComerciais/CoberturaService.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/relacaodevidas.js",
+    "inputFiles": [
+      "wwwroot/js/service/RelacaoDeVidas/RelacaoDeVidasService.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/dadoscomercializacao.js",
+    "inputFiles": [
+      "wwwroot/js/service/DadosComercializacao/DadosComercializacaoService.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/telaselecao.js",
+    "inputFiles": [
+      "wwwroot/js/service/Selecao/TelaSelecaoService.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/telaconsulta.js",
+    "inputFiles": [
+      "wwwroot/js/service/Consulta/TelaConsultaService.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/notificacao.js",
+    "inputFiles": [
+      "wwwroot/js/service/Notification/NotificationService.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/analiseDeRisco.js",
+    "inputFiles": [
+      "wwwroot/js/service/AnaliseDeRisco/AnaliseDeRiscoService.js",
+      "wwwroot/js/service/AnaliseDeRisco/RelatoriosAnaliseDeRiscoService.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/dadosOrcamento.js",
+    "inputFiles": [
+      "wwwroot/js/service/Orcamento/DadosOrcamento.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/cartaOferta.js",
+    "inputFiles": [
+      "wwwroot/js/service/CartaOferta/CartaOfertaService.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/aceitacao.js",
+    "inputFiles": [
+      "wwwroot/js/service/Aceitacao/AceitacaoService.js"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/favorecidosComissionamento.js",
+    "inputFiles": [
+      "wwwroot/js/service/Emissao/FavorecidosComissionamento.js"
+    ]
+  }
+
+
+
+]

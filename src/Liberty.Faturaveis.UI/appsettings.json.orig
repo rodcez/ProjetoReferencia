@@ -1,0 +1,90 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "logSettings": {
+    "endpointLogService": "http://VWAIDBR-SISAP21/LogService/LogService.svc",
+    "traceEnable": false
+  },
+
+  "ConnectionStrings": {
+    "Redis": "VLAIUBR-REDAP01:6379,VLAIUBR-REDAP02:6379"
+  },
+
+  "Application": {
+    "Name": "Liberty.Faturaveis.UI",
+    "Version": "dev"
+  },
+
+  "WebService": {
+    "BaseEndPoint": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1",
+    "AutenticacaoService": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/auth/",
+    "CotacaoService": "cotacao",
+    "SolicitarCotacaoService": "cotacao/solicitar",
+    "CalculoCenarioService": "calculo/cotacaocenario",
+    "AnaliseRiscoService": "analiserisco/cotacao",
+    "RelacaoVidaCapitalMedioService": "relacaovida/CapitalMedio",
+    "RelacaoVidaTotalVidasVersaoService": "relacaovida/ObterTotalVidaPorVersao",
+    "ObterCotacaoService": "obterCotacao",
+    "ObterDadosCPF": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/documento/obterDadosCPF",
+    "ObterOcupacoesPF": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/documento/ObterOcupacoesPF/",
+    "CorretoresService": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/corretor/obterListaCorretor",
+    "ObterDadosOperador": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/corretor/ObterDadosOperador",
+    "ObterDadosCNAE": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/documento/obterDadosCNAE",
+    "ObterOcupacoesPJ": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/documento/ObterOcupacoesPJ",
+    "ProdutoComercial": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/produtocomercial",
+    "CotadorObterCenarios": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/obterCenarios/",
+    "ProdutoComercialService": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/produtocomercial",
+    "ProdutosComerciaisService": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/produtoscomerciais",
+    "QuestionarioService": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/questionarios",
+    "FilialService": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/Filial/",
+    "FamiliaService": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/familia",
+    "CanalService": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/Canal",
+    "SeguradoraService": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/seguradoras/",
+    "DominioService": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/dominio",
+    "ObterListaCotacoes": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/ConsultarCotacoes",
+    "ObterCenariosComissionamento": "http://dev-faturaveiscotadorapi.br-lihi.libertyinternational.com/api/v1/obterCenariosComissionamento",
+    "ObterProjecaoFaturamento": "obterProjecaoFaturamento",
+    "SalvarCosseguroCedidoService": "cotacao/SalvarCosseguroCedido",
+    "ObterCosseguroCedidoService": "cotacao/ObterCosseguroCedido",
+    "SalvarCenarioComissionamentoService": "cotacao/SalvarCenarioComissionamento",
+    "ObterCenarioComissionamentoService": "cotacao/ObterCenarioComissionamento",
+    "SalvarDadosEmissaoService": "cotacao/SalvarDadosEmissao",
+    "SalvarDadosCobrancaService": "emissao/SalvarDadosCobranca",
+    "ObterFaixaRendaService": "emissao/ObterFaixaRenda",
+    "BuscarCEPService": "emissao/BuscarCEP",
+    "EnviarApoliceService": "emissao/EnviarApolice",
+    "AtualizarEstipulanteService": "emissao/AtualizarEstipulante",
+
+    "ImportRelacaoVidasService": "relacaovida/ImportarPlanilha",
+    "ExportarRelacaoVidasService": "relacaovida/ExportarPlanilha",
+    "DownloadRelacaoVidasService": "relacaovida/DownloadPlanilha",
+    "DeletarRelacaoVidasService": "relacaovida/DeletarVidas",
+    "AtualizarVidasService": "relacaovida/AtualizarVidas",
+    "ObterRelacaoVidasService": "relacaovida/ObterVidas",
+
+    "ExcluirCenarioService": "ExcluirCenario",
+    "ExcluirPlanoPorCotacaoService": "ExcluirPlano",
+    "SalvarCenarioService": "SalvarCenario",
+    "SalvarPlanoService": "SalvarPlano",
+
+    "ExcluirVersaoService": "ExcluirVersao",
+    "SalvarVersaoService": "SalvarVersao",
+
+    "CalcularDistribuicaoCapitalService": "calcularDistribuicaoCapital"
+
+  },
+
+
+  "AppSettings": {
+    "NomeSistema": "portalseguros",
+    "GerenciadorProdutoUsuario": "GERPROD",
+    "GoogleAnalytics": true,
+    "CodigoCompanhia": "1",
+    "CodigoFilial": "0116"
+  },
+
+  "AllowedHosts": "*"
+}
