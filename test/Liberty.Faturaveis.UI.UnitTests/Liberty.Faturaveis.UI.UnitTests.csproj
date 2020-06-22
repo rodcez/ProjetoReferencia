@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Liberty_CotadorVida.UI.UnitTests</RootNamespace>
+    <IsPackable>false</IsPackable>
+
+    <Configurations>Debug;Release;DEV;UAT;PRD</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Chutzpah" Version="4.4.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.0" />
+    <PackageReference Include="Microsoft.NET.Test.SDK" Version="16.4.0" />
+    <PackageReference Include="Microsoft.UnitTestFramework.Extensions" Version="2.0.0" />
+    <PackageReference Include="Moq" Version="4.13.1" />
+    <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Liberty.Faturaveis.UI.Infrastructure\Liberty.Faturaveis.UI.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Liberty.Faturaveis.UI\Liberty.Faturaveis.UI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Http">
+      <HintPath>..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.http\2.1.1\lib\netstandard2.0\Microsoft.Extensions.Http.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
