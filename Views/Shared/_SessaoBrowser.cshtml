@@ -1,0 +1,133 @@
+﻿<script type="text/javascript">
+
+        window.onload = function () {
+
+            var IdCookiesPagina = getCookie("IdCookiesPagina");
+            var IdCookiesPaginaAux = getCookie("LibertySessionUI");
+            var IdSessionPagina = sessionStorage.getItem("IdSessionPagina");
+            var isInIframe = window.frameElement;
+         
+            if (!isInIframe)
+            {
+                //Cenario
+                //Passo 1:   Primeiro acesso
+                //Resultado: Variaveis serão inicializadas
+                if ((IdCookiesPagina == null || IdCookiesPagina == "")
+                    && ((IdSessionPagina == null || IdSessionPagina == ""))
+                    && ((window.name == null || window.name == ""))
+                    ) {
+                    return GerarNovaSessaoAtiva();;
+                }
+
+                //Cenario
+                //Passo 1:   Refresh pagina ativa
+                //Resultado: Windows name estara preenchido e terá valor na variável session
+                if ((IdSessionPagina != null && IdSessionPagina != "")
+                    && ((window.name != null && window.name != ""))
+                    ) {
+                    //Verifica se a pagina atual é a pagina ativa
+                    if ((IdSessionPagina == window.name) && (IdSessionPagina == IdCookiesPagina)) {
+                        return GerarNovaSessaoAtiva();
+                    } else {
+                        return RedirecionarErro();
+                    }
+                }
+
+                //Cenario
+                //Passo 1:   Sai da pagina e na mesma aba navega para outra url externa
+                //Passo 2:   Na mesma aba retorna para acessar a pagina
+                //Resultado: Windows name não estara preenchido e session terá um valor
+                if ((IdSessionPagina != null && IdSessionPagina != "")
+                    && ((window.name == null || window.name == ""))
+                    ) {
+
+                    //Verifica se a pagina atual é a pagina ativa
+                    if (IdSessionPagina == IdCookiesPagina) {
+                        return GerarNovaSessaoAtiva();
+                    } else {
+                        return RedirecionarErro();
+                    }
+                }
+
+                //Cenario
+                //Passo 1:  Navegação para uma nova aba
+                if (IdCookiesPagina != null || IdCookiesPagina != "") {
+
+                    //Cenário
+                    //Resultado: Quando for aba nova as Variaveis Session e WindowsName estarão nulas
+                    //           porém será checado se já expirou a sessão através da variável IdCookiesPaginaAux
+                    if ((IdSessionPagina == null || IdSessionPagina == "")
+                        && (window.name == null || window.name == "")
+                        && (IdCookiesPaginaAux == null || IdCookiesPaginaAux == "")) {
+                        return GerarNovaSessaoAtiva();
+                    } else {
+                        //direciona pagina de erro
+                        return RedirecionarErro();
+                    }
+                } else {
+                    //direciona pagina de erro
+                    return RedirecionarErro();
+                    }
+                }
+        }
+
+        function RedirecionarErro() {
+
+            var url = '@Url.Action("LimiteAcesso", "Sessao", null)';
+            window.location.href = url;
+            return false;
+        }
+
+        function GerarNovaSessaoAtiva() {
+            //renovo tempo de exipração do cookies auxiliar
+            var number = Math.random();
+
+            setCookie("IdCookiesPagina", number);
+            sessionStorage.setItem("IdSessionPagina", number);
+            setCookieExpirar("LibertySessionUI", number, 30);
+            window.name = number;
+
+            return true;
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function setCookie(cname, cvalue) {
+
+            document.cookie = cname + "=" + cvalue + ";" + "path=/";
+        }
+
+        function setCookieExpirar(cname, cvalue, esegundos) {
+            var date = new Date();
+            date.setTime(date.getTime() + (esegundos * 1000));
+            var expires = "; expires=" + date.toGMTString();
+            document.cookie = cname + "=" + cvalue + expires + ";" + "path=/";
+        }
+
+        function validaSessaoClick() {
+
+            var IdCookiesPagina = getCookie("IdCookiesPagina");
+
+            if (window.name == IdCookiesPagina) {
+                //return GerarNovaSessaoAtiva();
+                return true;
+            } else {
+                //direciona pagina de erro
+                return RedirecionarErro();
+            }
+    }
+
+</script>

@@ -1,0 +1,134 @@
+﻿<div id="step-DadosCobranca">
+    <section id="step-DadosCobranca">
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12">
+
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">5</span>
+                        <b class="va-sub">Dados de Cobrança</b>
+                    </h3>
+                    <hr class="bordaHrForm">
+                </div>
+
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="panel panel-default corner">
+                        <div class="row margin-top-10px">
+                            <div class="col-md-12 col-sm-12">
+
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-6 ">
+                                        <div class="dropdown">
+                                            <span>Pagamento</span>
+                                            <select class="form-control selAutoComplete" id="formaPagamento" onchange="window.DadosEmissaoEvents.onChangeFormaPagamento(this)">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div id="divRecuperacaoAgenciamento" class="form-group col-md-6 col-sm-6 ">
+                                        <div class="dropdown">
+                                            <span>Recuperação de Agenciamento</span>
+                                            <select class="form-control selAutoComplete" id="recuperacaoAgenciamento" onchange="">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <div class="col-md-6 col-sm-6 nowrap pl-0">
+                                            <span>Utilizar Prêmio Mínimo da Fatura?</span>
+                                        </div>
+                                        <div class="radio-inline form-group col-md-4" id="selectPremioMinimoFatura">
+                                            <div class="col-md-2" style="padding-right:45px;">
+                                                <input type="radio" id="SimPremioMinimoFatura" name="PremioMinimoFatura" value="true" checked="checked" />
+                                                <label>Sim</label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="radio" id="NaoPremioMinimoFatura" name="PremioMinimoFatura" value="false" />
+                                                <label>Não</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row margin-top-10px dadosConta">
+                                    <div class="card corner col-md-12 col-sm-12">
+                                        <div class="card-body col-md-12 col-sm-12">
+                                            <div class="panel panel-default corner">
+                                                <div class="row mb-0" style="margin-bottom: -20px;">
+                                                    <div class="col-md-8 col-sm-8 text-left">
+                                                        <label class="textBlue mb-3">Dados da Conta</label>
+                                                    </div>
+                                                </div>
+                                                <hr class="hr-blue-aqua">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row dadosConta">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="row margin-top-10px">
+                                            <div class="col-md-6 col-sm-6">
+                                                <input type="button" class="btn btn-liberty-default" id="dadosConta" value="SELECIONAR CONTA" onclick="window.DadosEmissaoEvents.onClickDadosConta()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div id="modalDadosCobranca" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-lg">
+            <div id="modal-body-dadosCotacao" class="modal-custom-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <div id="ContentIframe">
+                    <iframe id="iframeRetornoDadosCobranca" class="iframe-form-modal" src="" width="100%" height="100%" frameborder="0"></iframe>
+                </div>
+                <input type="hidden" id="rdTitularConta" />
+                <input type="hidden" id="txtCPFCNPJTitular" />
+                <input type="hidden" id="cboBancoDebito" />
+                <input type="hidden" id="txtAgencia" />
+                <input type="hidden" id="txtDigito" />
+                <input type="hidden" id="txtConta" />
+                <input type="hidden" id="txtDigitoConta" />
+                <input type="hidden" id="txtTipoPessoa" />
+                @*prolabore*@
+                <input type="hidden" id="rdTitularContaPL" />
+                <input type="hidden" id="txtCPFCNPJTitularPL" />
+                <input type="hidden" id="cboBancoDebitoPL" />
+                <input type="hidden" id="txtAgenciaPL" />
+                <input type="hidden" id="txtDigitoPL" />
+                <input type="hidden" id="txtContaPL" />
+                <input type="hidden" id="txtDigitoContaPL" />
+                <input type="hidden" id="txtTipoPessoaPL" />
+                @*agenciamento*@
+                <input type="hidden" id="rdTitularContaAG" />
+                <input type="hidden" id="txtCPFCNPJTitularAG" />
+                <input type="hidden" id="cboBancoDebitoAG" />
+                <input type="hidden" id="txtAgenciaAG" />
+                <input type="hidden" id="txtDigitoAG" />
+                <input type="hidden" id="txtContaAG" />
+                <input type="hidden" id="txtDigitoContaAG" />
+                <input type="hidden" id="txtTipoPessoaAG" />
+            </div>
+            <div class="modal-footer">
+                <div class="linha-form-botoes">
+                    <button type="button" id="btnFecharIFrameDadosCobraca" class="btn btn-liberty-default btnForm" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

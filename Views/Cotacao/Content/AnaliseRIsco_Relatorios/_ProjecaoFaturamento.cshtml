@@ -1,0 +1,166 @@
+﻿@model Liberty.Faturaveis.UI.ViewModel.CotacaoViewModel;
+    <div id="step-ProjFaturamento">
+        <section id="step-ProjFaturamento">
+            <div class="row">
+                <div class="card corner col-md-12 col-sm-12 ">
+                    <div class="card-title">
+                        <h3 class="h3">
+                            <span class="badge">2.4</span>
+                            <b class="va-sub">Projeção de Faturamento</b>
+                        </h3>
+                        <hr class="bordaHrForm no-margin-right">
+                    </div>
+                    <div class="card-body col-md-12 col-sm-12">
+                        <div class="panel panel-default corner">
+                            <div id="formRel" name="formRel">
+                                <div class="row margin-top-20px">
+
+                                    <div class="col-xs-12 no-padding" role="tab" style="display: flex; overflow-x: auto;">
+                                        @* para gerar scroll-x na div abaixo, necessário o estilo: (display: flex; overflow-x: auto;)*@
+
+                                        <div>
+
+                                            <div style="width:1125px">
+                                                @*Div com largura fixa no tamanho 1125px para scroll das colunas*@
+
+                                                @*Free Cover - Aceitação Grupo*@
+                                                <div class="panel no-margin-bottom">
+                                                    <div class="row rowDadosGeraisAzulPetroleo">
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span>Meses</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span>Prêmio Emitido</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span>(-) Asssitências</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span> (-) Resseguro</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span> (-) Cosseguro</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span> Prêmio Ganho</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span> (-) Comissão</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span> (-) Pro-Labore</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span> (-) Agênciamento</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span> (-) Desp. Adm.</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span>(-) Sin. Proj.</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span>(=) Resultado</span>
+                                                        </div>
+                                                        <hr class="hr-blue-aqua margin-left-15px">
+                                                    </div>
+
+                                                    <div class="row rowDadosGerais fontBold">
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span>Total</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spValorPremioPF">R$ 0,00</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spValorAsssitenciasPF">R$ 0,00</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spValorResseguroPF">R$ 0,00</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spValorCosseguroPF">R$ 0,00</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spValorPremioGanhoPF">R$ 0,00</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spValorComissaoPF">R$ 0,00</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spValorProLaborePF">R$ 0,00</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spValorAgenciamentoPF">R$ 0,00</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spValorDespAdmPF">R$ 0,00</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter fontColorBlueAqua colNoPaddingLeftRight">
+                                                            <span id="spValorSinProjPF">R$ 0,00</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spValorResultadoPF">R$ 0,00</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row rowDadosGerais fontBold">
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span>%</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spPercPremioPF">0,00%</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spPercAsssitenciasPF">0,00%</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spPercResseguroPF">0,00%</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spPercCosseguroPF">0,00%</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spPercPremioGanhoPF">0,00%</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spPercComissaoPF">0,00%</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spPercProLaborePF">0,00%</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spPercAgenciamentoPF">0,00%</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spPercDespAdmPF">0,00%</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter fontColorBlueAqua colNoPaddingLeftRight">
+                                                            <span id="spPercSinProjPF">0,00%</span>
+                                                        </div>
+                                                        <div class="col-xs-1 textAlignCenter colNoPaddingLeftRight">
+                                                            <span id="spPercResultadoPF">0,00%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body col-md-12 col-sm-12">
+
+                        <div class="row padding-top-5px">
+                            <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right colNoPaddingLeftRight">
+                                <input type="button" class="btn btn-liberty-default" value="Exportar" onclick="window.AnaliseDeRiscoEvents.onClickExportarProjecaoFaturamento()" id="exportarProjecaoFaturamento" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>

@@ -1,0 +1,267 @@
+﻿<div id="step-DadosCompEstipulante">
+    <section id="step-DadosCompEstipulante">
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12">
+
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">2</span>
+                        <b class="va-sub">Dados Complementares do Estipulante</b>
+                    </h3>
+                    <hr class="bordaHrForm">
+                </div>
+
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="panel panel-default corner">
+                        <div class="row margin-top-10px">
+                            <div class="col-md-12 col-sm-12">
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12 ">
+                                        <div class="col-md-8 col-sm-8 pl-0">
+                                            <div class="col-md-12 col-sm-12 pl-0">
+                                                <span id="identificacaoTipoDCE"></span>
+                                            </div>
+                                            <span id="identificacaoDCE" style="font-size: 12px;"></span>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4 pl-0">
+                                            <div class="col-md-12 col-sm-12 pl-0">
+                                                <span id="documentoTipoDCE">CNJP</span>
+                                            </div>
+                                            <span id="documentoNumeroDCE" style="font-size: 12px;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12 ">
+                                        <div class="col-md-8 col-sm-8 pl-0">
+                                            <div class="col-md-12 col-sm-12 pl-0">
+                                                <span>Atividade</span>
+                                            </div>
+                                            <span id="atividadeDCE" style="font-size: 12px;"></span>
+                                        </div>
+
+                                        <div id="divMeiCei" class="col-md-4 col-sm-4 pl-0">
+                                            <div class="col-md-12 col-sm-12 pl-0">
+                                                <span>MEI / CEI</span>
+                                            </div>
+                                            <span id="meiCeiDCE" style="font-size: 12px;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="divDadosPessoaFisica" class="row">
+                                    <div class="col-md-12 col-sm-12 pl-0">
+                                        <div class="form-group col-md-4 col-sm-4 ">
+                                            <div class="dropdown">
+                                                <span>Faixa de Renda</span>
+                                                <div class="searchable">
+                                                    <select class="form-control selAutoComplete" id="selectFaixaRendaDCE" onchange="">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-8 col-sm-8 ">
+                                            <div class="dropdown">
+                                                <div class="col-md-12 col-sm-12 pl-0">
+                                                    <span>Declaro ser, ou ter relacionamento com</span>
+                                                </div>
+                                                <span>Pessoa Politicamente Exposta Estrangeira</span>
+
+                                                <div class="radio-inline form-group col-md-12" id="selectRelacionamentoPoliticoDCE" style="margin-left: 10px;">
+                                                    <div class="col-md-2" style="padding-right:45px;">
+                                                        <input type="radio" id="NaoRelacionamentoPoliticoDCE" name="RelacionamentoPolitico" value="true" checked />
+                                                        <label>Não</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="radio" id="SimRelacionamentoPoliticoDCE" name="RelacionamentoPolitico" value="false" />
+                                                        <label>Sim</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 pl-0">
+                                        <div class="form-group col-md-4 col-sm-4 ">
+                                            <div class="dropdown">
+                                                <span>Telefone</span>
+                                                <input class="form-control bordaInput" type="text" id="telefoneDCE" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-8 col-sm-8 ">
+                                            <div class="dropdown">
+                                                <span>E-mail</span>
+                                                <input class="form-control bordaInput" type="text" id="emailDCE" onchange="window.DadosEstipulanteEvents.onChangeEmail()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="card corner col-md-12 col-sm-12">
+                                        <div class="card-body col-md-12 col-sm-12">
+                                            <div class="panel panel-default corner">
+                                                <div class="row mb-0">
+                                                    <div class="col-md-8 col-sm-8 text-left">
+                                                        <label class="textBlue mb-3">Plano de Condições Comerciais</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 pl-0">
+                                                    <hr class="hr-blue-aqua mt-0">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12 pl-0">
+                                        <div class="form-group col-md-3 col-sm-3 ">
+                                            <div class="dropdown">
+                                                <div class="col-md-12 col-sm-12 pl-0">
+                                                    <span>Cenário</span>
+                                                </div>
+                                                <span id="cenarioDCE" style="font-size: 12px;"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-3 col-sm-3 ">
+                                            <div class="dropdown">
+                                                <div class="col-md-12 col-sm-12 pl-0">
+                                                    <span>Versão</span>
+                                                </div>
+                                                <span id="versaoDCE" style="font-size: 12px;"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-6 col-sm-6">
+                                            <div class="dropdown">
+                                                <span>Plano</span>
+                                                <div class="searchable">
+                                                    <select class="form-control selAutoComplete" id="selectPlanoDCE" onchange="">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="card corner col-md-12 col-sm-12">
+                                        <div class="card-body col-md-12 col-sm-12">
+                                            <div class="panel panel-default corner">
+                                                <div class="row mb-0">
+                                                    <div class="col-md-8 col-sm-8 text-left">
+                                                        <label class="textBlue mb-3">Endereço</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 pl-0">
+                                                    <hr class="hr-blue-aqua mt-0">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-4 col-sm-4 ">
+                                        <div class="dropdown">
+                                            <span>CEP</span>
+                                            <input class="form-control bordaInput" type="text" id="cepDCE" />
+                                            <button type="button" class="pesquisa" id="btnPesquisaCEP" style="margin-top: 22px;" onclick="window.DadosEstipulanteEvents.onClickCEP()">
+                                                <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-4 col-sm-4">
+                                        <div class="dropdown">
+                                            <span>Tipo Logradouro</span>
+                                            <div class="searchable">
+                                                <select class="form-control selAutoComplete" id="selectTipoLogradouroDCE">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12 ">
+                                        <div class="dropdown col-md-12 col-sm-12 pl-0">
+                                            <span>Logradouro</span>
+                                            <input class="form-control bordaInput" type="text" id="logradouroDCE" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12 pl-0">
+                                        <div class="form-group col-md-4 col-sm-4 ">
+                                            <div class="dropdown">
+                                                <span>Número</span>
+                                                <input class="form-control bordaInput" type="text" id="numeroLogradouroDCE" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-4 col-sm-4 ">
+                                            <div class="dropdown">
+                                                <span>Complemento</span>
+                                                <input class="form-control bordaInput" type="text" id="complementoLogradouroDCE" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-4 col-sm-4 ">
+                                            <div class="dropdown">
+                                                <span>Bairro</span>
+                                                <input class="form-control bordaInput" type="text" id="bairroDCE" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-6 ">
+                                        <div class="dropdown">
+                                            <span>Cidade</span>
+                                            <input class="form-control bordaInput" type="text" id="cidadeDCE" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-3 col-sm-3">
+                                        <div class="dropdown">
+                                            <span>UF</span>
+                                            <div class="searchable">
+                                                <select class="form-control selAutoComplete" id="selectUFDCE">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="row margin-top-10px">
+                                            <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right">
+                                                <input type="button" class="btn btn-liberty-default" id="btnAtualizar" value="ATUALIZAR" onclick="window.DadosEstipulanteEvents.onClickAtualizarDCE()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+

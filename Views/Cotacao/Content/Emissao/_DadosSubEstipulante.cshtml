@@ -1,0 +1,331 @@
+﻿<div id="step-Subestipulantes">
+    <section id="step-Subestipulantes">
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12">
+
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">3</span>
+                        <b class="va-sub">Subestipulantes</b>
+                    </h3>
+                    <hr class="bordaHrForm">
+                </div>
+
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="panel panel-default corner">
+                        <div class="row margin-top-10px">
+                            <div class="col-md-12 col-sm-12">
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12 " id="divTableEstipulante">
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="row margin-top-10px">
+                                            <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right">
+                                                <input type="button" class="btn btn-liberty-default" id="btAddEstipulante" value="NOVO SUBESTIPULANTE" onclick="window.DadosSubEstipulanteEvents.onClickAddEstipulante()" disabled/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalEstipulante" tabindex="-1" role="dialog" aria-labelledby="Estipulante" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-lg">
+            <div id="modal-body-estipulante" class="modal-custom-body" style="height: 850px;">
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="panel panel-default corner">
+                        <div class="row margin-top-10px">
+                            <div class="col-md-12 col-sm-12">
+
+                                <div class="row mb-0">
+                                    <div class="col-md-8 col-sm-8 text-left">
+                                        <label class="textBlue mb-3">Subestipulante</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-8 col-sm-8 ">
+                                    <div>
+
+                                        <div class="col-md-4">
+                                            <span>Tipo de Pessoa</span>
+                                        </div>
+
+                                        <div class="radio-inline form-group col" id="selectTipoPessoaDSE" style="margin-left: 10px;" onchange="window.DadosSubEstipulanteEvents.onChangeTipoPessoa()">
+                                            <div class="col-md-6" style="padding-right:45px;">
+                                                <input type="radio" id="JTipoPessoaDSE" name="TipoPessoaDSE" value="J" checked />
+                                                <label>Jurídica</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="radio" id="FTipoPessoaDSE" name="TipoPessoaDSE" value="F" />
+                                                <label>Física</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 pl-0">
+                                        <div class="form-group col-md-4 col-sm-4 ">
+                                            <div class="dropdown">
+                                                <span id="documentoTipoDSE">CNJP</span>
+                                                <input class="form-control bordaInput" type="text" id="documentoNumeroDSE" onchange="window.DadosSubEstipulanteEvents.onChangeNumeroDocumento()">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-8 col-sm-8 ">
+                                            <div class="dropdown">
+                                                <span id="identificacaoTipoDSE">Razão Social</span>
+                                                <input class="form-control bordaInput" type="text" id="identificacaoDSE" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12 ">
+                                        <div id="divAtividade" class="col-md-12 col-sm-12 pl-0">
+                                            <div class="dropdown">
+                                                <span>Atividade</span>
+                                                <div class="searchable">
+                                                    <select class="form-control selAutoComplete" id="selectAtividadeDSE" style="width: 100%;" onchange="">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="divMeiCeiDSE" class="col-md-4 col-sm-4 pl-0" style="display: none;">
+                                            <div class="col-md-12 col-sm-12 pl-0">
+                                                <span>MEI / CEI</span>
+                                            </div>
+                                            <input class="form-control bordaInput" type="text" id="meiCeiDSE" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="divDadosPessoaFisicaDSE" class="row" style="display: none;">
+                                    <div class="col-md-12 col-sm-12 pl-0">
+                                        <div class="form-group col-md-4 col-sm-4 ">
+                                            <div class="dropdown">
+                                                <span>Faixa de Renda</span>
+                                                <div class="searchable">
+                                                    <select class="form-control selAutoComplete" id="selectFaixaRendaDSE" onchange="">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-8 col-sm-8 ">
+                                            <div class="dropdown">
+                                                <div class="col-md-12 col-sm-12 pl-0">
+                                                    <span>Declaro ser, ou ter relacionamento com</span>
+                                                </div>
+                                                <span>Pessoa Politicamente Exposta Estrangeira</span>
+
+                                                <div class="radio-inline form-group col-md-12" id="selectRelacionamentoPoliticoDSE" style="margin-left: 10px;">
+                                                    <div class="col-md-2" style="padding-right:45px;">
+                                                        <input type="radio" id="NaoRelacionamentoPoliticoDSE" name="RelacionamentoPolitico" value="false" checked />
+                                                        <label>Não</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="radio" id="SimRelacionamentoPoliticoDSE" name="RelacionamentoPolitico" value="true" />
+                                                        <label>Sim</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 pl-0">
+                                        <div class="form-group col-md-4 col-sm-4 ">
+                                            <div class="dropdown">
+                                                <span>Telefone</span>
+                                                <input class="form-control bordaInput" type="text" id="telefoneDSE" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-8 col-sm-8 ">
+                                            <div class="dropdown">
+                                                <span>E-mail</span>
+                                                <input class="form-control bordaInput" type="text" id="emailDSE" onchange="window.DadosEstipulanteEvents.onChangeEmail()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="card corner col-md-12 col-sm-12">
+                                        <div class="card-body col-md-12 col-sm-12">
+                                            <div class="panel panel-default corner">
+                                                <div class="row mb-0">
+                                                    <div class="col-md-8 col-sm-8 text-left">
+                                                        <label class="textBlue mb-3">Plano de Condições Comerciais</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 pl-0">
+                                                    <hr class="hr-blue-aqua mt-0">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12 pl-0">
+                                        <div class="form-group col-md-3 col-sm-3 ">
+                                            <div class="dropdown">
+                                                <div class="col-md-12 col-sm-12 pl-0">
+                                                    <span>Cenário</span>
+                                                </div>
+                                                <span id="cenarioDSE" style="font-size: 12px;"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-3 col-sm-3 ">
+                                            <div class="dropdown">
+                                                <div class="col-md-12 col-sm-12 pl-0">
+                                                    <span>Versão</span>
+                                                </div>
+                                                <span id="versaoDSE" style="font-size: 12px;"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-6 col-sm-6">
+                                            <div class="dropdown">
+                                                <span>Plano</span>
+                                                <div class="searchable">
+                                                    <select class="form-control selAutoComplete" id="selectPlanoDSE" style="width: 100%;" onchange="">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="card corner col-md-12 col-sm-12">
+                                        <div class="card-body col-md-12 col-sm-12">
+                                            <div class="panel panel-default corner">
+                                                <div class="row mb-0">
+                                                    <div class="col-md-8 col-sm-8 text-left">
+                                                        <label class="textBlue mb-3">Endereço</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 pl-0">
+                                                    <hr class="hr-blue-aqua mt-0">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-4 col-sm-4 ">
+                                        <div class="dropdown">
+                                            <span>CEP</span>
+                                            <input class="form-control bordaInput" type="text" id="cepDSE" />
+                                            <button type="button" class="pesquisa" id="btnPesquisaCEP" style="margin-top: 22px;" onclick="window.DadosSubEstipulanteEvents.onClickCEP()">
+                                                <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-4 col-sm-4">
+                                        <div class="dropdown">
+                                            <span>Tipo Logradouro</span>
+                                            <div class="searchable">
+                                                <select class="form-control selAutoComplete" style="width: 100%;" id="selectTipoLogradouroDSE">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12 ">
+                                        <div class="dropdown col-md-12 col-sm-12 pl-0">
+                                            <span>Logradouro</span>
+                                            <input class="form-control bordaInput" type="text" id="logradouroDSE" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12 pl-0">
+                                        <div class="form-group col-md-4 col-sm-4 ">
+                                            <div class="dropdown">
+                                                <span>Número</span>
+                                                <input class="form-control bordaInput" type="text" id="numeroLogradouroDSE" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-4 col-sm-4 ">
+                                            <div class="dropdown">
+                                                <span>Complemento</span>
+                                                <input class="form-control bordaInput" type="text" id="complementoLogradouroDSE" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-4 col-sm-4 ">
+                                            <div class="dropdown">
+                                                <span>Bairro</span>
+                                                <input class="form-control bordaInput" type="text" id="bairroDSE" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12 pl-0">
+                                        <div class="form-group col-md-8 col-sm-8 pl-0">
+                                            <div class="dropdown col-md-10 col-sm-10">
+                                                <span>Cidade</span>
+                                                <input class="form-control bordaInput" type="text" id="cidadeDSE" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-2 col-sm-2">
+                                            <div class="dropdown">
+                                                <span>UF</span>
+                                                <div class="searchable">
+                                                    <select class="form-control selAutoComplete" style="width: 100%;" id="selectUFDSE">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <div class="row margin-top-10px">
+                                                    <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right">
+                                                        <input type="button" class="btn btn-liberty-default" value="SALVAR" onclick="window.DadosSubEstipulanteEvents.onClickSalvarSub()" />
+                                                        <input type="button" class="btn btn-liberty-default" value="Fechar" onclick="window.DadosSubEstipulanteEvents.onClickFecharModal()" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

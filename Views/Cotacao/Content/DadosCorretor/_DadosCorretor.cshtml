@@ -1,0 +1,104 @@
+﻿@model Liberty.Faturaveis.UI.ViewModel.CotacaoViewModel;
+
+<div id="step-1">
+    @*class="posicaoStep"*@
+    <section id="step-1">
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12">
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">1</span>
+                        <b class="va-sub">Dados do Corretor</b>
+                    </h3>
+                    <hr class="bordaHrForm">
+                </div>
+
+                <div class="card-body col-md-12 col-sm-12">
+
+                    <div class="row">
+                        <div class="form-group-vida col-md-12 col-sm-12">
+                            <div>
+                                <span id="lblCorretor">Corretor</span>
+                                <div class="buttonInside">
+                                    @Html.TextBoxFor(m => m.CorretorPrincipal.Nome, new { @class = "form-control col-md-12 bordaInput custom-input", autocomplete = "off", @maxlength = "100" })
+                                    <button type="button" class="pesquisa" id="PesquisaCorretor"><i class="glyphicon glyphicon-search" aria-hidden="true"></i></button>
+                                    <span class="field-validation-valid" data-valmsg-for="CorretorPrincipal_Nome" data-valmsg-replace="true">Informe um corretor</span>
+                                    @Html.HiddenFor(m => m.CorretorPrincipal.CodigoOperacional)
+                                    @Html.HiddenFor(m => m.Comissionamentos[0].CodigoTipoComissao)
+                                    @Html.HiddenFor(m => m.Comissionamentos[0].PercentualParticipacao)
+                                    @Html.HiddenFor(m => m.Comissionamentos[0].CodigoCliente)
+                                    @Html.HiddenFor(m => m.Comissionamentos[0].CodigoClienteOperacional)
+                                    @Html.HiddenFor(m => m.Comissionamentos[0].CodigoEstabelecimento)
+                                    @Html.HiddenFor(m => m.Comissionamentos[0].Nome)
+                                    <input type="hidden" id="corretorTipoPessoa">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group-vida col-md-3 col-sm-3" style="margin-bottom: 0px;">
+                            <div>
+                                <span id="lblCPF">CPF Vendedor</span>
+                                @Html.TextBoxFor(m => m.Operador.CPF, new { @class = "form-control text-uppercase bordaInput", autocomplete = "off", @maxlength = "11", @onkeyup = "cleanFocus(this.id)" })
+                                @Html.ValidationMessageFor(m => m.Operador.CPF, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <a class="pull-left btnCompare">
+                                <input type="button" class="btn btn-liberty-default btnForm col-md-12 marginTop-button" id="btnAlterarCPFVendedor" value="Alterar" />
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group-vida col-md-9 col-sm-9">
+                            <div>
+                                <span id="lblVendedor">Nome do Vendedor</span>
+                                @Html.TextBoxFor(m => m.Operador.Nome, new { @class = "form-control text-uppercase bordaInput", autocomplete = "off", @maxlength = "100", @readonly = "readonly" })
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group-vida col-md-9 col-sm-9">
+                            <div>
+                                <span id="lblEmail">E-mail para Acompanhamento</span>
+                                @Html.TextBoxFor(m => m.EmailAcompanhamentoCotacao, new { @class = "form-control text-uppercase bordaInput email", autocomplete = "off", @maxlength = "45" })
+                            </div>
+                        </div>
+                        <div class="form-group-vida col-md-3 col-sm-3">
+                            <span id="lblSales">N° Caso Sales Force</span>
+                            @Html.TextBoxFor(m => m.NumeroCasoSalesForce, new { @class = "form-control text-uppercase bordaInput soNumeros", autocomplete = "off", @maxlength = "10" })
+                        </div>
+                    </div>
+
+                    <br />
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="modalCotacao" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-lg">
+            <div id="modal-body-cotacao" class="modal-custom-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <div id="ContentIframe">
+                    <iframe id="ifrmCotacao" class="iframe-form-modal" src="" width="100%" height="100%" frameborder="0"></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="linha-form-botoes">
+                    <button type="button" id="btnFecharIFrame" class="btn btn-liberty-default btnForm" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+﻿<div id="step-Aceitacao">
+    <section id="step-Aceitacao">
+        <div class="row margin-top-10px">
+            <div class="card corner col-md-12 col-sm-12">
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">2</span>
+                        <b class="va-sub">Aceitação</b>
+                    </h3>
+                    <hr class="bordaHrForm">
+                </div>
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="panel panel-default corner">
+                        <div id="formPlano" name="formPlano">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+
+                                    <div class="row margin-top-10px">
+                                        <div class="form-group col-md-3 col-sm-3">
+                                            <div class="dropdown">
+                                                <span>Status Aceitação</span>
+                                                <div class="searchable">
+                                                    <select class="form-control selAutoComplete" id="selectStatusAceitacaoCO" onchange="window.AceitacaoCOEvents.onChangeSelectStatusAceitacaoCO()">
+                                                        <option selected value="1">Aceitar</option>
+                                                        <option value="2">Recusar</option>
+                                                        <option value="3">Repique</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="divMotivoAceitacaoCO" class="row margin-top-10px hide-element">
+                                        <div class="form-group col-md-12 col-sm-12">
+                                            <label for="txtMotivoAceitacaoCO">Motivo</label>
+                                            <textarea class="form-control bordaInput custom-input" rows="7" id="txtMotivoAceitacaoCO" cols="10" wrap="soft" maxlength="5000"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right">
+                                            <input type="button" class="btn btn-liberty-default" value="SALVAR" onclick="window.AceitacaoCOEvents.onClickSalvarAceitacaoCO()" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,71 @@
+﻿<div id="step-DadosCosseguro">
+    <section id="step-DadosCosseguro">
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12">
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">1</span>
+                        <b class="va-sub">Dados do Cosseguro Cedido</b>
+                    </h3>
+                    <hr class="bordaHrForm">
+                </div>
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="panel panel-default corner">
+                        <div id="formPlano" name="formPlano">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+
+                                    <div class="row margin-top-10px">
+                                        <div class="form-group col-md-6 col-sm-6">
+                                            <div class="dropdown">
+                                                <span>Seguradora</span>
+                                                <div class="searchable">
+                                                    <select class="form-control selAutoComplete" id="selectSeguradoraAceitacao" onchange="window.CosseguroCedidoUI.habilitaDesabilitaCampos()">
+                                                        <option value="0" selected>Selecione</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-3 col-sm-3">
+                                            <span>% Cosseguro</span>
+                                            <input class="form-control bordaInput custom-input maskMoneyPercent2" maxlength="6" placeholder="0,00" type="text" id="txtCosseguroPercAceitacao" onchange="window.CosseguroCedidoEvents.onChangeCampoCosseguroPerc()">
+                                        </div>
+                                        <div class="form-group col-md-3 col-sm-3">
+                                            <span>% Comissão</span>
+                                            <input class="form-control bordaInput custom-input maskMoneyPercent2" maxlength="6" placeholder="0,00" type="text" id="txtComissaoPercAceitacao" onchange="window.CosseguroCedidoEvents.onChangeCampoComissaoPerc()">
+                                        </div>
+                                        <div class="form-group col-md-3 col-sm-3">
+                                            <span>% DA</span>
+                                            <input class="form-control bordaInput custom-input maskMoneyPercent2" maxlength="6" placeholder="0,00" type="text" id="txtDAPercAceitacao" onchange="window.CosseguroCedidoEvents.onChangeCampoDaPerc()">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+
+    $('#txtCosseguroPercAceitacao').keydown( function() {
+         $('#txtCosseguroPercAceitacao').removeClass("input-validation-error");
+    });
+
+    $('#txtComissaoPercAceitacao').keydown( function(){
+         $('#txtComissaoPercAceitacao').removeClass("input-validation-error");
+    });
+    
+    $('#txtDAPercAceitacao').keydown( function(){
+         $('#txtDAPercAceitacao').removeClass("input-validation-error");
+    });
+
+</script>

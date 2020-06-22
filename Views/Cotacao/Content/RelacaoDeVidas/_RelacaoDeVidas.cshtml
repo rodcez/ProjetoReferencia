@@ -1,0 +1,149 @@
+﻿@using Liberty.Faturaveis.UI.Application.RelacaoVidas.Commands;
+@using  System.Web;
+@model Liberty.Faturaveis.UI.ViewModel.CotacaoViewModel;
+
+<div id="step-5" class="posicaoStep">
+    <section id="step-5">
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12 marginTop-cards">
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">5</span>
+                        <b class="va-sub">Relação de Vidas</b>
+                    </h3>
+                    <hr class="bordaHrForm">
+                </div>
+                <div class="card-body col-md-12 col-sm-12 text-center" id="RelacaoVidasBloqueio">
+                    <span>
+                        <b>Salve a cotação para preencher a relação de vidas</b>
+                    </span>
+                </div>
+                <div class="card-body col-md-12 col-sm-12 " hidden id="RelacaoVidas">
+                    <div class="row">
+                        <div class="card-body col-md-12 col-sm-12" id="dv_relacao_vidas_planos_selecao">
+                            <span>
+                                <b>Como deseja informar a Relação de Vidas?</b>
+                            </span>
+                            <span class="tooltip-toggle" aria-label="Completa! É necessário a importação da planilha de relação de vidas no modelo padrão." tabindex="0">
+                                <img src="~/images/duvidas.png">
+                            </span>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <label id="lb_relacao_vidas_Simpl" for="lb_relacao_vidas_Simpl" class="lbl-radio-seguro">Simplificada</label>
+                            <input type="radio" name="rd_relacao_vidas" value="S" onclick="onRelacaoVidaSimplificada()" id="rd_relacao_vidas_Simpl">
+                            <span>&nbsp;</span>
+                            <label for="lb_relacao_vidas_Compl" class="lbl-radio-seguro">Completa</label>
+                            <input type="radio" name="rd_relacao_vidas" value="N" onclick="onRelacaoVidaCompleta()" checked="checked" id="rd_relacao_vidas_Compl">
+
+                        </div>
+                    </div>
+                    <div id="relacaoCompleta">
+                        <div id="dv_relacao_vidas_planos_agrupado" class="row completa">
+                            <div class="card-body col-md-12 col-sm-12">
+                                <span>
+                                    <b>Importação Agrupada - Todos os Planos de Condições Comerciais</b>
+                                </span>
+                                <span class="tooltip-toggle" aria-label="Sim! O sistemas vai ignorar o plano selecionado e considerar os planos informados na planilha." tabindex="0">
+                                    <img src="~/images/duvidas.png">
+                                </span>
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <label for="rbarquivoAgrupadoSim" class="lbl-radio-seguro">Sim</label>
+                                <input type="radio" name="arquivorlAgrupado" onclick="onRelacaoVidasAgrupada()" id="arquivorlAgrupadoSim" value="true">
+                                <span>&nbsp;</span>
+                                <label for="rbarquivoAgrupadoNao" class="lbl-radio-seguro">Não</label>
+                                <input type="radio" name="arquivorlAgrupado"  onclick="onRelacaoVidasAgrupada()" checked="checked" id="arquivorlAgrupadoNão" value="false">
+
+                            </div>
+                        </div>
+                        <div id="dv_relacao_vidas_planos" class="row">
+                            <div class="card-body col-md-12 col-sm-12">
+                                <div class="form-group-vida">
+                                    <div class="row">
+                                        <div class="col-md-8 col-sm-8">
+                                            <span class="col-md-12 col-sm-12">
+                                                <b>Planos</b>
+                                            </span>
+                                            <span class="col-md-12 col-sm-12">
+                                                <select class="selAutoComplete" onchange="trocarPlanoSelecionado()" id="select_rl_Planos">
+                                                    <option value="">Selecione o Plano</option>
+                                                </select>
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4" hidden id="vidasDoPlano">
+                                            <span class="col-md-12 col-sm-12">
+                                                <b id="lb_rl_TotalVidasPlano"> Total Vidas do Plano</b>
+                                            </span>
+                                            <span class="col-md-12 col-sm-12">
+                                                <input type="text" readonly="readonly" size="5" id="text_rl_TotalVidasPlano" onchange="salvarCotacaoSimplificada(this)">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="dv_relacao_vidas_planos_planilha" class="row completa">
+                            <div class="card-body col-md-12 col-sm-12">
+                                <hr class="bordaHrForm">
+                                <div>
+                                    <span>
+                                        <b>  Escolha um arquivo XLSX ou XLS para importação</b>
+                                    </span>
+                                    <input onclick="onDownloadPlanilhaRelacaoVidas()" type="button" class="btn btn-liberty-default pull-right" id="btn_rl_PlanosImportPlanilhaPadrao" value="DOWNLOAD PLANILHA PADRÃO" />
+                                    <input class="upload" type="file" id="bnt_rl_ImportarArquivo" title="Escolha o Arquivo XLSX ou XLS para Importação" onchange="">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="dv_relacao_vidas_planos_acoes" class="row completa">
+                            <div align="right" class="card-body col-md-12 col-sm-12">
+                                <input onclick="onImportarPlanilhaRelacaoVidas()" type="button" class="btn btn-liberty-default disabled" id="btn_rl_ImportarPlan" value="IMPORTAR" />
+                                <input type="button" class="btn btn-liberty-default  disabled" onclick="onExportarPlanilhaRelacaoVidas()" id="btn_rl_ExportarPlan" value="EXPORTAR" />
+                                <input  type="button" class="btn btn-liberty-default disabled" id="btn_rl_DesfazerPlan" value="DESFAZER" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="card-body col-md-12 col-sm-12">
+                            <span>
+                                <b> Resumo da Relação de Vidas</b>
+                            </span>
+                            <hr class="bordaHrForm">
+                            <div>
+                                <div>
+                                    <span>
+                                        <b>Total Vidas da Cotação</b>
+                                    </span>
+
+                                </div>
+                                <div>
+                                    <div>
+                                        <span>
+                                            <input type="text" readonly="readonly" size="5" id="text_rl_TotalVidas">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="deletarRelacaoVida-modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                Deseja deletar a relação de vidas do plano ou da cotação ?
+                Plano não selecionado, será deletado a relação de vidas de todos os planos.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-liberty-default" id="modal-btn-deletarRelacao-sim" value="SIM">SIM</button>
+                <button type="button" class="btn btn-liberty-default" id="modal-btn-deletarRelacao-nao" value="NÃO">NÃO</button>
+            </div>
+        </div>
+    </div>
+</div>
+

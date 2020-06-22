@@ -1,0 +1,536 @@
+﻿@using  Liberty.Faturaveis.UI.Application.ProdutoComercial.Commands.ObterCenarios;
+@using  System.Web;
+@model Liberty.Faturaveis.UI.ViewModel.CotacaoViewModel;
+
+@functions
+{
+
+    bool TemDependencias(string codigoCobertura)
+    {
+        var coberturasDependentes = (List<VerbaCoberturaDependente>)ViewBag.VerbaCoberturaDependente;
+
+        if (coberturasDependentes.Any(c => c.CodigoCoberturaDependente == codigoCobertura))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    string RetornarCoberturasDependentes(string codigoCobertura)
+    {
+        string dependencias = "";
+        var coberturasDependentes = (List<VerbaCoberturaDependente>)ViewBag.VerbaCoberturaDependente;
+
+        coberturasDependentes.Where(c => c.CodigoCoberturaDependente == codigoCobertura).ToList().ForEach(c =>
+        {
+            if (dependencias != "")
+                dependencias += ",";
+
+            dependencias += c.CodigoCobertura;
+        });
+
+        return dependencias;
+    }
+
+    bool TemExclusividade(string codigoCobertura)
+    {
+        var coberturasExclusivas = (List<CoberturaVerbaClausulaExclusivo>)ViewBag.CoberturaVerbaClausulaExclusivo;
+        return coberturasExclusivas.Any(c => c.CodigoCobertura == codigoCobertura || c.CodigoCoberturaExclusivo == codigoCobertura);
+    }
+
+    string RetornarCoberturasExclusivas(string codigoCobertura)
+    {
+        var coberturasExclusivas = (List<CoberturaVerbaClausulaExclusivo>)ViewBag.CoberturaVerbaClausulaExclusivo;
+        string exclusivos = "";
+
+        coberturasExclusivas.Where(c => c.CodigoCobertura == codigoCobertura).ToList().ForEach(c =>
+        {
+            if (exclusivos != "")
+                exclusivos += ",";
+
+            exclusivos += c.CodigoCoberturaExclusivo;
+        });
+
+        coberturasExclusivas.Where(c => c.CodigoCoberturaExclusivo == codigoCobertura).ToList().ForEach(c =>
+        {
+            if (exclusivos != "")
+                exclusivos += ",";
+
+            exclusivos += c.CodigoCobertura;
+        });
+
+        return exclusivos;
+    }
+
+    /// <summary>
+    /// Verifica se a cobertura necessita de tratamento de visualização na tela
+    /// </summary>
+    /// <param name="codigoCobertura"></param>
+    /// <returns>true = IndicadorExibicaoExclusivo == "S"</returns>
+    bool TemRegraDeVisualizacao(string codigoCobertura)
+    {
+        var coberturasExclusivas = (List<CoberturaVerbaClausulaExclusivo>)ViewBag.CoberturaVerbaClausulaExclusivo;
+        return coberturasExclusivas.Where(c => c.CodigoCobertura == codigoCobertura || c.CodigoCoberturaExclusivo == codigoCobertura).Any(c => c.IndicadorExibicaoExclusivo == "S");
+    }
+
+    string RetornarCoberturaDaRegraDeVisualizacao(string codigoCobertura)
+    {
+        var coberturasExclusivas = (List<CoberturaVerbaClausulaExclusivo>)ViewBag.CoberturaVerbaClausulaExclusivo;
+        string codigoCoberturaDaRegraVisualizacao = "";
+
+        var coberturaVerbaClausulaExclusivo = coberturasExclusivas.Where(c => c.IndicadorExibicaoExclusivo == "S" && (c.CodigoCobertura == codigoCobertura || c.CodigoCoberturaExclusivo == codigoCobertura)).FirstOrDefault();
+
+        codigoCoberturaDaRegraVisualizacao = coberturaVerbaClausulaExclusivo.CodigoCobertura == codigoCobertura ? coberturaVerbaClausulaExclusivo.CodigoCoberturaExclusivo : coberturaVerbaClausulaExclusivo.CodigoCobertura;
+
+        return codigoCoberturaDaRegraVisualizacao;
+    }
+
+    string RetornarCodigoCoberturaBasicaMorte()
+    {
+        var coberturaMorte = (CoberturaProdutoComercial)ViewBag.CoberturaProdutoComercial_Basica_Morte;
+        return coberturaMorte.CodigoCobertura;
+    }
+
+    /// <summary>
+    /// Retorna a propriedade "CodigoCoberturaExclusivo" da cobertura exclusiva
+    /// (esta propriedade contém a exclusiva do grupo de dependência da cobertura Morte, que serão mostradas por default na tela)
+    /// </summary>
+    /// <param name="codigoCobertura"></param>
+    /// <returns></returns>
+    string RetornarCoberturaExclusivaDefault(string codigoCobertura)
+    {
+        var coberturasExclusivas = (List<CoberturaVerbaClausulaExclusivo>)ViewBag.CoberturaVerbaClausulaExclusivo;
+        return coberturasExclusivas.Where(c => c.CodigoCobertura == codigoCobertura || c.CodigoCoberturaExclusivo == codigoCobertura).FirstOrDefault().CodigoCoberturaExclusivo;
+    }
+}
+
+<div class="posicaoStep">
+    <section>
+        <input type="hidden" id="hdCodigoCoberturaMorte" value="@RetornarCodigoCoberturaBasicaMorte()" />
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12">
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="panel panel-default corner">
+
+                        <div class="row mb-0">
+                            <div class="col-md-8 col-sm-8 text-left">
+                                <label class="textBlue mb-3">Coberturas básica</label>
+                            </div>
+                            <div class="col-md-3 col-sm-3 text-center">
+                                <label class="text-uppercase textBlue mb-3">% Ind.</label>
+                            </div>
+                        </div>
+
+                        <hr class="hr-blue-aqua" id="segundoHrCoberturas">
+
+                        <div class="card-body">
+
+                            @{
+                                int numIndicePlano = 0;
+
+                                foreach (var coberturaBasica in (List<CoberturaProdutoComercial>)ViewBag.CoberturaProdutoComercial_Basica)
+                                {
+                                    <div class="row cobertura">
+                                        <div class="col-md-8 col-sm-8">
+                                            <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1">
+                                                <input type="checkbox" class="checkCobertura" name="basica" id="@("chk_cobertura_" + coberturaBasica.CodigoCobertura)" value="@coberturaBasica.CodigoCobertura">
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaBasica.CodigoCobertura)].Codigo)
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaBasica.CodigoCobertura)].CodigoTipoCobertura)
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaBasica.CodigoCobertura)].Nome)
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaBasica.CodigoCobertura)].Verbas[0])
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaBasica.CodigoCobertura)].Verbas[0].Codigo)
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaBasica.CodigoCobertura)].Verbas[0].Nome)
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaBasica.CodigoCobertura)].Verbas[0].PercentualIndenizacao, new { id = "hd_cobertura_percentualIndenizacao_" + coberturaBasica.CodigoCobertura })
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaBasica.CodigoCobertura)].Verbas[0].PercentualIndenizacaoValorCadastrado, new { id = "hd_cobertura_percentualIndenizacaoValorCadastrado_" + coberturaBasica.CodigoCobertura })
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaBasica.CodigoCobertura)].Selecionado, new { id = "hd_cobertura_selecionado_" + coberturaBasica.CodigoCobertura })
+
+                                            </div>
+                                            <label for="@(" chk_cobertura_" + @coberturaBasica.CodigoCobertura)" class="lbl-radio-seguro lbl-radio-block small">@HttpUtility.HtmlDecode(coberturaBasica.VerbaCoberturaProdutoComercial.FirstOrDefault().TituloAmigavel)</label>
+                                        </div>
+                                        <div id="divIndice" class="col-md-3 col-sm-3 col-xs-3 col-lg-3 col-xl-3">
+                                            @Html.TextBoxFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaBasica.CodigoCobertura)].Verbas[0].PercentualIndenizacao, new { id = "txt_cobertura_" + coberturaBasica.CodigoCobertura, maxlength = "3", @class = "form-control bordaInput borda text-center", value = coberturaBasica.VerbaCoberturaProdutoComercial.FirstOrDefault().Valor.ToString(), @disabled = "disabled", style = "width: 105%;" })
+                                        </div>
+                                        @if (!string.IsNullOrWhiteSpace(coberturaBasica.VerbaCoberturaProdutoComercial.FirstOrDefault().DescricaoAmigavel))
+                                        {
+                                            <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1 paddingT10 text-center">
+                                                <span class="tooltip-toggle" aria-label="@HttpUtility.HtmlDecode(coberturaBasica.VerbaCoberturaProdutoComercial.FirstOrDefault().DescricaoAmigavel)" tabindex="0">
+                                                    <img src="~/images/duvidas.png">
+                                                </span>
+                                            </div>
+                                        }
+                                    </div>
+                                    <hr class="hr-blue">
+                                }
+                            }
+                        </div>
+
+                        <div class="row paddingT mb-0">
+                            <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8 col-xl-8 text-left">
+                                <label class="textBlue mb-3">Coberturas adicionais</label>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3 col-lg-3 col-xl-3 text-center">
+                                <label class="text-uppercase textBlue mb-3">% Ind.</label>
+                            </div>
+                        </div>
+
+                        <hr class="hr-blue-aqua" id="segundoHrCoberturas">
+
+                        @{
+                            foreach (var coberturaAdicional in (List<CoberturaProdutoComercial>)ViewBag.CoberturaProdutoComercial_Adicionais)
+                            {
+                                <div id="divCobertura_@coberturaAdicional.CodigoCobertura"
+                                     @if (TemRegraDeVisualizacao(coberturaAdicional.CodigoCobertura) && coberturaAdicional.CodigoCobertura != @RetornarCoberturaExclusivaDefault(coberturaAdicional.CodigoCobertura)) 
+                                     { <text> class="divCoberturaAdicional hide" </text>  } else { <text> class="divCoberturaAdicional" </text>  }>
+
+
+                                    <div class="row cobertura">
+
+                                        <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8 col-xl-8">
+                                            <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1">
+
+                                                <input type="checkbox" class="checkCobertura" name="adicionais" id="@("chk_cobertura_" + coberturaAdicional.CodigoCobertura)" value="@coberturaAdicional.CodigoCobertura"
+                                                       @{ 
+                                                           if (TemDependencias(coberturaAdicional.CodigoCobertura)) 
+                                                           { <text> disabled dependencias="@RetornarCoberturasDependentes(coberturaAdicional.CodigoCobertura)" </text>  }
+                                                           if (TemExclusividade(coberturaAdicional.CodigoCobertura)) 
+                                                           { <text> exclusivas="@RetornarCoberturasExclusivas(coberturaAdicional.CodigoCobertura)" </text>  }
+                                                           if (TemRegraDeVisualizacao(coberturaAdicional.CodigoCobertura)) 
+                                                           { <text> condicaoVisualizacao="@RetornarCoberturaDaRegraDeVisualizacao(coberturaAdicional.CodigoCobertura)" </text>  }
+                                                       }>
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicional.CodigoCobertura)].Codigo)
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicional.CodigoCobertura)].CodigoTipoCobertura)
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicional.CodigoCobertura)].Nome)
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicional.CodigoCobertura)].Verbas[0])
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicional.CodigoCobertura)].Verbas[0].Nome)
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicional.CodigoCobertura)].Verbas[0].Codigo)
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicional.CodigoCobertura)].Verbas[0].PercentualIndenizacao, new { id = "hd_cobertura_percentualIndenizacao_" + coberturaAdicional.CodigoCobertura })
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicional.CodigoCobertura)].Verbas[0].PercentualIndenizacaoValorCadastrado, new { id = "hd_cobertura_percentualIndenizacaoValorCadastrado_" + coberturaAdicional.CodigoCobertura })
+                                                @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicional.CodigoCobertura)].Selecionado, new { id = "hd_cobertura_selecionado_" + coberturaAdicional.CodigoCobertura })
+
+                                            </div>
+                                            <label for="@("chk_cobertura_" + coberturaAdicional.CodigoCobertura)" class="lbl-radio-seguro lbl-radio-block small">@HttpUtility.HtmlDecode(coberturaAdicional.VerbaCoberturaProdutoComercial.FirstOrDefault().TituloAmigavel + " - " + coberturaAdicional.CodigoCobertura)</label>
+                                        </div>
+
+                                        <div id="divIndice" class="col-md-3 col-sm-3 col-xs-3 col-lg-3 col-xl-3">
+                                            @Html.TextBoxFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicional.CodigoCobertura)].Verbas[0].PercentualIndenizacao, new { id = "txt_cobertura_" + coberturaAdicional.CodigoCobertura, maxlength = "3", @class = "form-control bordaInput borda text-center percentualIndenizacao", @codigoCobertura = coberturaAdicional.CodigoCobertura, value = coberturaAdicional.VerbaCoberturaProdutoComercial.FirstOrDefault().Valor.ToString(), @readonly = "readonly", style = "width: 105%;" })
+                                        </div>
+                                        @if (!string.IsNullOrWhiteSpace(coberturaAdicional.VerbaCoberturaProdutoComercial.FirstOrDefault().DescricaoAmigavel))
+                                        {
+                                            <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1 paddingT10 text-center">
+                                                <span class="tooltip-toggle" aria-label="@HttpUtility.HtmlDecode(coberturaAdicional.VerbaCoberturaProdutoComercial.FirstOrDefault().DescricaoAmigavel)" tabindex="0">
+                                                    <img src="~/images/duvidas.png">
+                                                </span>
+                                            </div>
+                                        }
+
+                                    </div>
+                                    <hr class="hr-blue">
+                                </div>
+                            }
+                        }
+
+                        <div class="row paddingT mb-0">
+                            <div class="col-md-7 col-sm-7 col-xs-7 col-lg-7 col-xl-7 text-left">
+                                <label class="textBlue mb-3">Coberturas adicionais - diárias</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-2 col-lg-2 col-xl-2 text-center">
+                                <label class="text-uppercase textBlue mb-3">Qtd diárias</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-2 col-lg-2 col-xl-2 text-center">
+                                <label class="text-uppercase textBlue mb-3">Valor diária</label>
+                            </div>
+                        </div>
+                        <hr class="hr-blue-aqua" id="segundoHrCoberturas">
+                        @{
+                            @foreach (var coberturaDiaria in (List<CoberturaProdutoComercial>)ViewBag.CoberturaProdutoComercial_Diarias)
+                            {
+                                <div class="row cobertura">
+
+                                    <div class="col-md-7 col-sm-7 col-xs-7 col-lg-7 col-xl-7 ">
+                                        <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1">
+
+                                            <input type="checkbox" class="checkCobertura" name="diarias" id="@("chk_cobertura_" + coberturaDiaria.CodigoCobertura)" value="@coberturaDiaria.CodigoCobertura"
+                                                   @{  if (TemDependencias(coberturaDiaria.CodigoCobertura)) 
+                                                       { <text> disabled dependencias="@RetornarCoberturasDependentes(coberturaDiaria.CodigoCobertura)" </text>  }
+                                                       if (TemExclusividade(coberturaDiaria.CodigoCobertura)) 
+                                                       { <text> exclusivas="@RetornarCoberturasExclusivas(coberturaDiaria.CodigoCobertura)" </text>  } }>
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaDiaria.CodigoCobertura)].Codigo)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaDiaria.CodigoCobertura)].CodigoTipoCobertura)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaDiaria.CodigoCobertura)].Nome)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaDiaria.CodigoCobertura)].Selecionado, new { id = "hd_cobertura_selecionado_" + coberturaDiaria.CodigoCobertura })
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaDiaria.CodigoCobertura)].Verbas[0])
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaDiaria.CodigoCobertura)].Verbas[0].Codigo)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaDiaria.CodigoCobertura)].Verbas[0].Nome)
+                                        </div>
+                                        <label for="@("chk_cobertura_" + coberturaDiaria.CodigoCobertura)" class="lbl-radio-seguro small">@HttpUtility.HtmlDecode(coberturaDiaria.VerbaCoberturaProdutoComercial.FirstOrDefault().TituloAmigavel)</label>
+                                    </div>
+
+                                    <div id="divIndice" class="col-md-2 col-sm-2 col-xs-2 col-lg-2 col-xl-2" style="padding-left: 32px;padding-right: 28px;">
+                                        @Html.TextBoxFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaDiaria.CodigoCobertura)].Verbas[0].QuantidadeDiaria, new { id = "txt_QtdDiarias_" + coberturaDiaria.CodigoCobertura, maxlength = "4", @class = "form-control dinheiro bordaInput CorLetras text-right ValorLmiJson", @name = "diarias", @readonly = "readonly" })
+                                    </div>
+
+
+                                    <div id="divIndice" class="col-md-2 col-sm-2 col-xs-2 col-lg-2 col-xl-2" style="padding-left: 20px;padding-right: 15px;">
+                                        @Html.TextBoxFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaDiaria.CodigoCobertura)].Verbas[0].ValorDiaria, new { id = "txt_ValorDiarias_" + coberturaDiaria.CodigoCobertura, maxlength = "20", @class = "form-control dinheiro bordaInput CorLetras text-right ValorLmiJson", @name = "diarias", @readonly = "readonly" })
+                                    </div>
+
+                                    @if (!string.IsNullOrWhiteSpace(coberturaDiaria.VerbaCoberturaProdutoComercial.FirstOrDefault().DescricaoAmigavel))
+                                    {
+                                        <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1 paddingT10 text-center">
+                                            <span class="tooltip-toggle" aria-label="@HttpUtility.HtmlDecode(coberturaDiaria.VerbaCoberturaProdutoComercial.FirstOrDefault().DescricaoAmigavel)" tabindex="0">
+                                                <img src="~/images/duvidas.png">
+                                            </span>
+                                        </div>
+                                    }
+
+                                </div>
+                                <hr class="hr-blue">
+                            }
+                        }
+
+                        <div class="row paddingT mb-0">
+                            <div class="col-md-7 col-sm-7 col-xs-7 col-lg-7 col-xl-7 text-left">
+                                <label class="textBlue mb-3">Coberturas adicionais - Funeral</label>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3 col-lg-3 col-xl-3 text-left">
+                                <label class="text-uppercase textBlue mb-3" style="padding-left: 10%;">Valor Funeral</label>
+                            </div>
+                        </div>
+                        <hr class="hr-blue-aqua" id="segundoHrCoberturas">
+                        @{
+                            @foreach (var coberturaAdicionaisFuneral in (List<CoberturaProdutoComercial>)ViewBag.CoberturaProdutoComercial_AdicionaisFuneral)
+                            {
+                                <div class="row cobertura">
+
+                                    <div class="col-md-7 col-sm-7 col-xs-7 col-lg-7 col-xl-7">
+                                        <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1">
+                                            <input type="checkbox" class="checkCobertura" name="adicionaisFuneral" id="@("chk_cobertura_" + coberturaAdicionaisFuneral.CodigoCobertura)" value="@coberturaAdicionaisFuneral.CodigoCobertura"
+                                                   @{ if (TemExclusividade(coberturaAdicionaisFuneral.CodigoCobertura)) 
+                                                       { <text> exclusivas="@RetornarCoberturasExclusivas(coberturaAdicionaisFuneral.CodigoCobertura)" </text>  } }>
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicionaisFuneral.CodigoCobertura)].Codigo)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicionaisFuneral.CodigoCobertura)].CodigoTipoCobertura)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicionaisFuneral.CodigoCobertura)].Nome)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicionaisFuneral.CodigoCobertura)].Selecionado, new { id = "hd_cobertura_selecionado_" + coberturaAdicionaisFuneral.CodigoCobertura })
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicionaisFuneral.CodigoCobertura)].Verbas[0])
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicionaisFuneral.CodigoCobertura)].Verbas[0].Codigo)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicionaisFuneral.CodigoCobertura)].Verbas[0].Nome)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicionaisFuneral.CodigoCobertura)].Verbas[0].ValorImportanciaSegurada, new { id = "hd_cobertura_valorImportanciaSegurada_" + coberturaAdicionaisFuneral.CodigoCobertura })
+                                        </div>
+                                        <label for="@("chk_cobertura_" + coberturaAdicionaisFuneral.CodigoCobertura)" class="lbl-radio-seguro lbl-radio-block small">@HttpUtility.HtmlDecode(coberturaAdicionaisFuneral.VerbaCoberturaProdutoComercial.FirstOrDefault().TituloAmigavel)</label>
+                                    </div>
+
+                                    <div id="divIndice" class="col-md-2 col-sm-2 col-xs-2 col-lg-2 col-xl-2" style="padding-left: 32px;padding-right: 28px;">
+                                        @Html.TextBoxFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaAdicionaisFuneral.CodigoCobertura)].Verbas[0].ValorImportanciaSegurada, new { id = "txt_cobertura_" + coberturaAdicionaisFuneral.CodigoCobertura, maxlength = "20", @class = "form-control dinheiro bordaInput CorLetras text-right ValorLmiJson valorImportanciaSegurada", @name = "adicionaisFuneral", @readonly = "readonly", @codigoCobertura = coberturaAdicionaisFuneral.CodigoCobertura })
+                                    </div>
+
+                                    @if (!string.IsNullOrWhiteSpace(coberturaAdicionaisFuneral.VerbaCoberturaProdutoComercial.FirstOrDefault().DescricaoAmigavel))
+                                    {
+                                        <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1 paddingT10 text-center">
+                                            <span class="tooltip-toggle" aria-label="@HttpUtility.HtmlDecode(coberturaAdicionaisFuneral.VerbaCoberturaProdutoComercial.FirstOrDefault().DescricaoAmigavel)" tabindex="0">
+                                                <img src="~/images/duvidas.png">
+                                            </span>
+                                        </div>
+                                    }
+                                </div>
+                                <hr class="hr-blue">
+                            }
+                        }
+
+
+                        <div class="row paddingT mb-0">
+                            <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5 col-xl-5 text-left">
+                                <label class="textBlue mb-3">Serviços</label>
+                            </div>
+                        </div>
+                        <hr class="hr-blue-aqua" id="segundoHrCoberturas">
+
+                        @{
+                            @foreach (var coberturaCestaBasica in (List<CoberturaProdutoComercial>)ViewBag.CoberturaProdutoComercial_CestaBasica)
+                            {
+                                <div class="row cobertura">
+
+                                    <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6 col-xl-6">
+                                        <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1">
+
+                                            <input type="checkbox" class="checkCobertura" name="cestaBasica" id="@("chk_cobertura_" + coberturaCestaBasica.CodigoCobertura)" value="@coberturaCestaBasica.CodigoCobertura"
+                                                   @{ if (TemDependencias(coberturaCestaBasica.CodigoCobertura)) 
+                                                       { <text> disabled dependencias="@RetornarCoberturasDependentes(coberturaCestaBasica.CodigoCobertura)" </text>  } 
+                                                      if (TemExclusividade(coberturaCestaBasica.CodigoCobertura)) 
+                                                       { <text> exclusivas="@RetornarCoberturasExclusivas(coberturaCestaBasica.CodigoCobertura)" </text>  } }>
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaCestaBasica.CodigoCobertura)].Codigo)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaCestaBasica.CodigoCobertura)].CodigoTipoCobertura)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaCestaBasica.CodigoCobertura)].Nome)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaCestaBasica.CodigoCobertura)].Selecionado, new { id = "hd_cobertura_selecionado_" + coberturaCestaBasica.CodigoCobertura })
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaCestaBasica.CodigoCobertura)].Verbas[0])
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaCestaBasica.CodigoCobertura)].Verbas[0].Codigo)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaCestaBasica.CodigoCobertura)].Verbas[0].Nome)
+                                        </div>
+                                        <label for="@("chk_cobertura_" + coberturaCestaBasica.CodigoCobertura)" class="lbl-radio-seguro lbl-radio-block small">@HttpUtility.HtmlDecode(coberturaCestaBasica.VerbaCoberturaProdutoComercial.FirstOrDefault().TituloAmigavel)</label>
+                                    </div>
+
+                                    @*<div class="col-md-3 col-sm-3 paddingT10">
+                                            <a class="pull-left btnCompare">
+                                                <img src="~/images/compare.png" data-toggle="modal" data-target="#comparaAssistenciaModal">
+                                            </a>
+                                        </div>*@
+
+                                    @if (!string.IsNullOrWhiteSpace(coberturaCestaBasica.VerbaCoberturaProdutoComercial.FirstOrDefault().DescricaoAmigavel))
+                                    {
+                                        <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1 text-center">
+                                            <span class="tooltip-toggle" aria-label="@HttpUtility.HtmlDecode(coberturaCestaBasica.VerbaCoberturaProdutoComercial.FirstOrDefault().DescricaoAmigavel)" tabindex="0">
+                                                <img src="~/images/duvidas.png">
+                                            </span>
+                                        </div>
+                                    }
+
+                                </div>
+                            }
+                        }
+
+                        <hr class="hr-blue">
+                        @{
+
+                            @foreach (var coberturaCestaNatalidade in (List<CoberturaProdutoComercial>)ViewBag.CoberturaProdutoComercial_CestaNatalidade)
+                            {
+                                <div class="row cobertura">
+
+                                    <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6 col-xl-6">
+                                        <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1">
+
+                                            <input type="checkbox" class="checkCobertura" name="cestaNatalidade" id="@("chk_cobertura_" + coberturaCestaNatalidade.CodigoCobertura)" value="@coberturaCestaNatalidade.CodigoCobertura"
+                                                   @{ if (TemDependencias(coberturaCestaNatalidade.CodigoCobertura)) 
+                                                       { <text> disabled dependencias="@RetornarCoberturasDependentes(coberturaCestaNatalidade.CodigoCobertura)" </text>  }
+                                                       if (TemExclusividade(coberturaCestaNatalidade.CodigoCobertura)) 
+                                                       { <text> exclusivas="@RetornarCoberturasExclusivas(coberturaCestaNatalidade.CodigoCobertura)" </text>  } }>
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaCestaNatalidade.CodigoCobertura)].Codigo)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaCestaNatalidade.CodigoCobertura)].CodigoTipoCobertura)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaCestaNatalidade.CodigoCobertura)].Nome)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaCestaNatalidade.CodigoCobertura)].Selecionado, new { id = "hd_cobertura_selecionado_" + coberturaCestaNatalidade.CodigoCobertura })
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaCestaNatalidade.CodigoCobertura)].Verbas[0])
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaCestaNatalidade.CodigoCobertura)].Verbas[0].Codigo)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaCestaNatalidade.CodigoCobertura)].Verbas[0].Nome)
+                                        </div>
+                                        <label for="@("chk_cobertura_" + coberturaCestaNatalidade.CodigoCobertura)" class="lbl-radio-seguro lbl-radio-block small">@HttpUtility.HtmlDecode(coberturaCestaNatalidade.VerbaCoberturaProdutoComercial.FirstOrDefault().TituloAmigavel)</label>
+                                    </div>
+
+                                    @*<div class="col-md-3 col-sm-3 paddingT10">
+                                            <a class="pull-left btnCompare">
+                                                <img src="~/images/compare.png" data-toggle="modal" data-target="#comparaAssistenciaModal">
+                                            </a>
+                                        </div>*@
+
+                                    @if (!string.IsNullOrWhiteSpace(coberturaCestaNatalidade.VerbaCoberturaProdutoComercial.FirstOrDefault().DescricaoAmigavel))
+                                    {
+                                        <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1 text-center">
+                                            <span class="tooltip-toggle" aria-label="@HttpUtility.HtmlDecode(coberturaCestaNatalidade.VerbaCoberturaProdutoComercial.FirstOrDefault().DescricaoAmigavel)" tabindex="0">
+                                                <img src="~/images/duvidas.png">
+                                            </span>
+                                        </div>
+                                    }
+
+                                </div>
+                            }
+                        }
+
+                        <hr class="hr-blue">
+
+                        @{
+
+                            @foreach (var coberturaServicos in (List<CoberturaProdutoComercial>)ViewBag.CoberturaProdutoComercial_Servicos)
+                            {
+
+                                <div class="row cobertura">
+
+                                    <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6 col-xl-6">
+                                        <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1">
+
+                                            <input type="checkbox" class="checkCobertura" name="servicos" id="@("chk_cobertura_" + coberturaServicos.CodigoCobertura)" value="@coberturaServicos.CodigoCobertura"
+                                                   @{ if (TemDependencias(coberturaServicos.CodigoCobertura)) 
+                                                       { <text> disabled dependencias="@RetornarCoberturasDependentes(coberturaServicos.CodigoCobertura)" </text>  }
+                                                       if (TemExclusividade(coberturaServicos.CodigoCobertura))
+                                                       { <text> exclusivas="@RetornarCoberturasExclusivas(coberturaServicos.CodigoCobertura)" </text>  }
+                                                       }>
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaServicos.CodigoCobertura)].Codigo)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaServicos.CodigoCobertura)].CodigoTipoCobertura)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaServicos.CodigoCobertura)].Nome)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaServicos.CodigoCobertura)].Selecionado, new { id = "hd_cobertura_selecionado_" + coberturaServicos.CodigoCobertura })
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaServicos.CodigoCobertura)].Verbas[0])
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaServicos.CodigoCobertura)].Verbas[0].Codigo)
+                                            @Html.HiddenFor(model => model.PlanosCondicoesComerciais[numIndicePlano].Coberturas[@Model.PlanosCondicoesComerciais[numIndicePlano].Coberturas.FindIndex(c => c.Codigo == coberturaServicos.CodigoCobertura)].Verbas[0].Nome)
+                                        </div>
+                                        <label for="@("chk_cobertura_" + coberturaServicos.CodigoCobertura)" class="lbl-radio-seguro lbl-radio-block small">@HttpUtility.HtmlDecode(coberturaServicos.VerbaCoberturaProdutoComercial.FirstOrDefault().TituloAmigavel)</label>
+                                    </div>
+
+                                    @if (!string.IsNullOrWhiteSpace(coberturaServicos.VerbaCoberturaProdutoComercial.FirstOrDefault().DescricaoAmigavel))
+                                    {
+                                        <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1 text-center">
+                                            <span class="tooltip-toggle" aria-label="@HttpUtility.HtmlDecode(coberturaServicos.VerbaCoberturaProdutoComercial.FirstOrDefault().DescricaoAmigavel)" tabindex="0">
+                                                <img src="~/images/duvidas.png">
+                                            </span>
+                                        </div>
+                                    }
+
+                                </div>
+
+                                <hr class="hr-blue">
+                            }
+                        }
+
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        if ($('#hdCotacaoId').val() !== "") {
+            atualizarCamposDasCoberturasComDadosDaModel();
+            validaLiberacaoRelacaoVidas();
+        }
+    });
+
+    function atualizarCamposDasCoberturasComDadosDaModel()
+    {
+        let listaPlanos = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.PlanosCondicoesComerciais));
+
+        if (listaPlanos != null && listaPlanos.length > 0) {
+
+            let planoSelecionado = $('#selectPlanoSeguro').val();
+
+            for (var i = 0; i <= listaPlanos.length - 1; i++) {
+
+                if (listaPlanos[i].NumeroPlano === planoSelecionado)
+                {
+                    let coberturas = listaPlanos[i].Coberturas;
+
+                    for (var c = 0; c <= coberturas.length - 1; c++) {
+                        $('#chk_cobertura_' + coberturas[c].Codigo).prop("checked", coberturas[c].Selecionado);
+                        $('#chk_cobertura_' + coberturas[c].Codigo).change(); // atualiza as dependencias/exclusivo
+
+                        if (coberturas[c].Verbas[0].PercentualIndenizacao !== "" && coberturas[c].Verbas[0].PercentualIndenizacao > 0 ) {
+                            $('#txt_cobertura_' + coberturas[c].Codigo).val(coberturas[c].Verbas[0].PercentualIndenizacao);
+                        }
+                        if (coberturas[c].Verbas[0].ValorImportanciaSegurada !== "" && coberturas[c].Verbas[0].ValorImportanciaSegurada > 0) {
+                            $('#txt_cobertura_' + coberturas[c].Codigo).val(coberturas[c].Verbas[0].ValorImportanciaSegurada);
+                        }
+                        if (coberturas[c].Verbas[0].QuantidadeDiaria !== "" && coberturas[c].Verbas[0].QuantidadeDiaria > 0) {
+                            $('#txt_QtdDiarias_' + coberturas[c].Codigo).val(coberturas[c].Verbas[0].QuantidadeDiaria);
+                        }
+                        if (coberturas[c].Verbas[0].ValorDiaria !== "" && coberturas[c].Verbas[0].ValorDiaria > 0) {
+                            $('#txt_ValorDiarias_' + coberturas[c].Codigo).val(coberturas[c].Verbas[0].ValorDiaria);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+</script>
+

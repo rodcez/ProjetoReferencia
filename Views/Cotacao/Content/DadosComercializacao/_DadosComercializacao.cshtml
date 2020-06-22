@@ -1,0 +1,179 @@
+﻿@model Liberty.Faturaveis.UI.ViewModel.CotacaoViewModel;
+<div id="step-5" class="posicaoStep">
+    <section id="step-5">
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12 marginTop-cards">
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">5</span>
+                        <b class="va-sub">Dados de Comercialização</b>
+                    </h3>
+                    <hr class="bordaHrForm">
+                </div>
+
+                <div class="card-body col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12">
+                    <div class="panel panel-default corner">
+                        <div class="card-body">
+                            <div class="row" id="descontosComissao">
+                                <div class="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 mt-1">
+                                    <span>% Comissão</span>
+                                    @Html.HiddenFor(m => m.TotaisComissionamento.TotalPercentualCorretagem)
+                                    <input class="form-control bordaInput custom-input maskMoneyPercent2" maxlength="6" type="text" id="cotacaoTotalPercentualCorretagem" placeholder="0,00%">
+
+                                </div>
+                                <div class="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 mt-1">
+                                    <span>% Pró-Labore</span>
+                                    @Html.HiddenFor(m => m.TotaisComissionamento.TotalPercentualProLabore)
+                                    <input class="form-control bordaInput custom-input maskMoneyPercent2" maxlength="6" type="text" id="cotacaoTotalPercentualProLabore" placeholder="0,00%">
+                                </div>
+                                <div class="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 mt-1">
+                                    <span>% Agenciamento</span>
+                                    @Html.HiddenFor(m => m.TotaisComissionamento.TotalPercentualAgenciamento)
+                                    <input class="form-control bordaInput custom-input maskMoneyPercent2" maxlength="6" type="text" id="cotacaoTotalPercentualAgenciamento" placeholder="0,00%">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
+                                    <input onclick="abreModalParticipantesComissionamento()" type="button" class="btn btn-liberty-default marginTop-button" id="btnCorretagem" value="CO-CORRETAGEM" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="DadosDeComercializacao"></div>
+<div class="modal fade bs-example-modal-lg" id="modalCorretagem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-lg">
+            <div id="modal-body-corretagem" class="modal-custom-body">
+                <div>
+                    <div class="row mb-0">
+                        <div class="col-md-8 col-sm-8 text-left">
+                            <label class="textBlue mb-3">Co-Corretagem</label>
+                        </div>
+                    </div>
+                </div>
+                <div id="corretagemDadosCorretorPrincipal" style="margin-top: 2%; margin-bottom: 2%" class="col-xs-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 row">
+                    <div class="col-xs-8 col-md-8 col-sm-8 col-lg-8 col-xl-8">
+                        <span id="lblSeguroDataReferencia">Corretor Principal</span>
+                        <input class="form-control" disabled="disabled" type="text" id="inputNomeCorretorPrincipal">
+                    </div>
+                    <div class="col-xs-3 col-md-3 col-sm-3 col-lg-3 col-xl-3">
+                        <span id="lblSeguroDataReferencia">% Participação</span>
+                        <input class="form-control" disabled="disabled" maxlength="10" type="text" id="inputParticipacaoCorretorPrincipal">
+                    </div>
+                    <div class="col-xs-1 col-md-1 col-sm-1 col-lg-1 col-xl-1">
+
+                    </div>
+                </div>
+                <p></p>
+                <div id="corretagemPesquisaCorretor" style="margin-top: 2%; margin-bottom: 2%" class="col-xs-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 row">
+                    <div class="col-xs-8 col-md-8 col-sm-8 col-lg-8 col-xl-8">
+                        <span id="lblCNPJCPF">Corretor</span>
+                        <div class="buttonInside">
+                            <input type="text" class="form-control col-md-12 bordaInput custom-input" id="pesquisaCorretorCorretagemtxt" name="pesquisaCorretorCorretagemtxt" onkeyup="cleanFocus(this.id)">
+                            <button onclick="pesquisarCorretorCorretagemIncluir()" class="pesquisa" type="button" id="pesquisaCorretorCorretagembtn"><i class="glyphicon glyphicon-search" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-md-3 col-sm-3 col-lg-3 col-xl-3">
+                        <span id="lblSeguroDataReferencia">% Participação</span>
+                        <input class="form-control bordaInput custom-input maskMoneyPercent2" maxlength="6" type="text" id="inputParticipacaoCorretorSecundario" placeholder="0,00">
+                    </div>
+                    <div id="btnIncluirCorretorDiv">
+                        <div class="col-xs-1 col-md-1 col-sm-1 col-lg-1 col-xl-1">
+                            <input onclick="incluirCorretorCocorretagem()" type="button" class="btn btn-liberty-default marginTop-button" id="btnIncluirCorretor" value="INCLUIR" />
+                        </div>
+                    </div>
+                </div>
+                <p></p>
+                <div id="corretagemTabelaCorretores" style="margin-top: 2%; margin-bottom: 2%" class="col-xs-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 row">
+                    <table class="table table-bordered table-responsive table-hover">
+                        <thead class="thead-light" bgcolor="#9AD9EA">
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Co-Corretor</th>
+                                <th class="" scope="col">% Participação</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaCorretoresCorretagem">
+                            @foreach (var comissionamento in Model.Comissionamentos)
+                            {
+                                var index = @Model.Comissionamentos.IndexOf(comissionamento);
+                                var comissionamentoNome = "comissionamentoNome" + index.ToString();
+                                var comissionamentoPercentural = "comissionamentoPercentural" + index.ToString();
+                                var comissionamentoCliente = "comissionamentoCliente" + index.ToString();
+                                var comissionamentoCodigoCliente = "comissionamentoCodigoCliente" + index.ToString();
+                                var comissionamentoCodigoEstabelecimento = "comissionamentoCodigoEstabelecimento" + index.ToString();
+                                var comissionamentoCodigoTipoComissao = "comissionamentoCodigoTipoComissao" + index.ToString();
+                                if (index > 0)
+                                {
+                                    <tr>
+                                        <td>@index</td>
+                                        <td id="@comissionamentoNome" value="@comissionamento.Nome">@Html.DisplayFor(model => comissionamento.Nome)</td>
+                                        <td id="@comissionamentoPercentural">@Html.DisplayFor(model => comissionamento.PercentualParticipacao)</td>
+                                        <td><span onclick='excluiLinhaCorretor(@index)' class='glyphicon glyphicon-trash'></span></td>
+                                        <td id="@comissionamentoCliente" style="display:none;" value="@comissionamento.CodigoCliente">@comissionamento.CodigoCliente</td>
+                                        <td id="@comissionamentoCodigoCliente" style="display:none;" value="@comissionamento.CodigoClienteOperacional">@comissionamento.CodigoClienteOperacional</td>
+                                        <td id="@comissionamentoCodigoEstabelecimento" style="display:none;" value="@comissionamento.CodigoEstabelecimento">@comissionamento.CodigoEstabelecimento</td>
+                                        <td id="@comissionamentoCodigoTipoComissao" style="display:none;" value="@comissionamento.CodigoTipoComissao">@comissionamento.CodigoTipoComissao</td>
+                                    </tr>
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <p></p>
+                <div id="corretagemBtnSalvar" style="margin-top: 2%; margin-bottom: 2%" class="col-xs-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 row">
+                    <div class="col-xs-11 col-md-11 col-sm-11 col-lg-11 col-xl-11">
+
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-lg-1 col-xl-1">
+                        <input onclick="salvaParticipantesComissionamento()" type="button" class="btn btn-liberty-default" id="btnSalvarCorretagem" value="SALVAR" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" id="modalCotacaoCorretagem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-lg">
+            <div id="modal-body-cotacao" class="modal-custom-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <div id="ContentIframe">
+                    <iframe id="ifrmCotacaoCorretagem" class="iframe-form-modal" src="" width="100%" height="100%" frameborder="0"></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="linha-form-botoes">
+                    <button type="button" id="btnFecharIFrameCorretagem" class="btn btn-liberty-default btnForm" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validarPorcentagem(evt) {
+        var caractereDigitado = evt || window.event;
+
+        if (caractereDigitado.type === 'paste') {
+            key = event.clipboardData.getData('text/plain');
+        } else {
+            var key = caractereDigitado.keyCode || caractereDigitado.which;
+            key = String.fromCharCode(key);
+        }
+
+        var regex = /[0-9]|\.|\,/;
+        if (!regex.test(key)) {
+            caractereDigitado.returnValue = false;
+            if (caractereDigitado.preventDefault) caractereDigitado.preventDefault();
+        }
+    }
+</script>

@@ -1,0 +1,624 @@
+﻿@model Liberty.Faturaveis.UI.ViewModel.CotacaoViewModel;
+<div id="step-ResumoTecnico">
+    <section id="step-ResumoTecnico">
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12">
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">2.1</span>
+                        <b class="va-sub">Resumo Técnico</b>
+                    </h3>
+                    <hr class="bordaHrForm no-margin-right">
+                </div>
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="panel panel-default corner">
+                        <div id="formRel" name="formRel">
+                            <div class="row margin-top-20px">
+                                <div class="col-md-12 col-sm-12">
+
+                                    <div id="accordion" role="tablist" aria-multiselectable="true">
+
+                                        @*Coberturas básicas*@
+                                        <div class="panel no-margin-bottom">
+                                            <div class="row headerDadosGeraisAzulPetroleo">
+                                                <div class="col-md-6 col-sm-6">
+                                                    Coberturas básicas
+                                                </div>
+                                                <div class="col-md-1 col-sm-1 textAlignCenter colNoPaddingLeftRight">
+                                                    <span>%Ind.</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignCenter colNoPaddingLeftRight">
+                                                    <span>Capital</span>
+                                                </div>
+                                                <div class="col-md-1 col-sm-1 textAlignRight colNoPaddingLeftRight">
+                                                    <span>Tx.Pura</span>
+                                                </div>
+                                                <div class="col-md-1 col-sm-1 textAlignRight colNoPaddingLeftRight">
+                                                    <span>Tx.Rsg</span>
+                                                </div>
+                                                <div class="col-md-1 col-sm-1 textAlignRight colNoPaddingLeftRight">
+                                                    <span>Tx.Com</span>
+                                                </div>
+                                                <hr class="hr-blue-aqua margin-left-15px">
+                                            </div>
+                                            <div id="coberturasBasicas"></div>
+                                        </div>
+
+                                        @*Coberturas Adicionais*@
+                                        <div class="panel no-margin-bottom">
+                                            <div class="row headerDadosGeraisAzulPetroleo" role="tab" id="headingRel1">
+                                                <div class="col-md-12 col-sm-12 margin-left-minus-20px">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseRel1" aria-expanded="true" aria-controls="collapseRel1">
+                                                        <span class="glyphicon glyphicon-chevron-down pull-left margin-right-5px"></span>
+                                                    </a>
+                                                    Coberturas adicionais
+                                                </div>
+                                                <hr class="hr-blue-aqua margin-left-15px">
+                                            </div>
+                                            <div id="collapseRel1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseRel1">
+                                                <div id="coberturasAdicionais"></div>
+                                            </div>
+                                        </div>
+
+                                        @*Coberturas Adicionais - Funeral*@
+                                        <div class="panel no-margin-bottom">
+                                            <div class="row headerDadosGeraisAzulPetroleo" role="tab" id="headingRel2">
+                                                <div class="col-md-12 col-sm-12 margin-left-minus-20px">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseRel2" aria-expanded="true" aria-controls="collapseRel2">
+                                                        <span class="glyphicon glyphicon-chevron-down pull-left margin-right-5px"></span>
+                                                    </a>
+                                                    Coberturas adicionais - funeral
+                                                </div>
+                                                <hr class="hr-blue-aqua margin-left-15px">
+                                            </div>
+                                            <div id="collapseRel2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseRel2">
+                                                <div id="coberturasFuneral"></div>
+                                            </div>
+                                        </div>
+
+                                        @*Coberturas Adicionais - Diárias*@
+                                        <div class="panel">
+                                            <div class="row headerDadosGeraisAzulPetroleo" role="tab" id="headingRel3">
+                                                <div class="col-md-5 col-sm-5 margin-left-minus-20px margin-right-20px">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseRel3" aria-expanded="true" aria-controls="collapseRel3">
+                                                        <span class="glyphicon glyphicon-chevron-down pull-left margin-right-5px"></span>
+                                                    </a>
+                                                    Coberturas adicionais - diárias
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span>Qtd diárias</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignCenter colNoPaddingLeftRight">
+                                                    <span>Capital</span>
+                                                </div>
+                                                <div class="col-md-1 col-sm-1 textAlignRight colNoPaddingLeftRight">
+                                                    <span>Tx.Pura</span>
+                                                </div>
+                                                <div class="col-md-1 col-sm-1 textAlignRight colNoPaddingLeftRight">
+                                                    <span>Tx.Rsg</span>
+                                                </div>
+                                                <div class="col-md-1 col-sm-1 textAlignRight colNoPaddingLeftRight">
+                                                    <span>Tx.Com</span>
+                                                </div>
+                                                <hr class="hr-blue-aqua margin-left-15px">
+                                            </div>
+                                            <div id="collapseRel3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseRel3">
+                                                <div id="coberturasDiarias"></div>
+                                            </div>
+                                        </div>
+
+                                        @*Taxa Ponderada Final Coberturas*@
+                                        <div class="panel">
+                                            <div class="row headerDadosGeraisAzulPetroleo">
+                                                <div class="col-md-9 col-sm-9">
+                                                    Taxa Ponderada Final Coberturas
+                                                </div>
+                                                <div class="col-md-1 col-sm-1 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="taxaPuraTotal"></span>
+                                                </div>
+                                                <div class="col-md-1 col-sm-1 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="taxaResseguroTotal"></span>
+                                                </div>
+                                                <div class="col-md-1 col-sm-1 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="taxaComercialTotal"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        @*Serviços*@
+                                        <div class="panel no-margin-bottom">
+                                            <div class="row headerDadosGeraisAzulPetroleo" role="tab" id="headingRel4">
+                                                <div class="col-md-4 col-sm-4 margin-left-minus-20px margin-right-20px">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseRel4" aria-expanded="true" aria-controls="collapseRel4">
+                                                        <span class="glyphicon glyphicon-chevron-down pull-left margin-right-5px"></span>
+                                                    </a>
+                                                    Serviços
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 textAlignRight colNoPaddingLeftRight">
+                                                    <span>Custo Unit. Mensal</span>
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 textAlignRight colNoPaddingLeftRight">
+                                                    <span>Custo Total sem IOF</span>
+                                                </div>
+                                                <hr class="hr-blue-aqua margin-left-15px">
+                                            </div>
+                                            <div id="collapseRel4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseRel4">
+                                                <div id="servicos"></div>
+                                            </div>
+                                        </div>
+
+                                        @*Custo Total*@
+                                        <div class="panel no-margin-bottom">
+                                            <div class="row headerDadosGeraisAzulPetroleo">
+                                                <div class="col-md-7 col-sm-7">
+                                                    Custo Total
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="custoTotalServicos"></span>
+                                                </div>
+                                                <hr class="hr-blue-aqua margin-left-15px">
+                                            </div>
+                                        </div>
+
+                                        @*Taxa Comercial Final com Serviço*@
+                                        <div class="panel">
+                                            <div class="row headerDadosGeraisAzulPetroleo">
+                                                <div class="col-md-10 col-sm-10">
+                                                    Taxa Comercial Final com Serviço
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="taxaComercialTotalServicos"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        @*Prêmio*@
+                                        <div class="panel no-margin-bottom">
+                                            <div class="row headerDadosGeraisAzulPetroleo" role="tab" id="headingRel5">
+                                                <div class="col-md-12 col-sm-12 margin-left-minus-20px">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseRel5" aria-expanded="true" aria-controls="collapseRel5">
+                                                        <span class="glyphicon glyphicon-chevron-down pull-left margin-right-5px"></span>
+                                                    </a>
+                                                    Prêmio
+                                                </div>
+                                                <hr class="hr-blue-aqua margin-left-15px">
+                                            </div>
+                                            <div id="collapseRel5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseRel5">
+                                                <div class="row rowDadosGerais">
+                                                    <div class="col-md-10 col-sm-10">
+                                                        <span>Prêmio Comercial Liberty sem IOF</span>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                        <span id="PremioComercialLibertySemIOFRT"></span>
+                                                    </div>
+                                                    <div class="col-md-10 col-sm-10">
+                                                        <span>Prêmio Comercial Resseguro sem IOF</span>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                        <span id="PremioComercialResseguroSemIOFRT"></span>
+                                                    </div>
+                                                    <div class="col-md-10 col-sm-10">
+                                                        <span>Prêmio Comercial Assistências sem IOF</span>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                        <span id="PremioComercialAssistenciasSemIOFRT"></span>
+                                                    </div>
+                                                    <div class="col-md-10 col-sm-10">
+                                                        <span>Prêmio Comercial Total sem IOF</span>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                        <span id="PremioComercialTotalSemIOFRT"></span>
+                                                    </div>
+                                                    <div class="col-md-10 col-sm-10">
+                                                        <span>Prêmio Puro Anual</span>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                        <span id="PremioPuroAnualRT"></span>
+                                                    </div>
+                                                    <div class="col-md-10 col-sm-10">
+                                                        <span>Prêmio Médio Individual</span>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                        <span id="PremioMedioIndividualRT"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    @*Custo Total*@
+                                    <div class="panel no-margin-bottom">
+                                        <div class="row headerDadosGeraisAzulPetroleo">
+                                            <div class="col-md-10 col-sm-10">
+                                                Prêmio Comercial Total com IOF
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                <span id="PremioTotalComIOFRT"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*Carregamentos*@
+                                    <div class="panel no-margin-bottom">
+                                        <div class="row headerDadosGeraisAzulPetroleo" role="tab" id="headingRel6">
+                                            <div class="col-md-12 col-sm-12 margin-left-minus-20px">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseRel6" aria-expanded="true" aria-controls="collapseRel6">
+                                                    <span class="glyphicon glyphicon-chevron-down pull-left margin-right-5px"></span>
+                                                </a>
+                                                Carregamentos
+                                            </div>
+                                            <hr class="hr-blue-aqua margin-left-15px">
+                                        </div>
+                                        <div id="collapseRel6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseRel6">
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Comissão</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="ComissaoRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Pro-Labore</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="ProLaboreRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Agenciamento</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="AgenciamentoRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>DA</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="DART"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*Tábua de Mortalidade / Descontos*@
+                                    <div class="panel no-margin-bottom">
+                                        <div class="row headerDadosGeraisAzulPetroleo" role="tab" id="headingRel7">
+                                            <div class="col-md-12 col-sm-12 margin-left-minus-20px">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseRel7" aria-expanded="true" aria-controls="collapseRel7">
+                                                    <span class="glyphicon glyphicon-chevron-down pull-left margin-right-5px"></span>
+                                                </a>
+                                                Tábua de Mortalidade / Descontos
+                                            </div>
+                                            <hr class="hr-blue-aqua margin-left-15px">
+                                        </div>
+                                        <div id="collapseRel7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseRel7">
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Tábua de Mortalidade</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="TabuaMortalidadeRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Desconto / Agravo Técnico</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="descontoAgravoTecnicoRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Desconto / Agravo Resseguro</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="descontoAgravoResseguroRT"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*Grupo Analisado*@
+                                    <div class="panel no-margin-bottom">
+                                        <div class="row headerDadosGeraisAzulPetroleo" role="tab" id="headingRel8">
+                                            <div class="col-md-12 col-sm-12 margin-left-minus-20px">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseRel8" aria-expanded="true" aria-controls="collapseRel8">
+                                                    <span class="glyphicon glyphicon-chevron-down pull-left margin-right-5px"></span>
+                                                </a>
+                                                Grupo Analisado
+                                            </div>
+                                            <hr class="hr-blue-aqua margin-left-15px">
+                                        </div>
+                                        <div id="collapseRel8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseRel8">
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Quantidade de Vidas do Grupo</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="quantidadeVidasGrupoRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Quantidade de Vidas Resseguradas</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="quantidadeVidasResseguradasRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Idade Média</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="idadeMediaRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Idade Média Atuarial</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="idadeMediaAtuarialRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Idade Máxima</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="idadeMaximaRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>% Gênero Feminino</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="porcentagemGeneroFemininoRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>% Gênero Masculino</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="porcentagemGeneroMasculinoRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Quantidade Afastados</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="quantidadeAfastadosRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Quantidade de Vidas acima 70 anos</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="quantidadeVidasAcimaRT"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*Capitais*@
+                                    <div class="panel no-margin-bottom">
+                                        <div class="row headerDadosGeraisAzulPetroleo" role="tab" id="headingRel9">
+                                            <div class="col-md-12 col-sm-12 margin-left-minus-20px">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseRel9" aria-expanded="true" aria-controls="collapseRel9">
+                                                    <span class="glyphicon glyphicon-chevron-down pull-left margin-right-5px"></span>
+                                                </a>
+                                                Capitais
+                                            </div>
+                                            <hr class="hr-blue-aqua margin-left-15px">
+                                        </div>
+                                        <div id="collapseRel9" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseRel9">
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Modalidade</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="modalidadeRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Limite de Retenção Liberty</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="limiteRetencaoLibertyRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Total Capital Retido Liberty</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="totalCapitalRetidoLibertyRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Total Capital Retido Resseguro</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="totalCapitalRetidoResseguroRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Total Capital(Liberty + Resseguro)</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="totalCapitalLibertyResseguroRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Capital Mínimo</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="capitalMinimoRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Capital Máximo</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="capitalMaximoRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Capital Médio</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="capitalMedioRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Capital Segurado mais velho</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="capitalSeguradoMaisVelhoRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Capital Médio - Concentração do Grupo</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="capitalMedioConcentracaoRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Total Capital Ressegurado Vidas acima 70 anos</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="TotalCapitalResseguradoVidasAcima70RT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Paridade</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="paridadeRT"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*Expectativa de Sinistro*@
+                                    <div class="panel no-margin-bottom">
+                                        <div class="row headerDadosGeraisAzulPetroleo" role="tab" id="headingRel10">
+                                            <div class="col-md-12 col-sm-12 margin-left-minus-20px">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseRel10" aria-expanded="true" aria-controls="collapseRel10">
+                                                    <span class="glyphicon glyphicon-chevron-down pull-left margin-right-5px"></span>
+                                                </a>
+                                                Expectativa de Sinistro
+                                            </div>
+                                            <hr class="hr-blue-aqua margin-left-15px">
+                                        </div>
+                                        <div id="collapseRel10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseRel10">
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Expectativa</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="expectativaRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span># Sinistro por 1.000</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="sinistroPorMilRT"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row rowDadosGerais">
+                                                <div class="col-md-5 col-sm-5">
+                                                    <span>Anos de Recuperação</span>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 textAlignRight colNoPaddingLeftRight">
+                                                    <span id="anosDeRecuperacaoRT"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body col-md-12 col-sm-12">
+
+                    <div class="row padding-top-5px">
+                        <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right colNoPaddingLeftRight">
+                            <input type="button" class="btn btn-liberty-default" value="Exportar" onclick="window.RelatoriosAnaliseDeRiscoEvents.OnClickExportarResumoTecnico()" id="exportarResumoTecnico" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script type="text/x-jsrender" id="templateCoberturas">
+    <div class="row rowDadosGerais">
+        <div class="col-md-6 col-sm-6">
+            <span>{{:descricao}}</span>
+        </div>
+        <div class="col-md-1 col-sm-1 textAlignCenter colNoPaddingLeftRight">
+            {{if codigoTipoCobertura == 81 || codigoTipoCobertura == 82 || codigoTipoCobertura == 83}}
+            <span>{{:verbas[0].quantidadeDiaria}}</span>
+            {{else}}
+            <span>{{:verbas[0].percentualIndenizacao}}</span>
+            {{/if}}
+
+        </div>
+        <div class="col-md-2 col-sm-2 textAlignCenter colNoPaddingLeftRight">
+            <span>{{:~formatarDecimal(verbas[0].valorCapitalSegurado, 2, true)}}</span>
+        </div>
+        <div class="col-md-1 col-sm-1 textAlignRight colNoPaddingLeftRight">
+            <span>{{:~formatarDecimal(verbas[0].coeficienteTaxaLiberty, 4, null, '-')}}</span>
+        </div>
+        <div class="col-md-1 col-sm-1 textAlignRight colNoPaddingLeftRight">
+            <span>{{:~formatarDecimal(verbas[0].coeficienteTaxaResseguro, 4, null, '-')}}</span>
+        </div>
+        <div class="col-md-1 col-sm-1 textAlignRight colNoPaddingLeftRight">
+            <span>{{:~formatarDecimal(verbas[0].coeficienteTaxaComercial, 4, null, '-')}}</span>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-jsrender" id="templateServicos">
+    <div class="row rowDadosGerais">
+        <div class="col-md-4 col-sm-4">
+            <span>{{:descricao}}</span>
+        </div>
+        <div class="col-md-3 col-sm-3 textAlignRight colNoPaddingLeftRight">
+            <span>{{:~formatarDecimal(verbas[0].valorPremioLiquidoIndividual, 2, true)}}</span>
+        </div>
+        <div class="col-md-3 col-sm-3 textAlignRight colNoPaddingLeftRight">
+            <span>{{:~formatarDecimal(verbas[0].valorTotalPremioLiquido, 2, true)}}</span>
+        </div>
+    </div>
+</script>

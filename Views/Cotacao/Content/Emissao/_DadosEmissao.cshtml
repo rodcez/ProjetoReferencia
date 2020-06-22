@@ -1,0 +1,61 @@
+﻿<div id="step-DadosEmissao">
+    <section id="step-DadosEmissao">
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12">
+
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">1</span>
+                        <b class="va-sub">Dados de Emissão</b>
+                    </h3>
+                    <hr class="bordaHrForm">
+                </div>
+
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="panel panel-default corner">
+                        <div class="row margin-top-10px">
+                            <div class="col-md-12 col-sm-12">
+
+                                <div class="row">
+                                    <div class="form-group col-md-4 col-sm-4 ">
+                                        <div class="dropdown">
+                                            <span>Data Início de Vigência</span>
+                                            <input class="form-control bordaInput" type="text" id="dataInicioVigenciaDE" placeholder="dd/mm/aaaa" style="width: 150px;" 
+                                                   onchange="window.DadosEmissaoEvents.onChangeDataInicioVigencia(this)"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-4 col-sm-4 ">
+                                        <div class="dropdown">
+                                            <span>Data Fim de Vigência</span>
+                                            <input class="form-control bordaInput" type="text" id="dataFimVigenciaDE" placeholder="dd/mm/aaaa" style="width: 150px;" disabled />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-3 col-sm-3 ">
+                                        <div class="dropdown">
+                                            <span>Data de Referência</span>
+                                            <span id="dataReferenciaDE" style="font-size: 12px;"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <span>Texto Padrão</span>
+                                        <textarea class="form-control bordaInput custom-input" rows="10" id="textoPadraoDE" maxlength="80000"
+                                                  onkeyup="if (event.which == 13) { $(this).val($(this).val() + '\n')}"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+

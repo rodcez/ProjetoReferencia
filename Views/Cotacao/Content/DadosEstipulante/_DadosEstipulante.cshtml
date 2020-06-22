@@ -1,0 +1,118 @@
+﻿@using Liberty.Faturaveis.UI.ViewModel.Cotacao
+@model Liberty.Faturaveis.UI.ViewModel.CotacaoViewModel
+
+<div id="step-2" class="posicaoStep">
+    <section id="step-2">
+
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12 marginTop-cards">
+
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">2</span>
+                        <b class="va-sub">Dados do Estipulante</b>
+                    </h3>
+                    <hr class="bordaHrForm">
+                </div>
+
+
+                <div class="card-body col-md-12 col-sm-12">
+
+                    <div class="row">
+                        <div class="form-group-vida col-md-4 col-sm-3">
+                            <span>Tipo de Pessoa</span>
+                        </div>
+
+                        <div class="form-group-vida col-md-8 col-sm-6">
+                            <div onchange="verificaTipoPessoaEstipulante()" class="radio-inline col-md-7 col-sm-5" id="selectTipoPessoa" name="selectTipoPessoa">
+                                <div class="col-md-6 col-sm-7">
+                                    <label for="rbEstipulanteJuridica" class="lbl-radio-seguro">Jurídica</label>
+                                    @Html.RadioButtonFor(m => m.estipulanteViewModel.TipoPessoa, "J", new { id = "rbEstipulanteJuridica", @class = "tipoPessoaEstipulante", @Checked = @Model.estipulanteViewModel.TipoPessoa == "J" ? "checked" : null })
+                                </div>
+
+                                <div class="col-md-6 col-sm-7">
+                                    <label for="rbEstipulanteFisica" class="lbl-radio-seguro">Física</label>
+                                    @Html.RadioButtonFor(m => m.estipulanteViewModel.TipoPessoa, "F", new { id = "rbEstipulanteFisica", @class = "tipoPessoaEstipulante", @Checked = @Model.estipulanteViewModel.TipoPessoa == "F" ? "checked" : null })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group-vida col-md-5 col-sm-5">
+                            <div>
+
+                                <span id="lblCNPJCPF">CNPJ</span>
+                                <div class="buttonInside">
+                                    @Html.TextBoxFor(m => m.estipulanteViewModel.NumeroCpfCnpj, new { id = "Estipulante_CPFCNPJ", @class = "form-control col-md-12 bordaInput custom-input", @maxlength = "100", onkeyup = "cleanFocus(this.id)" })
+                                    <button class="pesquisa" type="button" id="EstipulanteCPFCNPJ"><i class="glyphicon glyphicon-search" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-vida col-md-7 col-sm-7">
+                            <div>
+                                <span id="lblRazaoNome">Nome</span>
+                                @Html.TextBoxFor(m => m.estipulanteViewModel.Nome, new { @class = "form-control text-uppercase bordaInput", @maxlength = "100" })
+                            </div>
+                        </div>
+
+                    </div>                    
+                    @Html.HiddenFor(m => m.estipulanteViewModel.Endereco.NomeLogradouro)
+                    @Html.HiddenFor(m => m.estipulanteViewModel.Endereco.NumeroLogradouro)
+                    @Html.HiddenFor(m => m.estipulanteViewModel.Endereco.TipoLogradouro)
+                    @Html.HiddenFor(m => m.estipulanteViewModel.Endereco.Complemento)
+                    @Html.HiddenFor(m => m.estipulanteViewModel.Endereco.NumeroCep)
+                    @Html.HiddenFor(m => m.estipulanteViewModel.Endereco.NomeBairro)
+                    @Html.HiddenFor(m => m.estipulanteViewModel.Endereco.NomeCidade)
+                    @Html.HiddenFor(m => m.estipulanteViewModel.Endereco.SiglaUF)
+                    @Html.HiddenFor(m => m.estipulanteViewModel.Telefone.DDD)
+                    @Html.HiddenFor(m => m.estipulanteViewModel.Telefone.Numero)
+
+                    <div class="row">
+                        <div class="form-group-vida col-md-12 col-sm-9" id="AtividadeEstipulante">
+
+                            <div class="dropdown" id="AtividadePJ">
+                                <span for="selectAtividade">Atividade</span>
+                                <div class="searchable">
+                                    @Html.DropDownListFor(m => m.estipulanteViewModel.Cnae, new SelectList((IEnumerable<CnaeViewModel>)ViewBag.Cnae, "id", "text"), new { @class = "form-control selAutoComplete estipulanteCnae" })
+                                    @Html.HiddenFor(m => m.estipulanteViewModel.Cnae.id)
+                                    @Html.HiddenFor(m => m.estipulanteViewModel.Cnae.text)
+                                </div>
+                            </div>
+
+                            <div class="dropdown" id="AtividadePF" style="display:none">
+                                <span for="selectAtividade">Atividade</span>
+                                <div class="searchable">
+                                    @Html.DropDownListFor(m => m.estipulanteViewModel.Ocupacao, new SelectList((IEnumerable<OcupacaoViewModel>)ViewBag.Ocupacao, "id", "text"), new { @class = "form-control selAutoComplete" })
+                                    @Html.HiddenFor(m => m.estipulanteViewModel.Ocupacao.id)
+                                    @Html.HiddenFor(m => m.estipulanteViewModel.Ocupacao.text)
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="form-group-vida col-md-3 col-sm-3" id="MeiEstipulante" style="display:none">
+                            <div>
+                                <span>MEI / CEI</span>
+                                @Html.TextBoxFor(m => m.estipulanteViewModel.CodigoMeiCei, new { @class = "form-control text-uppercase bordaInput", @maxlength = "15" })
+                                @*<input type="text" class="form-control text-uppercase bordaInput" maxlength="45" name="MeiCei" id="MeiCei">*@
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        @ViewBag.OcupacoesPF
+                    </div>
+
+                    <br />
+
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+</div>

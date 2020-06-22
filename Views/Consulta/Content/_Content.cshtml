@@ -1,0 +1,27 @@
+﻿
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row-fluid">
+        <div class="col-md-12 pd-0">
+            <div class="row">
+                <h3 class="h3">
+                    <img src="~/images/produtos/ico-vida-transparente.png" width="64">
+                    <span>Consulta - Cotação</span>
+
+                </h3>
+                <hr class="bordaHrTitulo">
+            </div>
+            @Html.Hidden("dataDeHoje", DateTime.Now.Date.ToString("dd/MM/yyyy"))
+        </div>
+        <partial name="Cotacao/_Cotacao.cshtml" />
+    </div>
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+
+
+
+
+
+
+
+
+
+

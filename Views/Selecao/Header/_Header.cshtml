@@ -1,0 +1,95 @@
+﻿<div class="row mb-5 header-residencia">
+    <div class="col-sm-8 col-md-8 pd-0">
+        <div class="row">
+            <div class="col-md-2">
+            <img src="~/images/Cotacao-Residencia.svg" width="100" height="125"></div>
+            <div class="col-md-7 titles">
+                <div class="row">
+                    <div class="col-md-12 title"><h2 class="h2"><strong>Cotação Residência</strong></h2></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 status"><h4 class="h4">STATUS: <span id="statusCotacaoHeader">EM COTAÇÃO</span></h4></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4 col-md-4 pd-0 resumo">
+        <div class="row mb-1">
+            <div class="col-sm-3 col-md-3 key">
+                Filial:
+            </div>
+            <div class="col-sm-8 col-md-8 pd-0 value">
+                <span id="filialHeader"> 16 - BATEL</span>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-5 col-md-5 key">
+                Nº Cotação:
+            </div>
+            <div class="col-sm-7 col-md-7 pd-0 value">
+                <span id="idCotacaoHeader">0</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row col">
+
+
+
+
+    <nav id="headerTabs">
+        <ul class="nav nav-tabs">
+            <li id="tab_cotacao" class="active"><a href="#cotacao" data-toggle="tab">1. Cotação</a></li>
+            <li id="tab_proposta" style="display:none;"><a href="#proposta" class="abaProposta" data-toggle="tab">2. Proposta</a></li>
+            <li><a href="#ocorrencia" style="display:none;" data-toggle="tab">3. Ocorrências</a></li>
+        </ul>
+    </nav>
+
+    <script>
+    $("#tab_proposta").click(function () {
+        $("#btnCoCorretagem").hide();
+    });
+
+    $("#tab_cotacao").click(function () {
+        $("#btnCoCorretagem").show();
+    });
+
+    $("#tab_cotacao_f").click(function () {
+        $("#btnCoCorretagem").show();
+    });
+
+    $("#tab_proposta_f").click(function () {
+        $("#btnCoCorretagem").hide();
+    });
+    </script>
+
+</div>
+
+<div class="row col-sm-12 col-md-12" style="margin-top:10px; margin-bottom:10px;">
+    <div class="col-sm-3 col-md-3">
+        <!-- Botão imprimir topo-->
+        <div class="col-md-12">
+            <div class="btn-group col-md-3 divOpen">
+                <button type="button" class="btn dropdown-toggle badge btnOpcoesImpressao " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img id="iconImpressoraBtnImprimir" src="~/images/ImpressoraBtn.png">IMPRIMIR<img id="iconSetaBtnImprimir" src="~/images/iconSeta.png"></button>
+                <ul class="dropdown-menu listBtnImpressoes">
+                    <li class="hideListImpressao"><a id="btnCotacao" onclick="ImprimirCotacao()" class="CorLetras listImpressoes" style="display: none;"> Cotação</a></li>
+                    <li class="hideListImpressao"><a id="btnProposta" onclick="ImprimirProposta()" class="CorLetras listImpressoes" style="display: none;">Proposta</a></li>
+                    <li class="hideListImpressao"><a id="btnApolice" onclick="ImprimirApolice()" class="CorLetras listImpressoes" style="display: none;">Apólice</a></li>
+                    <li class="hideListImpressao"><a id="btnBoleto" onclick="ImprimirBoleto()" class="CorLetras listImpressoes" style="display: none;">Boleto 1ª parcela</a></li>
+                </ul>
+            </div>
+        </div>
+        <script>
+            $('.listBtnImpressoes').hide();
+            $('a[id^="btnCotacao"]').hide();
+            $('a[id^="btnProposta"]').hide();
+            $('a[id^="btnApolice"]').hide();
+            $('a[id^="btnBoleto"]').hide();
+
+        </script>
+        <!-- Botão imprimir em baixo-->
+
+
+    </div>
+</div>

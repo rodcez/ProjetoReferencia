@@ -1,0 +1,404 @@
+﻿@model Liberty.Faturaveis.UI.ViewModel.CotacaoViewModel;
+
+<div id="step-dadosCalculo">
+    <section id="step-dadosCalculo">
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12">
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">1</span>
+                        <b class="va-sub">Dados do Cálculo</b>
+                    </h3>
+                    <hr class="bordaHrForm">
+                </div>
+
+
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="panel panel-default corner">
+                        <div id="formPlano" name="formPlano">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+
+
+                                    <div class="row margin-top-10px CNAE-hide">
+                                        <div class="card corner col-md-12 col-sm-12">
+                                            <div class="card-body col-md-12 col-sm-12">
+                                                <div class="panel panel-default corner">
+                                                    <div class="row mb-0" style="margin-bottom: -20px;">
+                                                        <div class="col-md-8 col-sm-8 text-left">
+                                                            <label class="textBlue mb-3">CNAE</label>
+                                                        </div>
+                                                    </div>
+                                                    <hr class="hr-blue-aqua">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="CNAE-hide">
+                                        <div class="row">
+                                            <div class="form-group col-md-3 col-sm-3">
+                                                <span>Coef. Desc./Agravo</span>
+                                                <input class="form-control bordaInput custom-input maskMoneyPercent4" maxlength="30" type="text" id="coenfDescAgravo" onchange="window.AnaliseDeRiscoEvents.OnChangeCoeficienteAgravo(this)">
+                                                <div id="prodCnaeOrcamento"><span id="prodCnaeOrcamentoTxt" style="color:red; margin-left: 5px;"></span></div>
+                                            </div>
+                                            <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6" id="divCnaeComp" style="display: none;">
+                                                <fieldset class="scheduler-border">
+                                                    <legend class="scheduler-border" id="legendaProdComp"></legend>
+                                                    <div class="control-group">
+                                                        <span>Coef. Desc./Agravo:</span><span style="color:red; margin-left: 5px;" id="prodCnaeComparacao"></span>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <hr class="hr-blue-aqua no-margin-top">
+                                    </div>
+                                    <div class="row margin-top-10px">
+                                        <div class="form-group col-md-3 col-sm-3">
+                                            <span>% DA Cotação</span>
+                                            <input class="form-control bordaInput custom-input maskMoneyPercent2" maxlength="30" type="text" id="ProcentagemDACotacao" onchange="window.AnaliseDeRiscoEvents.OnChangePorcentagemDACotacao(this)">
+                                        </div>
+                                    </div>
+                                    <div id="accordion" role="tablist" aria-multiselectable="true">
+                                        <div class="panel panel-default">
+                                            <div class=" row" role="tab" id="headingExcedente">
+                                                <h4 class="panel-title textBlue mb-3 col-md-8 col-sm-8 text-left">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseExcedente" aria-expanded="true" aria-controls="collapseExcedente">
+                                                        <span class="glyphicon glyphicon-chevron-down pull-left margin-right-15px"></span>
+                                                    </a>
+                                                    Excedente Técnico
+                                                </h4>
+                                                <hr class="hr-blue-aqua margin-left-15px margin-right-15px">
+                                            </div>
+                                            <div id="collapseExcedente" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseExcedente">
+                                                <div class="row">
+                                                    <div class="form-group col-md-3 col-sm-3">
+                                                        <span>% DA</span>
+                                                        <input class="form-control bordaInput custom-input maskMoneyPercent2" maxlength="6" type="text" id="PorcentagemDA" onchange="window.AnaliseDeRiscoEvents.OnChangePorcentagemDA(this)">
+                                                    </div>
+                                                    <div class="form-group col-md-3 col-sm-3">
+                                                        <span>% IBNR</span>
+                                                        <input class="form-control bordaInput custom-input maskMoneyPercent2" maxlength="6" type="text" id="PorcentagemIBNR" onchange="window.AnaliseDeRiscoEvents.OnChangePorcentagemIBNR(this)">
+                                                    </div>
+                                                    <div class="form-group col-md-3 col-sm-3">
+                                                        <span>% Distribuição</span>
+                                                        <input class="form-control bordaInput custom-input maskMoneyPercent2" maxlength="6" type="text" id="PorcentagemDistribuicao" onchange="window.AnaliseDeRiscoEvents.OnChangePorcentagemDistribuicao(this)">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel panel-default">
+                                            <div class=" row" role="tab" id="headingGatilho">
+                                                <h4 class="panel-title textBlue mb-3 col-md-8 col-sm-8 text-left">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseGatilho" aria-expanded="true" aria-controls="collapseGatilho">
+                                                        <span class="glyphicon glyphicon-chevron-down pull-left margin-right-15px"></span>
+                                                    </a>
+                                                    Gatilho
+                                                </h4>
+                                                <hr class="hr-blue-aqua margin-left-15px margin-right-15px">
+                                            </div>
+                                            <div id="collapseGatilho" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseGatilho">
+                                                <div class="row">
+                                                    <div class="form-group col-md-3 col-sm-3">
+                                                        <span>Meses</span>
+                                                        <input class="form-control bordaInput custom-input mask999" maxlength="3" type="text" id="MesesGatilho" onchange="window.AnaliseDeRiscoEvents.OnChangeMeses(this)">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <ul class="nav cenario-tabs margin-top-minus-10" id="cenariosAR">
+                                    </ul>
+
+                                    <div class="row margin-top-10px">
+                                        <div class="form-group col-md-2 col-sm-2">
+                                            <div class="dropdown">
+                                                <span>Versão</span>
+                                                <div class="searchable">
+                                                    <select class="form-control selAutoComplete" id="selectVsCalculo" onchange="window.AnaliseDeRiscoEvents.OnChangeVersao(this)">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-5 col-sm-5">
+                                            <span id="lblNomeDoPlano"><br /></span>
+                                            <input class="form-control bordaInput custom-input" maxlength="20" type="text" id="nomeVersao" placeholder="Nome Versão" onchange="window.AnaliseDeRiscoEvents.OnChangeNomeVersao(this)">
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="button" class="btn btn-liberty-default btnMedio marginTop-button " id="btnNovo" value="NOVO" onclick="window.AnaliseDeRiscoEvents.onClickNovaVersao()" />
+                                            <input type="button" class="btn btn-liberty-default btnMedio marginTop-button" id="btnRemover" value="REMOVER" onclick="window.AnaliseDeRiscoEvents.onClickRemoverVersao()" />
+                                            <input type="button" class="btn btn-liberty-default btnMedio marginTop-button" id="btnLimpar" value="LIMPAR" onclick="window.AnaliseDeRiscoEvents.onClickLimparVersao()" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-4 col-sm-4 ">
+                                            <div class="dropdown">
+                                                <span>Tábua de Mortalidade</span>
+                                                <div class="searchable">
+                                                    <select class="form-control selAutoComplete" id="selectTabuaMortalidade" onchange="window.AnaliseDeRiscoEvents.OnChangeTabuaDeMortalidade(this)">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-2 col-sm-2">
+                                        </div>
+                                        <div class="form-group col-md-4 col-sm-4">
+                                            <span>% Desconto/Agravo Técnico</span>
+                                            <input class="form-control bordaInput custom-input maskMoneyPercent2Negative" maxlength="6" type="text" id="DescontoAgravoTecnico" onchange="window.AnaliseDeRiscoEvents.OnChangeDescontoAgravoTecnico(this)">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-4 col-sm-4">
+                                            <span>Limite de Retenção</span>
+                                            <div class="searchable">
+                                                <select class="form-control selAutoComplete" id="selectLimiteRetencao" onchange="window.AnaliseDeRiscoEvents.OnChangeLimiteDeRetencao(this)">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-2 col-sm-2">
+                                        </div>
+                                        <div class="form-group col-md-4 col-sm-4">
+                                            <span>Capital Médio Cenário</span>
+                                            <input class="form-control bordaInput custom-input" maxlength="20" disabled type="text" id="CapitalMedioCenario">
+                                        </div>
+                                        <div class="form-group col-md-2 col-sm-2">
+                                            <span>Total Vidas</span>
+                                            <input class="form-control bordaInput custom-input" disabled maxlength="20" type="text" id="TotalVidasVersao">
+                                        </div>
+                                    </div>
+
+                                    <div id="accordion" role="tablist" aria-multiselectable="true">
+                                        <div class="panel panel-default">
+                                            <div class=" row" role="tab" id="headingResseguro">
+                                                <h4 class="panel-title textBlue mb-3 col-md-8 col-sm-8 text-left">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseResseguro" aria-expanded="true" aria-controls="collapseResseguro">
+                                                        <span class="glyphicon glyphicon-chevron-down pull-left margin-right-15px"></span>
+                                                    </a>
+                                                    Taxa de Resseguro Diferenciada
+                                                </h4>
+                                                <hr class="hr-blue-aqua margin-left-15px margin-right-15px">
+                                            </div>
+                                            <div id="collapseResseguro" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseResseguro">
+                                                <div class="row">
+                                                    <div id="taxaDeResseguro_0" class="col-md-9 col-sm-9">
+                                                        <div class="form-group col-md-4 col-sm-4">
+                                                            <span>Idade Mínima</span>
+                                                            <input class="form-control bordaInput custom-input mask999" maxlength="3" type="text" id="idadeMinimaResseguro_0" onchange="window.AnaliseDeRiscoEvents.onChangeIdadeMinima(this,0)">
+                                                        </div>
+                                                        <div class="form-group col-md-4 col-sm-4">
+                                                            <span>Idade Máxima</span>
+                                                            <input class="form-control bordaInput custom-input mask999" maxlength="3" type="text" id="idadeMaximaResseguro_0" onchange="window.AnaliseDeRiscoEvents.onChangeIdadeMaxima(this,0)">
+                                                        </div>
+                                                        <div class="form-group col-md-4 col-sm-4">
+                                                            <span>Taxa por mil</span>
+                                                            <input class="form-control bordaInput custom-input maskMoneyPercent4" maxlength="10" type="text" id="taxaPorMil_0" onchange="window.AnaliseDeRiscoEvents.onChangeIdadeTaxaPorMil(this,0)">
+                                                        </div>
+                                                    </div>
+                                                    <div id="btnsTaxaResseguro" class="col-md-3 col-sm-3">
+                                                        <div class="col-md-12 col-sm-12">
+                                                            <input type="button" class="btn btn-liberty-default btn-sm marginTop-button" value="+" onclick="window.AnaliseDeRiscoEvents.OnClickInserirLinhaTaxaResseguro()" />
+                                                            <input type="button" class="btn btn-liberty-default btn-sm marginTop-button" value="-" onclick="window.AnaliseDeRiscoEvents.OnClickRemoverLinhaTaxaResseguro()" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right">
+                                            <input type="button" class="btn btn-liberty-default" value="Relação de Vidas" onclick="window.AnaliseDeRiscoEvents.onClickAbrirRelacaoDeVidasPopUp()" />
+                                            <input type="button" class="btn btn-liberty-default" value="Calcular" onclick="window.AnaliseDeRiscoEvents.onClickCalcularCenario()" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="modalRelacaoVidas" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-lg">
+            <div class="modal-body-cotacao">
+
+                <div class="row centralizeItens">
+                    <div class="col-sm-1">
+                        <img src="/images/produtos/ico-vida-transparente.png" width="40">
+                    </div>
+                    <div class="col-sm-11 no-padding-left">
+                        <span style="font-size: 20px;">Consultar Relação de Vidas</span>
+                    </div>
+                </div>
+
+                <hr class="bordaHrTitulo">
+
+                <div class="row">
+                    <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right" style="font-size: 14px; font-weight: bold;">
+                        <span id="spNumeroCenario"></span>
+                        <span> - </span>
+                        <span id="spNumeroVersao"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="dropdown">
+                            <span>Plano</span>
+                            <div class="searchable">
+                                <select class="form-control selAutoCompleteModal" id="selectPlanoRelacaoVidas" onchange="window.RelacoesVidaEvents.OnChangeFiltroConsulta()">
+                                    <option value="-1">Selecione...</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 padding-top-30px">
+                        <span class="form-check margin-right-5px">
+                            <input class="form-check-input" type="checkbox" id="checkAfastados" onchange="window.RelacoesVidaEvents.OnChangeFiltroConsulta()">
+                            <label class="form-check-label" for="checkAfastados">
+                                Afastados
+                            </label>
+                        </span>
+                        <span class="form-check margin-right-5px">
+                            <input class="form-check-input" type="checkbox" id="checkConjuge" onchange="window.RelacoesVidaEvents.OnChangeFiltroConsulta()">
+                            <label class="form-check-label" for="checkConjuge">
+                                Possui Cônjuge
+                            </label>
+                        </span>
+                        <span class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkVidasDesconsideradas" onchange="window.RelacoesVidaEvents.OnChangeFiltroConsulta()">
+                            <label class="form-check-label" for="checkVidasDesconsideradas">
+                                Vidas Desconsideradas para Cálculo
+                            </label>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row padding-top-5px">
+                    <div class="form-group col-md-4">
+                        Capital
+                        <div class="row">
+                            <div class="col-md-5 no-padding-right">
+                                <input class="form-control textAlignRight maskMoney" type="text" maxlength="20" id="txtCapitalMinimo" onchange="window.RelacoesVidaEvents.OnChangeValidarCapital()">
+                            </div>
+                            <div class="col-md-2 padding-top-5px">
+                                Até
+                            </div>
+                            <div class="col-md-5 no-padding-left">
+                                <input class="form-control textAlignRight maskMoney" type="text" maxlength="20" id="txtCapitalMaximo" onchange="window.RelacoesVidaEvents.OnChangeValidarCapital()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        Salário
+                        <div class="row">
+                            <div class="col-md-5 no-padding-right">
+                                <input class="form-control textAlignRight maskMoney" type="text" maxlength="20" id="txtSalarioMinimo" onchange="window.RelacoesVidaEvents.OnChangeValidarSalario()">
+                            </div>
+                            <div class="col-md-2 padding-top-5px">
+                                Até
+                            </div>
+                            <div class="col-md-5 no-padding-left">
+                                <input class="form-control textAlignRight maskMoney" type="text" maxlength="20" id="txtSalarioMaximo" onchange="window.RelacoesVidaEvents.OnChangeValidarSalario()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        Idade
+                        <div class="row">
+                            <div class="col-md-4 no-padding-right">
+                                <input class="form-control textAlignCenter mask999" type="text" id="txtIdadeMinima" onchange="window.RelacoesVidaEvents.OnChangeValidarIdade()">
+                            </div>
+                            <div class="col-md-3 padding-top-5px">
+                                Até
+                            </div>
+                            <div class="col-md-4 no-padding-left">
+                                <input class="form-control textAlignCenter mask999" type="text" id="txtIdadeMaxima" onchange="window.RelacoesVidaEvents.OnChangeValidarIdade()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row padding-top-5px">
+                    <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right">
+                        <input type="button" class="btn btn-liberty-default" value="Limpar" onclick="window.RelacoesVidaEvents.OnClickLimparConsultaRelacaoVidas()" />
+                        <input type="button" class="btn btn-liberty-default" value="Consultar" onclick="window.RelacoesVidaEvents.OnClickConsultarRelacaoVidas()" />
+                    </div>
+                </div>
+
+                <div id="divMensagemLimiteRegistros" style="display:none;" class="row padding-top-5px">
+                    <div class="col-md-12">
+                        <div class="col-md-12 text-center">
+                            <div style="background-color: #fcf8e3;border-radius: 5px;font-size: 15px;color: #b94a48;border: 2px solid #b94a48;">
+                                <i class="iconfa-bell"></i>
+                                Para uma melhor experiência, a lista abaixo foi limitada a 300 vidas. Adicione mais filtros para melhorar o resultado.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row padding-top-5px">
+                    <div id="divTabelaRelacaoVidas" class="col-md-12">
+                        <table id="tabelaRelacaoVidas" class="table table-bordered table-responsive table-hover">
+                            <thead class="thead-light" bgcolor="#9AD9EA">
+                                <tr>
+                                    <th style="color: white; vertical-align: middle; text-align:center;width: 5%;" class="no-sort">
+                                        <input type="checkbox" id="checkSelTodasVidas" onclick="window.RelacoesVidaEvents.OnCheckSelTodasVidas(this.checked)">
+                                    </th>
+                                    <th style="color: white; vertical-align: middle; text-align:center;">Plano</th>
+                                    <th style="color: white; vertical-align: middle; text-align:left;">Nome</th>
+                                    <th style="color: white; vertical-align: middle; text-align:center;">CPF</th>
+                                    <th style="color: white; vertical-align: middle; text-align:center;">Data Nasc.</th>
+                                    <th style="color: white; vertical-align: middle; text-align:center;">Sexo</th>
+                                    <th style="color: white; vertical-align: middle; text-align:right;">Capital</th>
+                                    <th style="color: white; vertical-align: middle; text-align:right;">Salário</th>
+                                    <th style="color: white; vertical-align: middle; text-align:left;">Nome Cônjuge</th>
+                                    <th style="color: white; vertical-align: middle; text-align:center;">Data Nasc. Conj.</th>
+                                    <th style="color: white; vertical-align: middle; text-align:center;">Data Afast.</th>
+                                    <th style="color: white; vertical-align: middle; text-align:center;">CID</th>
+                                    <th style="color: white; vertical-align: middle; text-align:left;">Desc. CID</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right">
+                        <input type="button" class="btn btn-liberty-default" value="Salvar" id="btnSalvarRelacaoVidas" onclick="window.RelacoesVidaEvents.OnClickSalvarRelacaoVidas()" />
+                        <input type="button" class="btn btn-liberty-default" value="Fechar" onclick="window.RelacoesVidaEvents.OnClickFecharPopupRelacaoVidas()" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="TaxaDeResseguroTemplate" type="text/x-jsrender">
+    <div id="taxaDeResseguro_{{:indice}}" class="col-md-9 col-sm-9">
+        <div class="form-group col-md-4 col-sm-4">
+            <span>Idade Mínima</span>
+            <input class="form-control bordaInput custom-input" maxlength="30" type="text" id="idadeMinimaResseguro_{{:indice}}" onchange="window.AnaliseDeRiscoEvents.onChangeIdadeMinima(this,{{:indice}})">
+        </div>
+        <div class="form-group col-md-4 col-sm-4">
+            <span>Idade Máxima</span>
+            <input class="form-control bordaInput custom-input" maxlength="30" type="text" id="idadeMaximaResseguro_{{:indice}}" onchange="window.AnaliseDeRiscoEvents.onChangeIdadeMaxima(this,{{:indice}})">
+        </div>
+        <div class="form-group col-md-4 col-sm-4">
+            <span>Taxa por mil</span>
+            <input class="form-control bordaInput custom-input" maxlength="30" type="text" id="taxaPorMil_{{:indice}}" onchange="window.AnaliseDeRiscoEvents.onChangeIdadeTaxaPorMil(this,{{:indice}})">
+        </div>
+    </div>
+</script>

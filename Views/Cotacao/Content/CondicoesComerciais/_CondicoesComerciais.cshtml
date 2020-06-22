@@ -1,0 +1,635 @@
+﻿@model Liberty.Faturaveis.UI.ViewModel.CotacaoViewModel;
+
+<div id="step-4" class="posicaoStep">
+    <section id="step-4">
+
+        <div class="row">
+
+            <div class="card corner col-md-12 col-sm-12 marginTop-cards">
+                <div class="card-title">
+                    <ul class="nav cenario-tabs" id="tabCenarios">
+                        <li><a data-toggle="tab" href="#" onclick="window.PlanosCondicoesComerciaisEvents.OnClickAdicionarCenario(this)" id="addCenario">+</a></li>
+                    </ul>
+                    <h3 class="h3">
+                        <span class="badge">4</span>
+                        <b class="va-sub">Plano de Condições Comerciais</b>
+                    </h3>
+                    <hr class="bordaHrForm">
+                </div>
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="panel panel-default corner">
+                        <div id="formPlano" name="formPlano">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="row">
+                                        <div class="form-group col-xs-4 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                                            <div class="dropdown">
+                                                <span>Plano</span>
+                                                <div class="searchable">
+                                                    <select onchange="window.PlanosCondicoesComerciaisEvents.OnChangePlano(this)" class="form-control selAutoComplete" id="selectPlanoSeguro">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-5 col-sm-5 col-xs-8 col-lg-5 col-xl-5">
+                                            <span id="lblNomeDoPlano"><br /></span>
+                                            <input class="form-control bordaInput custom-input" onchange="window.PlanosCondicoesComerciaisEvents.OnChangeNomePlano(this)" maxlength="45" type="text" id="inputNomeDoPlano" placeholder="Nome do Plano">
+                                        </div>
+                                        <div class="col-xs-12 col-md-5 col-sm-5 col-lg-5 col-xl-5">
+                                            <span id="botoesPlano"><br /></span>
+                                            <div>
+                                                <div align="center" class="col-xs-4 col-md-4 col-sm-4 col-lg-4 col-xl-4">
+                                                    <input onclick="window.PlanosCondicoesComerciaisEvents.OnClickNovoPlano()" type="button" class="btn btn-liberty-default" id="btnAdicionarPlano" value="&nbsp NOVO &nbsp" />
+                                                </div>
+                                                <div align="center" class="col-xs-4 col-md-4 col-sm-4 col-lg-4 col-xl-4">
+                                                    <input type="button" onclick="window.PlanosCondicoesComerciaisEvents.OnClickExcluirPlano()" class="btn btn-liberty-default" id="btnRemoverPlano" value="REMOVER" />
+                                                </div>
+                                                <div align="center" class="col-xs-4 col-md-4 col-sm-4 col-lg-4 col-xl-4">
+                                                    <input onclick="window.PlanosCondicoesComerciaisUi.limparPlanoCondicoesComerciais()" type="button" class="btn btn-liberty-default" id="btnLimparPlano" value="LIMPAR" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="card corner col-md-12 col-sm-12">
+                                <div class="card-body col-md-12 col-sm-12">
+                                    <div class="panel panel-default corner">
+                                        <div class="row mb-0">
+                                            <div class="col-md-8 col-sm-8 text-left">
+                                                <label class="textBlue mb-3">Modalidade do Seguro</label>
+                                            </div>
+                                        </div>
+                                        <hr class="hr-blue-aqua" id="segundoHrCoberturas">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modalidades*@
+                        <div class="row col-md-12">
+                            <div class="form-group col-md-3 col-sm-3">
+                                <div class="dropdown">
+                                    <span>Modalidade</span>
+                                    <div class="searchable">
+                                        <select onchange="window.PlanosCondicoesComerciaisEvents.OnChangeModalidade(this)" class="form-control selAutoComplete" type="value" id="selectTipoModalidadeCapital">
+                                            <option selected="selected" value="0">SELECIONE UMA OPÇÃO</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="modalidadeSeguroUniforme">
+                                <div class="form-group col-md-3 col-sm-3">
+                                    <span id="lblSeguroDataReferencia">Capital Uniforme</span>
+                                    <input onchange="window.PlanosCondicoesComerciaisEvents.OnChangeValorCapitalUniforme(this)" class="form-control maskMoney" maxlength="20" type="value" id="inputValorCapitalUniforme">
+                                </div>
+                            </div>
+                            <div id="modalidadeSeguroMultiploSalarial">
+                                <div class="form-group col-md-3 col-sm-3">
+                                    <span id="lblSeguroDataReferencia">Valor Múltiplo</span>
+                                    <input onchange="window.PlanosCondicoesComerciaisEvents.OnChangeValorMultiplo(this)" class="form-control mask999" maxlength="10" type="value" id="inputValorMultiplo">
+                                </div>
+                            </div>
+                            <div id="modalidadeSeguroEscalonado">
+                                <div id="selectEscalonadoIdade">
+                                    <span><br /></span>
+                                    <div class="form-group col-md-2 col-sm-2 nowrap" style="padding-left:20px;float:left;">
+                                        <span>Por idade</span>
+                                    </div>
+                                    <div onchange="window.PlanosCondicoesComerciaisEvents.OnChangeEscalonadoPorIdade(this)" class="radio-inline form-group col-md-4" id="selectEscalonadoPorIdade">
+                                        <div class="col-md-2" style="padding-right:45px;">
+                                            <input type="radio" id="SimEscalonadoPorIdade" name="EscalonadoPorIdade" value="S" />
+                                            <label>Sim</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="radio" id="NaoEscalonadoPorIdade" name="EscalonadoPorIdade" value="N" checked="checked" />
+                                            <label>Não</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="modalidadeEscalonadoPorIdade" class="row">
+                                    <div id="lblEscalonadoPorIdade" class="col-md-10">
+                                        <div id="lblIdades">
+                                            <div class="col-md-2">
+                                                <span id="lblNomeDoPlano">Idade inicial</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span id="lblNomeDoPlano">Idade final</span>
+                                            </div>
+                                        </div>
+                                        <div id="lblCapital">
+                                            <div class="col-md-3">
+                                                <span id="lblNomeDoPlano">Capital mínimo</span>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <span id="lblNomeDoPlano">Capital máximo</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div id="inputEscalonadoPorIdade" class="form-group col-md-10">
+                                        <div id="inputEscalonadoPorIdadelinha_0" class="row">
+                                            <div id="inputIdades">
+                                                <div class="col-md-2">
+                                                    <input onchange="window.PlanosCondicoesComerciaisEvents.OnChangeIdadeInicial((this.id).replace('inputIdadeInicial_',''))" class="form-control mask999" maxlength="3" type="value" id="inputIdadeInicial_0" placeholder="Idade Inicial">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input onchange="window.PlanosCondicoesComerciaisEvents.OnChangeIdadeFinal((this.id).replace('inputIdadeFinal_',''))" class="form-control mask999" maxlength="3" type="value" id="inputIdadeFinal_0" placeholder="Idade final">
+                                                </div>
+                                            </div>
+                                            <div id="inputCapital">
+                                                <div class="col-md-3">
+                                                    <input onchange="window.PlanosCondicoesComerciaisEvents.OnChangeCapitalMinimo((this.id).replace('inputCapitalMinimo_',''))" class="form-control maskMoney" maxlength="20" type="text" id="inputCapitalMinimo_0" placeholder="Capital mínimo">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input onchange="window.PlanosCondicoesComerciaisEvents.OnChangeCapitalMaximo((this.id).replace('inputCapitalMaximo_',''))" class="form-control maskMoney" maxlength="20" type="text" id="inputCapitalMaximo_0" placeholder="Capital máximo">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="btnsEscalonadoPorIdade">
+                                        <div class="col-md-1">
+                                            <input onclick="window.PlanosCondicoesComerciaisEvents.OnClickInserirLinhaEscalonadoPorIdade()" type="button" class="btn btn-liberty-default btn-sm" id="btnAdicionarPlanoEscalonado" value="+" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <input onclick="window.PlanosCondicoesComerciaisEvents.OnClickRemoverLinhaEscalonadoPorIdade()" type="button" class="btn btn-liberty-default btn-sm" id="btnRemoverPlanoEscalonado" value="-" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br /><br />
+                        @*Coberturas*@
+                        <div class="posicaoStep">
+                            <section>
+                                @*<input type="hidden" id="hdCodigoCoberturaMorte" value="@RetornarCodigoCoberturaBasicaMorte()" />*@
+                                <div class="row">
+                                    <div class="card corner col-md-12 col-sm-12">
+                                        <div class="card-body col-md-12 col-sm-12">
+                                            <div class="panel panel-default corner">
+                                                <div class="row">
+                                                    <div class="card corner col-md-12 col-sm-12">
+                                                        <div class="card-body col-md-12 col-sm-12">
+                                                            <div class="panel panel-default corner">
+                                                                <div class="row mb-0">
+                                                                    <div class="col-md-8 col-sm-8 text-left">
+                                                                        <label class="textBlue mb-3">Coberturas</label>
+                                                                    </div>
+                                                                    <label class="text-uppercase textBlue mb-3 col-md-2 col-sm-2 col-md-offset-1 text-center">% Ind.</label>
+                                                                </div>
+                                                                <hr class="hr-blue-aqua" id="segundoHrCoberturas">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @*Coberturas básica*@
+                                                <div class="paddingT10 "></div>
+                                                <div id="CoberturaProdutoComercialBasica"></div>
+                                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                                    @*Coberturas adicionais*@
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading row" role="tab" id="headingTwo">
+                                                            <h4 class="panel-title textBlue mb-3 col-md-8 col-sm-8 text-left">
+                                                                <a role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                                                    <span class="glyphicon glyphicon-chevron-down pull-left margin-right-15px"></span>
+                                                                </a>
+                                                                Coberturas adicionais
+                                                            </h4>
+                                                            <label class="text-uppercase textBlue mb-3 col-md-2 col-sm-2 col-md-offset-1 text-center">% Ind.</label>
+                                                        </div>
+                                                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                            <div class="paddingT10">
+                                                                <div id="CoberturaProdutoComercialAdicionais"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @*Coberturas adicionais - diárias*@
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading row" role="tab" id="headingThree">
+                                                            <h4 class="panel-title textBlue mb-3 col-md-6 col-sm-6 text-left">
+                                                                <a role="button" data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                                                    <span class="glyphicon glyphicon-chevron-down pull-left margin-right-15px"></span>
+                                                                </a>
+                                                                Coberturas adicionais - diárias
+                                                            </h4>
+                                                            <label class="text-uppercase textBlue mb-3 col-md-2 text-right">Qtd diárias</label>
+                                                            <label class="text-uppercase textBlue mb-3 col-md-3 text-right">Valor diária</label>
+                                                        </div>
+                                                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                            <div class="paddingT10">
+                                                                <div id="CoberturaProdutoComercialAdicionaisDiarias"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @*Coberturas adicionais - Funeral*@
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading row" role="tab" id="headingFour">
+                                                            <h4 class="panel-title textBlue mb-3 col-md-7 col-sm-7 text-left">
+                                                                <a role="button" data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                                                    <span class="glyphicon glyphicon-chevron-down pull-left margin-right-15px"></span>
+                                                                </a>
+                                                                Coberturas adicionais - Funeral
+                                                            </h4>
+                                                            <label class="text-uppercase textBlue mb-4 col-md-4 text-right">Valor Funeral</label>
+                                                        </div>
+                                                        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                                            <div class="paddingT10">
+                                                                <div id="CoberturaProdutoComercialAdicionaisFuneral"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @*Serviços*@
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading row" role="tab" id="headingFive">
+                                                            <h4 class="panel-title textBlue mb-3 col-md-8 col-sm-8 text-left">
+                                                                <a role="button" data-toggle="collapse" href="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                                                                    <span class="glyphicon glyphicon-chevron-down pull-left margin-right-15px"></span>
+                                                                </a>
+                                                                Serviços
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                                                            <div class="paddingT10">
+                                                                <div id="CoberturaProdutoComercialCestaBasica"></div>
+                                                                <div id="CoberturaProdutoComercialCestaNatalidade"></div>
+                                                                <div id="CoberturaProdutoComercialServicos"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @*Relacao vidas*@
+                                                <div class="row">
+                                                    <div class="card corner col-md-12 col-sm-12">
+                                                        <div class="card-body col-md-12 col-sm-12">
+                                                            <div class="panel panel-default corner">
+                                                                <div class="row mb-0">
+                                                                    <div class="col-md-8 col-sm-8 text-left">
+                                                                        <label class="textBlue mb-3">Relação de vidas</label>
+                                                                    </div>
+                                                                </div>
+                                                                <hr class="hr-blue-aqua" id="segundoHrCoberturas">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="card corner col-md-12 col-sm-12">
+                                                        <div class="card-body col-md-12 col-sm-12 text-center" id="RelacaoVidasBloqueio">
+                                                            <span>
+                                                                <b>Salve o plano do cenário da cotação para preencher a relação de vidas</b>
+                                                            </span>
+                                                        </div>
+                                                        <div class="card-body col-md-12 col-sm-12 " hidden id="RelacaoVidas">
+                                                            <div class="row">
+                                                                <div class="card-body col-md-12 col-sm-12" id="dv_relacao_vidas_planos_selecao" hidden>
+                                                                    <span>
+                                                                        <b>Como deseja informar a Relação de Vidas?</b>
+                                                                    </span>
+                                                                    <span class="tooltip-toggle" aria-label="Completa! É necessário a importação da planilha de relação de vidas no modelo padrão." tabindex="0">
+                                                                        <img src="~/images/duvidas.png">
+                                                                    </span>
+                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                                    <label id="lb_relacao_vidas_Simpl" for="lb_relacao_vidas_Simpl" class="lbl-radio-seguro">Simplificada</label>
+                                                                    <input type="radio" name="rd_relacao_vidas" value="S" onclick="onRelacaoVidaSimplificada()" id="rd_relacao_vidas_Simpl">
+                                                                    <span>&nbsp;</span>
+                                                                    <label for="lb_relacao_vidas_Compl" class="lbl-radio-seguro">Completa</label>
+                                                                    <input type="radio" name="rd_relacao_vidas" value="N" onclick="onRelacaoVidaCompleta()" checked="checked" id="rd_relacao_vidas_Compl">
+
+                                                                </div>
+                                                            </div>
+                                                            <div id="relacaoCompleta">
+                                                                <div id="dv_relacao_vidas_planos_agrupado" class="row completa">
+                                                                    <div class="card-body col-md-12 col-sm-12">
+                                                                        <span>
+                                                                            <label>Importação Agrupada - Todos os Planos de Condições Comerciais</label>
+                                                                        </span>
+                                                                        <span class="tooltip-toggle" aria-label="Única importação de relação de vidas para todos os planos cadastrados" tabindex="0">
+                                                                            <img src="~/images/duvidas.png">
+                                                                        </span>
+                                                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                                        <label for="rbarquivoAgrupadoSim" class="lbl-radio-seguro">Sim</label>
+                                                                        <input type="radio" name="arquivorlAgrupado" onclick="onRelacaoVidasAgrupada()" id="arquivorlAgrupadoSim" value="true">
+                                                                        <span>&nbsp;</span>
+                                                                        <label for="rbarquivoAgrupadoNao" class="lbl-radio-seguro">Não</label>
+                                                                        <input type="radio" name="arquivorlAgrupado" onclick="onRelacaoVidasAgrupada()" checked="checked" id="arquivorlAgrupadoNão" value="false">
+
+                                                                    </div>
+                                                                    <div class="card-body col-md-12 col-sm-12">
+                                                                        <div class="row">
+                                                                            <span class="col-md-12 col-sm-12">
+                                                                                <label id="lb_rl_TotalVidasPlano">Plano</label>
+                                                                            </span>
+                                                                            <span class="col-md-4 col-sm-4">
+                                                                                <input type="text" readonly="readonly" size="5" id="text_plano_selecionado" readonly="readonly" class="form-control bordaInput borda text-left">
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="dv_relacao_vidas_planos_planilha" class="row completa">
+                                                                    <div class="card-body col-md-12 col-sm-12">
+                                                                        <hr class="bordaHrForm">
+                                                                        <div class="row paddingT10">
+                                                                            <span class="col-md-12">
+                                                                                <label>  Escolha um arquivo XLSX ou XLS para importação</label>
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            <input class="fileImputRelacaoVidas col-md-7" type="file" id="bnt_rl_ImportarArquivo" title="Escolha o Arquivo XLSX ou XLS para Importação" onchange="">
+                                                                            <input onclick="onDownloadPlanilhaRelacaoVidas()" type="button" class="btn btn-liberty-default pull-right" id="btn_rl_PlanosImportPlanilhaPadrao" value="DOWNLOAD PLANILHA" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="dv_relacao_vidas_planos_acoes" class="row completa">
+                                                                    <div align="right" class="card-body col-md-12 col-sm-12">
+                                                                        <input type="button" class="btn btn-liberty-default disabled" id="btn_rl_ImportarPlan" value="IMPORTAR" />
+                                                                        <input type="button" class="btn btn-liberty-default  disabled" onclick="onExportarPlanilhaRelacaoVidas()" id="btn_rl_ExportarPlan" value="EXPORTAR" />
+                                                                        <input type="button" class="btn btn-liberty-default disabled" id="btn_rl_DesfazerPlan" value="DESFAZER" />
+                                                                        <input type="button" class="btn btn-liberty-default disabled" id="btn_rl_DesfazerPlanCenario" value="DESFAZER" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="card-body col-md-12 col-sm-12">
+                                                                    <span>
+                                                                        <label> Resumo da Relação de Vidas</label>
+                                                                    </span>
+                                                                    <hr class="bordaHrForm">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3 col-sm-4">
+                                                                            <span class="col-md-12 col-sm-12">
+                                                                                <label>Total Vidas do Cenário</label>
+                                                                            </span>
+                                                                            <span class="col-md-12 col-sm-12">
+                                                                                <input type="text" readonly="readonly" size="5" id="text_rl_TotalVidas" class="form-control bordaInput borda text-center">
+                                                                            </span>
+                                                                        </div>
+                                                                        <div id="dv_total_vidas_planos" class="col-md-3 col-sm-4" hidden>
+                                                                            <span class="col-md-12 col-sm-12">
+                                                                                <label id="lb_rl_TotalVidasPlano"> Total Vidas do Plano</label>
+                                                                            </span>
+                                                                            <span class="col-md-12 col-sm-12">
+                                                                                <input type="text" readonly="readonly" size="5" id="text_rl_TotalVidasPlano" class="form-control bordaInput borda text-center" onchange="salvarCotacaoSimplificada(this)">
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <hr />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                                <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="deletarRelacaoVida-modal">
+                                                    <div class="modal-dialog modal-sm">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Deseja deletar a relação de vidas do plano?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-liberty-default" id="modal-btn-deletarRelacao-sim" value="SIM">SIM</button>
+                                                                <button type="button" class="btn btn-liberty-default" id="modal-btn-deletarRelacao-nao" value="NÃO">NÃO</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="deletarRelacaoVidaCenario-modal">
+                                                    <div class="modal-dialog modal-sm">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Deseja deletar as vidas de todos os planos?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-liberty-default" id="modal-btn-deletarRelacaoCenario-sim" value="SIM">SIM</button>
+                                                                <button type="button" class="btn btn-liberty-default" id="modal-btn-deletarRelacaoCenario-nao" value="NÃO">NÃO</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="importarRelacaoVida-modal">
+                                                    <div class="modal-dialog modal-sm">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                As vidas do plano serão substituídas. Deseja continuar?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-liberty-default" id="modal-btn-importarRelacao-sim" value="SIM">SIM</button>
+                                                                <button type="button" class="btn btn-liberty-default" id="modal-btn-importarRelacao-nao" value="NÃO">NÃO</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+
+
+
+                        @*@await Component.InvokeAsync("Coberturas", new { model = Model })*@
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="DadosPlanosCondicoesComerciais"></div>
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="removerPlano-modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div id="msgModal"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-liberty-default" id="modal-btn-remover-sim" value="SIM">SIM</button>
+                <button type="button" class="btn btn-liberty-default" id="modal-btn-remover-nao" value="NÃO">NÃO</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    let coberturasBasicas = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CoberturaProdutoComercial_Basica));
+    let coberturaMorte = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CoberturaProdutoComercial_Basica_Morte));
+    let coberturasAdicionais = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CoberturaProdutoComercial_Adicionais));
+    let coberturasAdicionaisDiarias = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CoberturaProdutoComercial_Diarias));
+    let coberturasAdicionaisFuneral = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CoberturaProdutoComercial_AdicionaisFuneral));
+    let coberturasCestaBasica = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CoberturaProdutoComercial_CestaBasica));
+    let coberturasCestaNatalidade = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CoberturaProdutoComercial_CestaNatalidade));
+    let coberturasServicos = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CoberturaProdutoComercial_Servicos));
+    let cotacao = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+    let coberturasViewBag = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Coberturas));
+    let cenarios = cotacao.CenariosCotacao;
+
+    $(function () {
+
+    var planosFront = [];
+    var numeroCotacao = cotacao._id;
+    var pMasculino = null;
+    var pFeminino = null;
+    var iMedia = null;
+    var cenariosFront = [];
+
+        for (var h = 0; h < cenarios.length; h++) {
+            planosFront = [];
+            var planos = cenarios[h].PlanosCondicoesComerciais;
+
+            for (var i = 0; i <= planos.length - 1; i++) {
+                var cobertura = [];
+                var lCapital = [];
+                var numero = planos[i].NumeroPlano ? planos[i].NumeroPlano : 1;
+                var nome = planos[i].NomePlano;
+                var modalidadeCapital = new TipoModalidadeCapital(planos[i].TipoModalidadeCapital.Codigo,planos[i].TipoModalidadeCapital.Descricao);
+                var capitalEscalonadoIdade = planos[i].IndicadorCapitalEscalonadoIdade;
+                var valorMultiploSalarial = planos[i].ValorMultiploSalarial;
+                var valorCapitalUniforme = planos[i].ValorCapitalUniforme;
+                var vidas = planos[i].TotalVidas;
+
+                for (var j = 0; j <= planos[i].Coberturas.length - 1; j++) {
+                    var tituloAmigavel = coberturasViewBag.filter(function (coberturaView) { return coberturaView.CodigoCobertura == planos[i].Coberturas[j].Codigo })[0].VerbaCoberturaProdutoComercial[0].TituloAmigavel
+                    cobertura.push(new Cobertura(planos[i].Coberturas[j].Codigo, planos[i].Coberturas[j].CodigoTipoCobertura, planos[i].Coberturas[j].SiglaTipoCobertura, tituloAmigavel,
+                        [new Verba(planos[i].Coberturas[j].Verbas[0].Codigo,
+                            planos[i].Coberturas[j].Verbas[0].Nome,
+                            planos[i].Coberturas[j].Verbas[0].ValorImportanciaSegurada,
+                            planos[i].Coberturas[j].Verbas[0].ValorTotalPremio,
+                            planos[i].Coberturas[j].Verbas[0].PercentualIndenizacao,
+                            planos[i].Coberturas[j].Verbas[0].Valor,
+                            planos[i].Coberturas[j].Verbas[0].QuantidadeDiaria,
+                            planos[i].Coberturas[j].Verbas[0].ValorDiaria,
+                            planos[i].Coberturas[j].Verbas[0].CoeficienteTaxaLiberty,
+                            planos[i].Coberturas[j].Verbas[0].CoeficienteTaxaResseguro,
+                            planos[i].Coberturas[j].Verbas[0].CoeficienteTaxaComercial)], planos[i].Coberturas[j].Selecionado));
+                }
+
+                for (var l = 0; l <= planos[i].LimitadoresCapital.length - 1; l++) {
+                    lCapital.push(new LimitadoresCapital(planos[i].LimitadoresCapital[l].IdadeMinima, planos[i].LimitadoresCapital[l].IdadeMaxima, planos[i].LimitadoresCapital[l].ValorCapitalMinimo, planos[i].LimitadoresCapital[l].ValorCapitalMaximo));
+                }
+
+                var plano = new PlanoCondicoesComerciais(numeroCotacao, numero, nome, modalidadeCapital, valorCapitalUniforme, capitalEscalonadoIdade, valorMultiploSalarial, vidas, pMasculino, pFeminino, iMedia, lCapital, cobertura,true);
+
+                planosFront.push(plano);
+            }
+
+            versoesFront = [];
+            var versoes = cenarios[h].VersoesCalculo;
+
+            for (var v = 0; v <= versoes.length - 1; v++) {
+                TResseguro = [];
+
+                for (var t = 0; t <= versoes[v].TaxasResseguro.length - 1; t++) {
+                    TResseguro.push(new TaxasResseguro(versoes[v].TaxasResseguro[t].IdadeMinima,versoes[v].TaxasResseguro[t].IdadeMaxima,versoes[v].TaxasResseguro[t].PercentualTaxa))
+                }
+
+                var versao = new VersaoCalculo(versoes[v].NumeroVersao, versoes[v].NomeVersao, versoes[v].QuantidadeTotalVidas, versoes[v].CodigoTipoTabelaTaxa, versoes[v].PercentualDescontoAgravoTecnico, versoes[v].ValorLimiteRetencaoResseguro, versoes[v].ValorCapitalMedio, versoes[v].IndicadorCalcularAfastados, TResseguro, versoes[v].IndicadorVersaoCalculada,versoes[v].DescricaoTipoTabelaTaxa )
+
+                versoesFront.push(versao);
+            }
+
+            var numeroCenario = cenarios[h].NumeroCenario ? cenarios[h].NumeroCenario : 1;
+            cenariosFront.push(new CenarioCotacao(numeroCenario, cenarios[h].TotalVidas, planosFront, cenarios[h].IndicadorRelacaoVidaSimplificada, cenarios[h].IndicadorRelacaoVidaAgrupada, versoesFront, true, cenarios[h].IndicadorPlanoMesmaCobertura));
+        }
+
+        cotacao.CenariosCotacao = cenariosFront;
+
+        //Eu não achei aonde ele chama o ObterCotacao (já que o método no controller está como cotacao/{id})
+        //Depois colocar na parte onde preencher os dados do frontEnd
+        if (cotacao.TotaisComissionamento != null) {
+            if (cotacao.TotaisComissionamento.TotalPercentualCorretagem != null)
+                $('#cotacaoTotalPercentualCorretagem').val(parseFloat(cotacao.TotaisComissionamento.TotalPercentualCorretagem).toFixed(2).replace('.', ','));
+
+            if (cotacao.TotaisComissionamento.TotalPercentualProLabore != null)
+                $('#cotacaoTotalPercentualProLabore').val(parseFloat(cotacao.TotaisComissionamento.TotalPercentualProLabore).toFixed(2).replace('.', ','));
+
+            if (cotacao.TotaisComissionamento.TotalPercentualAgenciamento != null)
+                $('#cotacaoTotalPercentualAgenciamento').val(parseFloat(cotacao.TotaisComissionamento.TotalPercentualAgenciamento).toFixed(2).replace('.', ','));
+        }
+    });
+
+</script>
+
+<script id="CoberturasTemplate" type="text/x-jsrender">
+    <div id="divCobertura_{{:CodigoCobertura}}" class="divCoberturaAdicional {{if ExclusivaDefault == "S"}}hide{{/if}}">
+        <div class="row cobertura">
+            <div class="{{if TipoEntrada != "diaria"}}col-md-8{{else}}col-md-6{{/if}}">
+                <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1">
+                    <input type="checkbox" class="checkCobertura" onchange="window.PlanosCondicoesComerciaisEvents.OnChangeCobertura({{:CodigoCobertura}},this)" onclick="window.PlanosCondicoesComerciaisEvents.OnClickCobertura({{:CodigoCobertura}},this)" name="{{:Nome}}" value="{{:CodigoCobertura}}" id="chk_cobertura_{{:CodigoCobertura}}"
+                           {{if Dependencias !=""}} disabled dependencias="{{:Dependencias}}" {{/if}}
+                           {{if Exclusivas!=""}} exclusivas="{{:Exclusivas}}" {{/if}}
+                           {{if CondicaoVisualizacao!=""}} condicaoVisualizacao="{{:CondicaoVisualizacao}}" {{/if}}>
+                </div>
+                <label name="chk_cobertura_{{:CodigoCobertura}}" class="lbl-radio-seguro small">{{:VerbaCoberturaProdutoComercial[0].TituloAmigavel}}</label>
+            </div>
+            {{if TipoEntrada == "percentualIndenizacao"}}
+            <div id="divIndice" class="col-md-2">
+                <input type="text" onchange="window.PlanosCondicoesComerciaisEvents.OnChangePercentualCobertura({{:CodigoCobertura}},this)" id="txt_cobertura_{{:CodigoCobertura}}" class="form-control bordaInput borda text-center mask999" maxlength="3" readonly="readonly" />
+            </div>
+            {{else TipoEntrada == "diaria"}}
+            <div id="divIndice" class="col-md-2 col-sm-2 col-xs-2 col-lg-2 col-xl-2">
+                <input type="text" onchange="window.PlanosCondicoesComerciaisEvents.OnChangeQuantidadeDiarias({{:CodigoCobertura}},this)" id="txt_QtdDiarias_{{:CodigoCobertura}}" class="form-control dinheiro bordaInput CorLetras text-right ValorLmiJson mask999" maxlength="4" readonly="readonly" />
+            </div>
+            <div id="divIndice" class="col-md-3 col-sm-3 col-xs-3 col-lg-3 col-xl-3">
+                <input type="text" onchange="window.PlanosCondicoesComerciaisEvents.OnChangeValorDiarias({{:CodigoCobertura}},this)" id="txt_ValorDiarias_{{:CodigoCobertura}}" class="form-control dinheiro bordaInput CorLetras text-right ValorLmiJson" maxlength="20" readonly="readonly" />
+            </div>
+            {{else TipoEntrada == "valorImportancia"}}
+            <div id="divIndice" class="col-md-3">
+                <input type="text" onchange="window.PlanosCondicoesComerciaisEvents.OnChangeValorImportancia({{:CodigoCobertura}},this)" id="txt_cobertura_{{:CodigoCobertura}}" class="form-control dinheiro bordaInput CorLetras text-right ValorLmiJson valorImportanciaSegurada" maxlength="20" readonly="readonly" codigoCobertura="{{:CodigoCobertura}}" />
+            </div>
+            {{else}}
+            <div id="divIndice" class="col-md-2">
+            </div>
+            {{/if}}
+
+            {{if VerbaCoberturaProdutoComercial[0].DescricaoAmigavel}}
+            <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1 text-center">
+                <span class="tooltip-toggle" aria-label="{{:VerbaCoberturaProdutoComercial[0].DescricaoAmigavel}}" tabindex="0">
+                    <img src="/images/duvidas.png">
+                </span>
+            </div>
+            {{/if}}
+        </div>
+        <hr class="hr-blue">
+        <div class="paddingT10"></div>
+    </div>
+</script>
+<script id="EscalonadoIdadeTemplate" type="text/x-jsrender">
+    <div id="inputEscalonadoPorIdadelinha_{{:indice}}" class="row">
+        <div id="inputIdades">
+            <div class="col-md-2">
+                <input onchange="window.PlanosCondicoesComerciaisEvents.OnChangeIdadeInicial((this.id).replace('inputIdadeInicial_',''))" class="form-control mask999" maxlength="3" type="value" id="inputIdadeInicial_{{:indice}}" placeholder="Idade Inicial">
+            </div>
+            <div class="col-md-2">
+                <input onchange="window.PlanosCondicoesComerciaisEvents.OnChangeIdadeFinal((this.id).replace('inputIdadeFinal_',''))" class="form-control mask999" maxlength="3" type="value" id="inputIdadeFinal_{{:indice}}" placeholder="Idade final">
+            </div>
+        </div>
+        <div id="inputCapital">
+            <div class="col-md-3">
+                <input onchange="window.PlanosCondicoesComerciaisEvents.OnChangeCapitalMinimo((this.id).replace('inputCapitalMinimo_',''))" class="form-control maskMoney" maxlength="20" type="value" id="inputCapitalMinimo_{{:indice}}" placeholder="Capital mínimo">
+            </div>
+            <div class="col-md-3">
+                <input onchange="window.PlanosCondicoesComerciaisEvents.OnChangeCapitalMaximo((this.id).replace('inputCapitalMaximo_',''))" class="form-control maskMoney" maxlength="20" type="value" id="inputCapitalMaximo_{{:indice}}" placeholder="Capital máximo">
+            </div>
+        </div>
+    </div>
+</script>

@@ -1,0 +1,137 @@
+﻿<div id="step-FavComissionamento">
+    <section id="step-FavComissionamento">
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12">
+
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">4</span>
+                        <b class="va-sub">Favorecidos de Comissionamento</b>
+                    </h3>
+                    <hr class="bordaHrForm">
+                </div>
+
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="panel panel-default corner">
+                        <div class="row margin-top-10px">
+                            <div class="col-md-12 col-sm-12">
+
+                                <div class="row margin-top-10px">
+                                    <div class="card corner col-md-12 col-sm-12">
+                                        <div class="card-body col-md-12 col-sm-12">
+                                            <div class="panel panel-default corner">
+                                                <div class="row mb-0" style="margin-bottom: -20px;">
+                                                    <div class="col-md-8 col-sm-8 text-left">
+                                                        <label class="textBlue mb-3">Comissão</label>
+                                                    </div>
+                                                </div>
+                                                <hr class="hr-blue-aqua">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-3 col-sm-3 ">
+                                        <div class="col-md-12 col-sm-12 pl-0">
+                                            <span>% Total</span>
+                                        </div>
+                                        <span id="totalComissao" style="font-size: 12px;">25,00</span>
+                                    </div>
+                                </div>
+                                <div class="row padding-top-5px">
+                                    <div id="divTabelaParticipacaoCorretor" class="col-md-12">
+                                        <table id="tabelaParticipacaoCorretor" class="dataTable lista-selected" cellspacing="0" cellpadding="0" style="width: 100%">
+                                            <thead>
+                                                <tr style="font-size:13px;">
+                                                    <th style="padding: 10px; color: white; border: 1px solid white; vertical-align: middle; text-align:center;">Líder</th>
+                                                    <th style="padding: 10px; color: white; border: 1px solid white; vertical-align: middle; text-align:left;">Corretor</th>
+                                                    <th style="padding: 10px; color: white; border: 1px solid white; vertical-align: middle; text-align:center;">% Participação</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="row margin-top-10px">
+                                    <div class="card corner col-md-12 col-sm-12">
+                                        <div class="card-body col-md-12 col-sm-12">
+                                            <div class="panel panel-default corner">
+                                                <div class="row mb-0" style="margin-bottom: -20px;">
+                                                    <div class="col-md-8 col-sm-8 text-left">
+                                                        <label class="textBlue mb-3">Pró-labore</label>
+                                                    </div>
+                                                </div>
+                                                <hr class="hr-blue-aqua">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row position-relative">
+                                    <div class="form-group col-md-3 col-sm-3">
+                                        <div class="col-md-12 col-sm-12 pl-0">
+                                            <span>% Total</span>
+                                        </div>
+                                        <span id="totalProLabore" style="font-size: 12px;"></span>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 ">
+                                        <div class="dropdown">
+                                            <span>Favorecido</span>
+                                            <div class="searchable">
+                                                <select class="form-control selAutoComplete" id="selectFavorecidoProLabore" onchange="">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 text-right">
+                                        <div>
+                                            <input type="button" class="btn btn-liberty-default marginTop-button" id="btnDadosBancariosProLabore" value="DADOS BANCÁRIOS" onclick="window.DadosEmissaoEvents.onClickDadosContaProlabore()" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="card corner col-md-12 col-sm-12">
+                                        <div class="card-body col-md-12 col-sm-12">
+                                            <div class="panel panel-default corner">
+                                                <div class="row mb-0" style="margin-bottom: -20px;">
+                                                    <div class="col-md-8 col-sm-8 text-left">
+                                                        <label class="textBlue mb-3">Agenciamento</label>
+                                                    </div>
+                                                </div>
+                                                <hr class="hr-blue-aqua">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row position-relative">
+                                    <div class="form-group col-md-3 col-sm-3 ">
+                                        <div class="col-md-12 col-sm-12 pl-0">
+                                            <span>% Total</span>
+                                        </div>
+                                        <span id="totalAgenciamento" style="font-size: 12px;"></span>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 ">
+                                        <div class="dropdown">
+                                            <span>Favorecido</span>
+                                            <div class="searchable">
+                                                <select class="form-control selAutoComplete" id="selectFavorecidoAgenciamento" onchange="">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 text-right">
+                                        <div>
+                                            <input type="button" class="btn btn-liberty-default marginTop-button" id="btnDadosBancariosAgenciamento" value="DADOS BANCÁRIOS" onclick="window.DadosEmissaoEvents.onClickDadosContaAgenciamento()" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+

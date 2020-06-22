@@ -1,0 +1,36 @@
+﻿<div class="form-principal">
+
+    <div id="cotador" class="row">
+
+        <partial name="CardBody/_CardBody.cshtml" />
+
+        <partial name="CardBody/_AnaliseRisco_CardBody.cshtml" />
+
+        <partial name="Header/_Header.cshtml" />
+
+        <partial name="Content/_Content.cshtml" />
+        
+    </div>
+</div>
+
+@section scriptsTop {
+    <script src="~/js/bootstrap-notify.min.js"></script>
+    <script src="~/js/Notification.js"></script>
+    <script src="~/js/jsrender.js"></script>
+}
+
+@section scripts {
+    <script src="~/js/cotacao.js"></script>
+    <script src="~/js/estipulante.js"></script>
+    <script src="~/js/questionario.js"></script>
+    <script src="~/js/seguradora.js"></script>
+    <script src="~/js/produtocomercial.js"></script>
+    <script src="~/js/cobertura.js"></script>
+    <script src="~/js/relacaodevidas.js"></script>
+    <script src="~/js/planocondicoescomerciais.js"></script>
+    <script src="~/js/dadoscomercializacao.js"></script>
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> dev

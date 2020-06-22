@@ -1,0 +1,150 @@
+﻿@model Liberty.Faturaveis.UI.ViewModel.CotacaoViewModel;
+
+<div class="row">
+    <div class="card corner col-md-12 col-sm-12">
+        <div class="card-body col-md-12 col-sm-12">
+            <div class="panel panel-default corner">
+                <div class="row mb-0">
+                    <div class="col-md-8 col-sm-8 text-left">
+                        <label class="textBlue mb-3">Modalidade do Seguro</label>
+                    </div>
+                </div>
+                <hr class="hr-blue-aqua" id="segundoHrCoberturas">
+            </div>
+        </div>
+    </div>
+</div>
+            <div class="row">
+                <div class="form-group col-md-3 col-sm-3">
+                    <div class="dropdown">
+                        <span>Modalidade</span>
+                        <div class="searchable">
+                            <select onchange="verificaModalidadeSeguro()" class="form-control selAutoComplete" id="selectTipoModalidadeCapital">
+                                <option selected="selected" value="0">SELECIONE UMA OPÇÃO</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="modalidadeSeguroUniforme">
+                    <div class="form-group col-md-3 col-sm-3">
+                        <span id="lblSeguroDataReferencia">Capital Uniforme</span>
+                        <input onfocusout="verificaValorCapitalUniforme()" class="form-control" maxlength="20" type="text" id="inputValorCapitalUniforme">
+                    </div>
+                </div>
+                <div id="modalidadeSeguroEscalonado">
+                    <div>
+                        <span><br /></span>
+                        <div class="form-group col-md-2 col-sm-2">
+                            <span>Por idade</span>
+                        </div>
+                        <div onchange="verificaEscalonadoPorIdade()" class="radio-inline form-group col-md-3 col-sm-3" id="selectEscalonadoPorIdade">
+                            <div class="col-md-4 col-sm-4">
+                                <input type="radio" id="SimEscalonadoPorIdade" name="EscalonadoPorIdade" value="Sim" />
+                                <label>Sim</label>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <input type="radio" id="NaoEscalonadoPorIdade" name="EscalonadoPorIdade" value="Nao" selected="selected" />
+                                <label>Não</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+        <div id="modalidadeEscalonadoPorIdade" class="row">
+            <div id="lblEscalonadoPorIdade" class="col-md-12 col-sm-12">
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                    <span id="lblNomeDoPlano">Idade inicial</span>
+                </div>
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                    <span id="lblNomeDoPlano">Idade final</span>
+                </div>
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                    <span id="lblNomeDoPlano">Capital mínimo</span>
+                </div>
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                    <span id="lblNomeDoPlano">Capital máximo</span>
+                </div>
+            </div>
+            <div id="inputEscalonadoPorIdade" class="col-md-8 col-sm-8">
+                <div id="inputEscalonadoPorIdadelinha_0" class="col-md-12 col-sm-12">
+                    <div class="form-group col-md-3 col-sm-3 col-xs-12">
+                        <input onfocusout="verificaIdadeInicial((this.id).replace('inputIdadeInicial_',''))" class="form-control" maxlength="3" type="text" id="inputIdadeInicial_0" placeholder="Idade Inicial">
+                    </div>
+                    <div class="form-group col-md-3 col-sm-3 col-xs-12">
+                        <input onfocusout="verificaIdadeFinal((this.id).replace('inputIdadeFinal_',''))" class="form-control" maxlength="3" type="text" id="inputIdadeFinal_0" placeholder="Idade final">
+                    </div>
+                    <div class="form-group col-md-3 col-sm-3 col-xs-12">
+                        <input onfocusout="verificaCapitalMinimo((this.id).replace('inputCapitalMinimo_',''))" class="form-control" maxlength="20" type="text" id="inputCapitalMinimo_0" placeholder="Capital mínimo">
+                    </div>
+                    <div class="form-group col-md-3 col-sm-3 col-xs-12">
+                        <input onfocusout="verificaCapitalMaximo((this.id).replace('inputCapitalMaximo_',''))" class="form-control" maxlength="20" type="text" id="inputCapitalMaximo_0" placeholder="Capital máximo">
+                    </div>
+                </div>
+            </div>
+            <div id="btnsEscalonadoPorIdade" class="col-md-4 col-sm-4 col-xs-4">
+                <div class="col-md-2 col-sm-2 col-xs-2">
+                    <input onclick="inserirInputEscalonadoPorIdadelinha(indiceEscalonadoPorIdade)" type="button" class="btn btn-liberty-default btn-sm" id="btnAdicionarPlanoEscalonado" value="+" />
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2">
+                    <input onclick="removerInputEscalonadoPorIdadelinha(indiceEscalonadoPorIdade)" type="button" class="btn btn-liberty-default btn-sm" id="btnRemoverPlanoEscalonado" value="-" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modalidadeSeguroMultiploSalarial">
+        <div class="form-group col-md-3 col-sm-3">
+            <span id="lblSeguroDataReferencia">Valor Múltiplo</span>
+            <input onfocusout="verificaValorMultiplo()" class="form-control" maxlength="10" type="text" id="inputValorMultiplo">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function verificaModalidadeSeguro() {
+
+        let ValorMultiploSalarial = "";
+        let ValorCapitalUniforme = "";
+
+        let cenarios = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.CenariosCotacao));
+        
+        if (cenarios != null && cenarios.length > 0) {
+            for (var c = 0; c <= cenarios.length; c++) {
+                let planos = cenarios[c].PlanosCondicoesComerciais;
+                if (planos != null && planos.length > 0) {
+                    for (var i = 0; i <= planos.length - 1; i++) {
+
+                        if (planos[i].TipoModalidadeCapital.Codigo === "UN") {
+                            ValorCapitalUniforme = planos[i].ValorCapitalUniforme;
+                        }
+                        else if (planos[i].TipoModalidadeCapital.Codigo === "ES") {
+
+                        }
+                        else if (planos[i].TipoModalidadeCapital.Codigo === "MS") {
+                            ValorMultiploSalarial = planos[i].ValorMultiploSalarial;
+                        }
+                    }
+                }
+            }
+
+        if ($('#selectTipoModalidadeCapital').val() == "UN") {
+            $('#modalidadeSeguroUniforme').show();
+            $('#modalidadeSeguroEscalonado').hide();
+            $('#modalidadeSeguroMultiploSalarial').hide();
+
+        } else if ($('#selectTipoModalidadeCapital').val() == "ES") {
+            $('#modalidadeSeguroEscalonado').show();
+            $('#modalidadeSeguroUniforme').hide();
+            $('#modalidadeSeguroMultiploSalarial').hide();
+        } else if ($('#selectTipoModalidadeCapital').val() == "MS") {
+            $('#modalidadeSeguroMultiploSalarial').show();
+            $('#modalidadeSeguroUniforme').hide();
+            $('#modalidadeSeguroEscalonado').hide();
+
+        } else {
+            $('#modalidadeSeguroEscalonado').hide();
+            $('#modalidadeSeguroUniforme').hide();
+            $('#modalidadeSeguroMultiploSalarial').hide();
+        }
+    }
+</script>

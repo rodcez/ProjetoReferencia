@@ -1,0 +1,59 @@
+﻿@model Liberty.Faturaveis.UI.ViewModel.CotacaoViewModel;
+
+<div id="step-Relatorios">
+    <section id="step-Relatorios">
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12">
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">2</span>
+                        <b class="va-sub">Relatórios</b>
+                    </h3>
+                    <hr class="bordaHrForm">
+                </div>
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="panel panel-default corner">
+                        <div id="formRel" name="formRel">
+                            <div class="row margin-top-20px">
+                                <div class="col-md-12 col-sm-12">
+
+                                    <ul class="nav cenario-tabs" id="cenariosRel">
+                                    </ul>
+
+                                    <div class="row margin-top-10px">
+                                        <div class="form-group col-md-6 col-sm-6">
+                                            <div class="dropdown">
+                                                <span>Versão do Cálculo</span>
+                                                <div class="searchable">
+                                                    <select class="form-control selAutoComplete" onchange="window.RelatoriosAnaliseDeRiscoEvents.onChangeVersao(this)" id="selectVsCalculoRel">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-6 col-sm-6">
+                                            <div class="dropdown">
+                                                <span>Plano</span>
+                                                <div class="searchable">
+                                                    <select class="form-control selAutoComplete" onchange="window.RelatoriosAnaliseDeRiscoEvents.onChangePlano()" id="selecPlanoRel">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <partial name="_ResumoTecnico.cshtml" model="@Model" />
+                                    <partial name="_Freecover.cshtml" model="@Model" />
+                                    <partial name="_DistribuicaoCapital.cshtml" model="@Model" />
+                                    <partial name="_ProjecaoFaturamento.cshtml" model="@Model" />
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </section>
+</div>

@@ -1,0 +1,206 @@
+﻿@model Liberty.Faturaveis.UI.ViewModel.CotacaoViewModel;
+
+<div class="col-md-8 col-sm-11 content-left row-fluid">
+
+    <div class="row">
+        <div class="tab-content">
+            <div class="tab-pane active" id="cotacao">
+
+                <form id="frmCotacao" method="post"
+                      data-ajax="true" data-ajax-method="post"
+                      data-ajax-failure="onFailed" data-ajax-success="onSuccess" data-ajax-url="/cotacao">
+
+                    @Html.HiddenFor(m => m.Filial.CodigoCompanhia)
+                    @Html.HiddenFor(m => m.Filial.Codigo)
+                    @Html.HiddenFor(m => m.Filial.CodigoEstabelecimento)
+                    @Html.HiddenFor(m => m.Filial.Descricao)
+
+                    <partial name="DadosCorretor/_DadosCorretor.cshtml" model="@Model" />
+
+                    <partial name="DadosEstipulante/_DadosEstipulante.cshtml" model="@Model" />
+
+                    <partial name="DadosSeguro/_DadosSeguro.cshtml" model="@Model" />
+
+                    <partial name="CondicoesComerciais/_CondicoesComerciais.cshtml" model="@Model" />
+
+                    <partial name="DadosComercializacao/_DadosComercializacao.cshtml" model="@Model" />
+
+                    <div class="row pull-right" id="CotacaoSubmit">
+                        <div class="col-md-3 col-sm-3">
+                            <input type="submit" class="btn btn-liberty-default btnSalvar" id="btnSalvar" value="SALVAR"
+                                   onclick="ativarSolicitarOrcamento(event,false)" />
+                        </div>
+
+                        <div class="col-md-6 col-sm-6">
+                            <input type="submit" class="btn btn-liberty-default btnSalvar" id="btnSolicitar" value="SOLICITAR ORÇAMENTO"
+                                   onclick="ativarSolicitarOrcamento(event,true)" />
+                        </div>
+                    </div>
+
+                    @Html.HiddenFor(m => m.IndicadorSolicitarOrcamento, new { id = "hdSolicitarOrcamento" })
+                    @Html.HiddenFor(m => m._id, new { id = "hdCotacaoId" })
+
+                </form>
+            </div>
+
+            <div class="tab-pane" id="analiseRisco">
+
+                <form id="frmAnaliseRisco" method="post"
+                      data-ajax="true" data-ajax-method="post"
+                      data-ajax-failure="onFailed" data-ajax-success="onSuccess" data-ajax-url="">
+
+                    @Html.HiddenFor(m => m.Filial.CodigoCompanhia)
+                    @Html.HiddenFor(m => m.Filial.Codigo)
+                    @Html.HiddenFor(m => m.Filial.CodigoEstabelecimento)
+
+                    <partial name="AnaliseRisco_DadosCalculo/_DadosCalculo.cshtml" />
+
+                    <partial name="AnaliseRisco_Relatorios/_Relatorios.cshtml" />
+
+                    @Html.HiddenFor(m => m._id, new { id = "hdCotacaoId" })
+
+                </form>
+
+            </div>
+
+            <div class="tab-pane" id="orcamento">
+                <partial name="Orcamento/_DadosOrcamento.cshtml" />
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="row margin-top-10px">
+                            <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right">
+                                <input type="button" class="btn btn-liberty-default" id="btnOrcamentoEnviado" value="ORÇAMENTO ENVIADO" onclick="window.DadosOrcamentoEvents.onClickOrcamentoEnviado()" disabled />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <partial name="Orcamento/_Aceitacao.cshtml" />
+
+
+            </div>
+
+            <div class="tab-pane" id="aceitacao">
+
+                <partial name="CartaOferta/_DadosCosseguroCedido.cshtml" />
+                <partial name="CartaOferta/_DadosCartaOferta.cshtml" />
+                <partial name="CartaOferta/_CenariosComissionamento.cshtml" />
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="row margin-top-10px">
+                            <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right">
+                                <input type="button" class="btn btn-liberty-default" id="btnCartaOfertaEnviada" value="CARTA OFERTA ENVIADA" onclick="window.CenariosComissionamentoEvents.onClickCartaOfertaEnviada()" disabled />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <partial name="CartaOferta/_Aceitacao.cshtml" />
+            </div>
+
+            <div class="tab-pane" id="emissao">
+                <partial name="Emissao/_DadosEmissao.cshtml" />
+                <partial name="Emissao/_DadosEstipulante.cshtml" />
+                <partial name="Emissao/_DadosSubEstipulante.cshtml" />
+                <partial name="Emissao/_FavorecidosComissionamento.cshtml" />
+                <partial name="Emissao/_DadosCobranca.cshtml" />
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="row margin-top-10px">
+                            <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right">
+                                <input type="button" class="btn btn-liberty-default" id="btnSalvarEmissao" value="SALVAR" onclick="window.DadosEmissaoEvents.onClickSalvarApolice()" />
+                                <input type="button" class="btn btn-liberty-default" id="btnEnviarApolice" value="ENVIAR APÓLICE" onclick="window.DadosEmissaoEvents.onClickEnviarApolice()" />
+                                <input type="button" class="btn btn-liberty-default" id="btnReprocessarApolice" value="REPROCESSAR" onclick="window.DadosEmissaoEvents.onClickReprocessarApolice()" />
+                            </div>
+                        </div>
+                        <div class="row margin-top-10px">
+                            <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right">
+                                <input type="button" class="btn btn-liberty-default" id="btnvisualizarErro" value="VISUALIZAR ERRO" onclick="window.DadosEmissaoEvents.onClickVisualizarErro()" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="modalCotacao" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-lg">
+            <div id="modal-body-cotacao" class="modal-custom-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <div id="ContentIframe">
+                    <iframe id="ifrmCotacao" class="iframe-form-modal" src="" width="100%" height="100%" frameborder="0"></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="linha-form-botoes">
+                    <button type="button" id="btnGravar" class="btn btn-default">Gravar</button>
+                    <button type="button" id="btnConfirmar" class="btn btn-cancelar" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalMensagemErro" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-lg">
+            <div class="modal-body-cotacao">
+
+                <div class="row">
+                    <div class="col-sm-11">
+                        <b class="va-sub" style="font-size: 20px;">Motivo do Erro</b>
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="row">
+                    <div class="form-group col-md-12 col-sm-12">
+                        <span>Mensagem</span>
+                        <textarea class="form-control bordaInput custom-input" rows="10" id="txtMensagemErro" maxlength="10000" disabled="disabled" onkeyup="if (event.which == 13) { $(this).val($(this).val() + '\n')}"></textarea>
+                    </div>
+                </div>
+
+                <br />
+                <div class="row">
+                    <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right">
+                        <input type="button" class="btn btn-liberty-default" value="Exportar XML" id="btnExportarXml" onclick="window.DadosEmissaoEvents.onClickExportarXml()" />
+                        <input type="button" class="btn btn-liberty-default" value="Fechar" onclick="$('#modalMensagemErro').modal('toggle');" />
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Colocar a função no cotacao.js*@
+
+<script>
+    //se existe campos invalidos chamar e.preventDefault();
+</script>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="solicitarOrcamento-modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                Deseja confirmar o envio do Orçamento?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-liberty-default" id="modal-btn-solicitarOrcamento-sim" value="SIM">SIM</button>
+                <button type="button" class="btn btn-liberty-default" id="modal-btn-solicitarOrcamento-nao" value="NÃO">NÃO</button>
+            </div>
+        </div>
+    </div>
+</div>
+

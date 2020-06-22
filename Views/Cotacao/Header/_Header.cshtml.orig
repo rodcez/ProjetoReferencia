@@ -1,0 +1,57 @@
+﻿
+<div class="col-md-8 col-sm-11 content-left row-fluid" style="margin-bottom: 15px;">
+    <div class="row">
+        <div class="row centralizeItens">
+            <div class="col-sm-1">
+                <img src="~/images/produtos/ico-vida-transparente.png" width="64">
+            </div>
+            <div class="col-sm-8">
+                <span class="va-sub col-md-12" id="NomeProdutoComercial">@Model.ProdutoComercial.Nome</span>
+                <span id="statusCotacao" class="textBlue va-sub col-md-12">STATUS:@(Model.Status == null ? "EM COTAÇÃO" : Model.Status.Descricao)</span>
+            </div>
+            <div class="col-sm-3 ge corner filial">
+                <label-premio-nl class="mb-3 mt-1">Filial:</label-premio-nl><label-premio-nl class="textBlue mb-3 mt-1">@Model.Filial?.Descricao</label-premio-nl>
+                <br>
+                <label-premio-nl class="mb-3 mt-1">N° Cotação:</label-premio-nl><label-premio-nl id="numeroCotacao" class="textBlue mb-3 mt-1">@(Model._id == null ? "0" : Model._id.ToString())</label-premio-nl>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<<<<<<< HEAD
+<div class="row col">
+    <nav id="headerTabs">
+        <ul class="nav nav-tabs">
+            <li id="tab_cotacao" class="active"><a href="#cotacao" data-toggle="tab">1. Cotação</a></li>
+            <li id="tab_proposta" ><a href="#proposta" class="abaProposta" data-toggle="tab">2. Proposta</a></li>
+            <li><a href="#ocorrencia"  data-toggle="tab">3. Ocorrências</a></li>
+        </ul>
+    </nav>
+=======
+<div class="col-md-8 col-sm-11 content-left row-fluid">
+    <div class="row">
+        <nav id="headerTabs">
+            <ul class="nav nav-tabs">
+                <li id="tab_cotacao" class="active"><a href="#cotacao" data-toggle="tab">Cotação</a></li>
+                <li id="tab_analiseRisco"><a href="#analiseRisco" data-toggle="tab">Análise de Risco</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+>>>>>>> dev
+
+<script>
+
+    $("#tab_cotacao").click(function () {
+        $("#menuTabCotacao").show();
+        $("#menuTabAnaliseRisco").hide();
+    });
+
+    $("#tab_analiseRisco").click(function () {
+        $("#menuTabAnaliseRisco").show();
+        $("#menuTabCotacao").hide();
+    });
+
+</script>

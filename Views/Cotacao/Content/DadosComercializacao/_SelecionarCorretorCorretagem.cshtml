@@ -1,0 +1,187 @@
+﻿@model IEnumerable<Liberty.Faturaveis.UI.Application.Corretores.Commands.ObterListaCorretor.ObterListaCorretorResponse>
+
+<link rel="shortcut icon" href="~/images/favicon.ico" />
+<link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+<link rel="stylesheet" href="~/css/theme.min.css" />
+<link rel="stylesheet" href="~/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/main.min.css" />
+<link rel="stylesheet" href="~/css/jquery.dataTables.min.css" />
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/jquery.mask.min.js"></script>
+<script src="~/js/jquery.maskMoney.min.js"></script>
+<script src="~/js/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/jquery.dataTables.min.js"></script>
+<script src="~/js/jquery.placeholder.min.js"></script>
+
+<div class="form-header">
+    <img src="~/images/Corretor.png" />
+    <div class="form-title">
+        <h2>Consulta Corretor</h2>
+    </div>
+</div>
+
+<div class="form-principal-modal">
+    <div>
+        <div class="conteudo-modal" id="containerSelecionarCorretorCorretagem">
+            <form>
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="form-group col-md-12 col-sm-12">
+                            <div>
+                                <span id="lblCorretor">Corretor</span>
+                                <div class="buttonInside">
+                                    @Html.TextBox("CorretorCorretagemPesquisa", (string)ViewBag.Value, new { name = "CorretorCorretagemPesquisa", id = "CorretorCorretagemPesquisa", @class = "form-control col-md-12 bordaInput custom-input", @autocomplete = "off", placeholder = "Pesquisa de Corretores" })
+                                    <button type="button" class="pesquisa" id="PesquisaCorretorCorretagem" style="border-radius: 1px;z-index: 1;"><i class="glyphicon glyphicon-search" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div id="partial_SelecionarCorretorCorretagem">
+                <partial name="~/Views/Cotacao/Content/DadosComercializacao/_SelecionarCorretorCorretagemTable.cshtml" model="@Model" ) />
+            </div>
+
+            <div class="improve-consultation">
+                @if (@ViewBag.ImproveSelecionarCorretor != null)
+                {@ViewBag.ImproveSelecionarCorretor}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="masterLoadingImage" class="master-loadingImage" style="display: none">
+    <div class="box-loader">
+        <img src="~/images/ajax-loader.gif" />
+        <span id="masterLoadingMessage">Aguarde...</span>
+    </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+
+            $(document).ready(function () {
+
+                $('input').placeholder();
+
+                $('#CorretorCorretagemPesquisa').keydown(function (e) {
+                    if (e.keyCode == 13) {
+                        pesquisarCorretorCorretagem();
+                        return false;
+                    }
+                });
+            });
+
+            function openAjaxLoading(div, message) {
+                $("#masterLoadingImage").addClass("master-loadingCorretor");
+                $("#masterLoadingImage").clone().css({ display: "block" }).appendTo(div.css("position", "relative"));;
+
+                if ((message != null))
+                    $("#masterLoadingMessage").html(message);
+            }
+
+            function closeAjaxLoading(div) {
+                div.find("#masterLoadingImage").remove();
+            }
+
+            function pesquisarCorretorCorretagem() {
+
+                openAjaxLoading($("#partial_SelecionarCorretorCorretagem"));
+
+                var t = GetTable();
+
+                $.ajax({
+                    url: '/ObterListaCorretorCorretagemTable',
+                    type: 'POST',
+                    data: {
+                        buscaRealizada: $('#CorretorCorretagemPesquisa').val(),
+                    },
+                    success: function (response) {
+                                $("#partial_SelecionarCorretorCorretagem").html(response.result);
+                                loadStyleGrid();
+
+                        $('#ImproveSelecionarCorretor').html("");
+                        if (response.mensagem != "" && response.mensagemQuantidadeLimite != "0")
+                            $('#ImproveSelecionarCorretor').html(response.mensagemQuantidadeLimite);
+
+                    },
+                    error: function (xhr, textStatus, exceptionThrown) {
+                        openMasterMessageError("Erro", exceptionThrown);
+                        closeAjaxLoading($("#partial_SelecionarCorretorCorretagem"));
+                    }
+                });
+
+            }
+
+            function selecionarCorretagem(Codigo, Descricao, Codigoclienteoperacional, Estabelecimento, TipoCliente, TipoPessoa, PesquisarRevendaPeloCorretor) {
+
+                parent.closeIFramePesquisaCorretorCorretagem(Codigo, Descricao, Codigoclienteoperacional, Estabelecimento, TipoCliente, TipoPessoa, PesquisarRevendaPeloCorretor);
+        }
+
+            function GetTable(){
+                    return $('#GridCorretorCorretagem').dataTable({
+                    "aaSorting": [[2, "asc"]],
+                    "scrollY": "300px",
+                    "scrollCollapse": true,
+                    "paging": false,
+                    "bSort": true,
+                    "cache": false,
+                    "bLengthChange": false,
+                    "destroy": true,
+                    "oLanguage": {
+                        "sProcessing": "A processar...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "Não existem registros.",
+                        "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros.",
+                        "sInfoEmpty": "Mostrando de 0 até 0 de 0 registros.",
+                        "sInfoFiltered": "(filtrado de _MAX_ registros no total)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Filtrar ",
+                        "sUrl": "",
+                        "oPaginate": {
+                            "sFirst": "Primeiro",
+                            "sPrevious": "Anterior",
+                            "sNext": "Próximo",
+                            "sLast": "Último"
+                        },
+                    }
+                });
+            }
+
+            function loadStyleGrid() {
+
+                var table = GetTable()
+                $('.lista-selected tr').hover(function () {
+                    $(this).addClass('row_selected');
+                }, function () {
+                    $(this).removeClass('row_selected');
+                });
+
+                if ($('#GridCorretorCorretagem').length) {
+                    table.$('tr').click(function () {
+                        table.$('tr').each(function () {
+                            $(this).removeClass("selected-row");
+                        })
+                        var data = table.fnGetData(this);
+                        $(this).addClass("selected-row");
+
+                        selecionarCorretagem(data[0], data[2], data[4], data[3], data[5], data[6], "@ViewBag.PesquisarRevendaPeloCorretor");
+
+                    });
+                }
+            }
+
+
+
+            loadStyleGrid();
+
+            $('#PesquisaCorretorCorretagem').click(function () {
+                window.ComercializacaoFunctions.pesquisarCorretorCorretagem();
+            });
+
+
+</script>
+
+

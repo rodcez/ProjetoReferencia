@@ -1,0 +1,215 @@
+﻿@model Liberty.Faturaveis.UI.ViewModel.CotacaoViewModel;
+
+    <div id="formQuestionario" name="formQuestionario">
+        @do
+        {
+            int indiceQuestionario = 0;
+            foreach (var q in Model.Questionarios)
+            {
+                @Html.HiddenFor(v => v.Questionarios[indiceQuestionario].Codigo)
+                
+                foreach (var p in q.Perguntas.OrderBy(x => x.Codigo))
+                {
+                    int indicePerguntas = q.Perguntas.FindIndex(perg => perg.Codigo == p.Codigo);
+                    @Html.HiddenFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Codigo)
+                    @Html.HiddenFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Descricao)
+                    if (p.Respostas.Count == 1)
+                    {
+                        <hr class="hr-blue">
+                        <div class="row">
+                            <div class="form-group col-md-12 col-sm-12" id="formPerguntaUnica">
+                                <div class="dropdown" id="formPerguntaCombo">
+                                    <span>@p.Descricao</span>
+                                    <div class="searchable">
+                                        @Html.TextBoxFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Respostas[0].Valor, new { @class = "form-control col-md-12 bordaInput custom-input", autocomplete = "off" })
+                                        @Html.HiddenFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Respostas[0].Codigo)
+                                        @Html.HiddenFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Respostas[0].Descricao)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (p.Respostas.Count == 2)
+                    {
+                        if (p.Codigo == 238)
+                        {
+                            <div class="row" style="padding-top: 5px">
+                                <div class="col-xs-12 col-md-4 col-sm-4 col-lg-4 col-xl-6 paddingT11">
+                                    @p.Descricao
+                                </div>
+                                @foreach (var r in p.Respostas)
+                                {
+                            <div class="col-xs-6 col-md-4 col-sm-4 col-lg-4 col-xl-3 paddingT11">
+                                <div class="col-lg-4">
+                                    @r.Descricao
+                                </div>
+                                <div class="col-xs-6 col-md-6 col-sm-6 col-lg-6 col-xl-6 paddingL6">
+                                    <div>
+                                        <input maxlength="3" class="form-control bordaInput CorLetras text-right maskMoneyPercent0"  id="@p.Codigo.ToString()@r.Codigo.ToString()" type="text">
+
+                                    </div>
+                                </div>
+                            </div>
+                                    
+                                }
+                                @Html.HiddenFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Respostas[0].Codigo)
+                                @Html.HiddenFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Respostas[0].Descricao)
+                                @Html.HiddenFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Respostas[0].Valor)
+                                @Html.HiddenFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Respostas[1].Codigo)
+                                @Html.HiddenFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Respostas[1].Descricao)
+                                @Html.HiddenFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Respostas[1].Valor)
+                            </div>
+                        }
+                        else
+                        {
+                            <hr class="hr-blue">
+                            <div class="row">
+                                <div class="form-group col-md-5 col-sm-3">
+                                    <span>@p.Descricao</span>
+                                </div>
+
+                                <div class="form-group col-md-7 col-sm-6">
+                                    <div class="radio-inline div-@p.Codigo" id=@p.Codigo.ToString() name=@p.Codigo.ToString()>
+                                        @foreach (var r in p.Respostas)
+                                        {
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="col-md-12">
+                                                    @Html.RadioButtonFor(x => x.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Respostas[0], r.Descricao, new { @id = p.Codigo.ToString() + r.Codigo.ToString() })
+                                                    <label class="lbl-radio-seguro">@r.Descricao</label>
+
+                                                </div>
+                                            </div>
+                                        }
+                                        @Html.HiddenFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Respostas[0].Descricao)
+                                        @Html.HiddenFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Respostas[0].Valor)
+                                        @Html.HiddenFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Respostas[0].Codigo)
+                                    </div>
+                                </div>
+                                @if (p.Codigo == 230)
+                                {
+                                    <div class="row form-group col-md-12 col-sm-12 paddingT7 paddingL10" id="justificativaFacultativa" name="justificativaFacultativa">
+                                        <div class="form-group">
+                                            <textarea class="form-control" id="inputJustificativaFacultativa" rows="3" onkeyup="if (event.which == 13) { $(this).val($(this).val() + '\n')  }"></textarea>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                        }
+                    }
+                    else
+                    {
+                        <hr class="hr-blue">
+                        <div class="row">
+                            <div class="form-group col-md-6 col-sm-6" id="formPerguntaCombo">
+                                <div class="dropdown" id="formPerguntaCombo">
+                                    <span>@p.Descricao</span>
+                                    <div class="searchable">
+                                        @{
+                                            var resposta = new Resposta();
+                                            p.Respostas.Insert(0, resposta);
+                                        }
+                                        @Html.DropDownListFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Respostas[0], (p.Respostas.Select(x => new SelectListItem { Text = x.Descricao, Value = x.Valor })), new { @class = "form-control selAutoComplete", @id = p.Codigo.ToString() })
+                                        @Html.HiddenFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Respostas[0].Codigo)
+                                        @Html.HiddenFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Respostas[0].Descricao)
+                                        @Html.HiddenFor(v => v.Questionarios[indiceQuestionario].Perguntas[indicePerguntas].Respostas[0].Valor)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }                    
+                }
+                indiceQuestionario++;
+            }
+        } while (0 > 1);
+    </div>
+
+    <script type="text/javascript">
+        function atualizarCamposDoQuestionarioComDadosDaModel()
+        {
+            let listaQuestionarios = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Questionarios));
+            
+            if (listaQuestionarios != null && listaQuestionarios.length > 0) {
+
+                //QUESTIONARIOS:
+                for (var i = 0; i <= listaQuestionarios.length - 1; i++) {
+
+                    if (listaQuestionarios[i].Perguntas !== null && listaQuestionarios[i].Perguntas.length > 0) {
+
+                        //PERGUNTAS:
+                        for (var p = 0; p <= listaQuestionarios[i].Perguntas.length - 1; p++) {
+
+                            if (listaQuestionarios[i].Perguntas[p].Respostas !== null && listaQuestionarios[i].Perguntas[p].Respostas.length > 0) {
+
+                                
+                                if (listaQuestionarios[i].Perguntas[p].Respostas.length == 1) { // RESPOSTAS = 1
+            
+
+                                }                                
+                                else if (listaQuestionarios[i].Perguntas[p].Respostas.length == 2)  //RESPOSTAS = 2
+                                {                                    
+                                    for (var r = 0; r <= listaQuestionarios[i].Perguntas[p].Respostas.length - 1; r++) {
+                                        var idCampo = listaQuestionarios[i].Perguntas[p].Codigo.toString() + listaQuestionarios[i].Perguntas[p].Respostas[r].Codigo.toString();                                    
+
+                                        if (listaQuestionarios[i].Perguntas[p].Codigo === 238) {
+
+                                            //textbox:
+                                            if (idCampo === "2381546") {
+                                                $('#2381546').val(listaQuestionarios[i].Perguntas[p].Respostas[r].Valor + '%');
+                                            }
+                                            if (idCampo === "2381547") {
+                                                $('#2381547').val(listaQuestionarios[i].Perguntas[p].Respostas[r].Valor + '%');
+                                            }
+                                            $("#Questionarios_0__Perguntas_4__Respostas_0__Valor").val($('#2381546').val());
+                                            $("#Questionarios_0__Perguntas_4__Respostas_1__Valor").val($("#2381547").val());
+                                        }
+                                        else {
+
+                                            //Radiobuttons:
+                                            $("#" + idCampo).prop("checked", listaQuestionarios[i].Perguntas[p].Respostas[r].Selecionado);
+
+
+                                            if (idCampo === "2301544" && $("#" + idCampo).prop("checked")) {
+                                                $("#justificativaFacultativa").show();
+                                                $("#inputJustificativaFacultativa").val(listaQuestionarios[i].Perguntas[p].Respostas[r].Valor);
+                                            }
+                                        }
+                                    }
+                                }
+                                else if (listaQuestionarios[i].Perguntas[p].Respostas.length >= 3) //RESPOSTAS = 3
+                                {
+                                    //Dropdown:
+                                    var idCampo = listaQuestionarios[i].Perguntas[p].Codigo.toString();
+
+                                    for (var r = 0; r <= listaQuestionarios[i].Perguntas[p].Respostas.length - 1; r++) {
+
+                                        if (listaQuestionarios[i].Perguntas[p].Respostas[r].Selecionado)
+                                        {
+
+                                            $("#select2-" + idCampo + "-container").text(listaQuestionarios[i].Perguntas[p].Respostas[r].Descricao);
+                                            $('#' + idCampo).val(listaQuestionarios[i].Perguntas[p].Respostas[r].Descricao);
+
+                                            if (idCampo === "231") {
+                                                if ($('#231').val() == "Empresa") {
+                                                    $('#2381546').prop('disabled', true);
+                                                    $('#2381547').prop('disabled', true);
+                                                }
+                                                if ($('#231').val() == "Segurado") {
+                                                    $('#2381546').prop('disabled', true);
+                                                    $('#2381547').prop('disabled', true);                                                    
+                                                }
+                                                if ($('#231').val() == "Segurado/Empresa") {
+                                                    $('#2381546').prop('disabled', false);
+                                                    $('#2381547').prop('disabled', false);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>

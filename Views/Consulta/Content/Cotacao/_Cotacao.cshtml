@@ -1,0 +1,186 @@
+﻿<div class="row">
+    <div class="card corner col-md-12 col-sm-12 marginTop-cards">
+        <div class="card-title">
+            <h3 class="h3">
+                <b class="va-sub">Cotação</b>
+            </h3>
+            <hr class="bordaHrTitulo">
+        </div>
+        <div class="card-body col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 2%; margin-bottom: 2%">
+            <div id="consultaLinha1" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 row">
+                <div id="camposCompanhiaStatusTipo" class="col-xs-6 col-sm-6 col-md-6 col-lg-6 " style="padding: 0px 0px 0px 0px">
+                    <div id="campoCompanhia" style="margin-bottom: 4%; padding: 0px 0px 0px 0px" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                        <div class="dropdown">
+                            <span>Companhia</span>
+                            <div class="searchable">
+                                <select onchange="window.ConsultaEvents.selecionaCompanhia()" class="form-control selAutoComplete paddingT" id="selectCompanhia">
+                                    <option></option>
+                                    <option value="1">Liberty</option>
+                                    <option value="2">Indiana</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="campoStatus" style="margin-top: 4%; margin-bottom: 4%; padding: 0px 0px 0px 0px" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                        <div class="dropdown">
+                            <span>Status Cotação</span>
+                            <div class="searchable">
+                                <select class="form-control selAutoComplete paddingT" id="selectStatus">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="campoTipoConsulta" style="margin-top: 4%; margin-bottom: 4%; padding: 0px 0px 0px 0px" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                        <div class="dropdown">
+                            <span>Tipo de Consulta</span>
+                            <div class="searchable">
+                                <select onchange="window.ConsultaEvents.selecionaTipoConsulta()" class="form-control selAutoComplete paddingT" id="selectTipoConsulta">
+                                    <option></option>
+                                    <option value="1">Corretor</option>
+                                    <option value="2">Cotação</option>
+                                    <option value="3">Estipulante</option>
+                                    <option value="5">CPF / CNPJ</option>
+                                    <option value="4">Período de Criação</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0px 0px 0px 0px"></div>
+                <div id="campoFilial" class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding: 0px 0px 0px 0px">
+                    <div class="dropdown">
+                        <span id="lblSeguroDataReferencia">Filial</span><br />
+                        <div class="searchable">
+                            <select class="form-control selAutoComplete col-xs-12 col-sm-12 col-md-12 col-lg-12" multiple="multiple" data-placeholder="Pesquise ou selecione a(s) filial(is)" id="selectFilial">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="consultaLinha2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 row">
+                <div id="campoCorretor" class="col-xs-5 col-sm-5 col-md-5 col-lg-5" style="padding: 0px 0px 0px 0px">
+                    <span id="lblCorretor">Corretor</span>
+                    <div class="buttonInside">
+                        @Html.TextBox("CorretorConsultaPesquisa", (string)ViewBag.Value, new { name = "CorretorConsultaPesquisa", id = "CorretorConsultaPesquisa", @class = "form-control bordaInput custom-input", @autocomplete = "off", placeholder = "Pesquisa de Corretores" })
+                        <button type="button" class="pesquisa" onclick="window.ConsultaFunctions.pesquisarCorretorConsulta()" id="PesquisaCorretor" style="border-radius: 1px;z-index: 1;"><i class="glyphicon glyphicon-search" aria-hidden="true"></i></button>
+                        <input id="codigoClienteCorretor" type="hidden" />
+                        <input id="codigoCorretor" type="hidden" />
+                    </div>
+                </div>
+                <div id="campoEstipulanteNome" class="col-xs-5 col-sm-5 col-md-5 col-lg-5" style="padding: 0px 0px 0px 0px">
+                    <div>
+                        <span id="lblSeguroDataReferencia">Estipulante</span>
+                        <input class="form-control" type="text" onclick="window.ConsultaUi.LimpaNomeEstipulante()" id="inputEstipulante">
+                    </div>
+                </div>
+                <div id="campoEstipulanteCpfCnpj" class="col-xs-5 col-sm-5 col-md-5 col-lg-5" style="padding: 0px 0px 0px 0px">
+                    <div>
+                        <span id="lblSeguroDataReferencia">CPF / CNPJ</span>
+                        <input class="form-control" onchange="window.ConsultaUi.MascaraEstipulanteCnpjCpf()" onclick="window.ConsultaUi.LimpaEstipulanteCnpjCpf()" onkeydown="window.ConsultaUi.LimpaMascaraEstipulanteCnpjCpf()" type="text" id="inputCpfCnpj">
+                    </div>
+                </div>
+                <div id="campoEspacamentoCentral" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding: 0px 0px 0px 0px"></div>
+                <div id="campoNumeroCotacao" class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="padding: 0px 0px 0px 0px">
+                    <div>
+                        <span id="lblSeguroDataReferencia">Número Cotação</span>
+                        <input class="form-control" type="text" onclick="window.ConsultaUi.LimpaNumeroCotacao()" id="inputNumeroCotacao">
+                    </div>
+                </div>
+                <div id="campoPeriodo" class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding: 0px 0px 0px 0px">
+                    <div>
+                        <div id="PeriodoInicial" class="col-xs-5 col-sm-5 col-md-5 col-lg-5" style="padding: 0px 0px 0px 0px">
+                            <span id="lblSeguroDataReferencia">Período</span>
+                            <input class="form-control" type="text" id="inputPeriodoInicial" placeholder="dd/mm/aaaa" onchange="window.ConsultaFunctions.validaPeriodo()" onfocus="$('#inputPeriodoInicial').mask('99/99/9999')">
+                        </div>
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 center-block text-center" style="padding: 5px 0px 0px 0px">
+                            <br />
+                            até
+                        </div>
+                        <div id="PeriodoFinal" class="col-xs-5 col-sm-5 col-md-5 col-lg-5" style="padding: 0px 0px 0px 0px">
+                            <br />
+                            <input class="form-control" type="text" id="inputPeriodoFinal" placeholder="dd/mm/aaaa" onchange="window.ConsultaFunctions.validaPeriodo()" onfocus="$('#inputPeriodoFinal').mask('99/99/9999')">
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="consultaLinha3" class="col-md-3 row pull-right margin-right-15px">
+                <div style="float: right;padding-left: 10px;">
+                    <input type="button" class="btn btn-liberty-default btnSalvar" id="btnLimparConsulta" value="LIMPAR" onclick="window.ConsultaFunctions.limparConsulta()" />
+                </div>
+                <div style="float: right">
+                    <input type="button" class="btn btn-liberty-default btnSalvar" id="btnConsultar" value="CONSULTAR" onclick="window.ConsultaFunctions.pesquisarCotacoes()" />
+                </div>
+            </div>
+
+            <div id="consultaLinha4" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 row paddingT">
+                <div id="campoTabelaConsulta">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="modalCorretorConsulta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-lg">
+            <div id="modal-body-cotacao" class="modal-custom-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <div id="ContentIframe">
+                    <iframe id="ifrmCorretorConsulta" class="iframe-form-modal" src="" width="100%" height="100%" frameborder="0"></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="linha-form-botoes">
+                    <button type="button" id="btnFecharIFrameConsulta" class="btn btn-liberty-default btnForm" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="FiliaisTemplate" type="text/x-jsrender">
+    <input type="checkbox" onclick="window.ConsultaEvents.verificaTipoConsulta()" name="{{:nomeFilial}}" value="{{:codigoFilial}}">
+    {{:nomeFilial}}
+    <br>
+</script>
+
+<script id="StatusTemplate" type="text/x-jsrender">
+    <option value="{{:codigoDominio}}">{{:descricaoDominio}}</option>
+</script>
+
+<script id="TabelaCotacaoTemplate" type="text/x-jsrender">
+    <table id="tabelaConsulta">
+        <thead>
+            <tr style="font-size:13px;">
+                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding: 10px 0px 10px 0px; color: white; border: 1px solid white; text-align:center;">Cotação</th>
+                <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 10px 0px 10px 0px; color: white; border: 1px solid white; text-align:center;">Estipulante</th>
+                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding: 10px 0px 10px 0px; color: white; border: 1px solid white; text-align:center;">Filial</th>
+                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding: 10px 0px 10px 0px; color: white; border: 1px solid white; text-align:center;">Produto</th>
+                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding: 10px 0px 10px 0px; color: white; border: 1px solid white; text-align:center;">Data Receb.</th>
+                <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding: 10px 0px 10px 0px; color: white; border: 1px solid white; text-align:center;">Corretor</th>
+                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding: 10px 0px 10px 0px; color: white; border: 1px solid white; text-align:center;">Status</th>
+                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 center-block text-center" style="padding: 0px 0px 0px 0px"></th>
+            </tr>
+        </thead>
+        <tbody id="corpoTabelaConsulta" style="font-size:12px;">
+        </tbody>
+    </table>
+</script>
+
+<script id="CotacaoTemplate" type="text/x-jsrender">
+    <tr>
+        <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding: 0px 0px 0px 0px; border: 1px solid white; text-align:center;">{{:id}}</td>
+        <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0px 0px 0px 0px; border: 1px solid white; text-align:center;">{{:estipulanteNome}}</td>
+        <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding: 0px 0px 0px 0px; border: 1px solid white; text-align:center;">{{:filialDescricao}}</td>
+        <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0px 0px 0px 0px; border: 1px solid white; text-align:center;">{{:produto}}</td>
+        <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding: 0px 0px 0px 0px; border: 1px solid white; text-align:center;">{{:dataReferencia}}</td>
+        <td class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding: 0px 0px 0px 0px; border: 1px solid white; text-align:center;">{{:corretorNome}}</td>
+        <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding: 0px 0px 0px 0px; border: 1px solid white; text-align:center;">{{:statusDescricao}}</td>
+        <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="vertical-align: middle; padding: 0px 0px 0px 0px;"><a href="/cotacao/{{:id}}"><img src="/images/iconeBusca.png" /></a></td>
+    </tr>
+</script>

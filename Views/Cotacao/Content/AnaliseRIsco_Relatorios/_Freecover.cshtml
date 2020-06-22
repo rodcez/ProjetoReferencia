@@ -1,0 +1,95 @@
+﻿@model Liberty.Faturaveis.UI.ViewModel.CotacaoViewModel;
+<div id="step-Freecover">
+    <section id="step-Freecover">
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12">
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">2.2</span>
+                        <b class="va-sub">Freecover</b>
+                    </h3>
+                    <hr class="bordaHrForm no-margin-right">
+                </div>
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="panel panel-default corner">
+                        <div id="formRel" name="formRel">
+                            <div class="row margin-top-20px">
+                                <div class="col-md-12 col-sm-12">
+
+                                    <div id="accordion" role="tablist" aria-multiselectable="true">
+
+                                        @*Free Cover - Aceitação Grupo*@
+                                        <div class="panel no-margin-bottom">
+                                            <div class="row headerDadosGeraisAzulPetroleo" role="tab" id="headingRel11">
+                                                <div class="col-md-12 col-sm-12 margin-left-minus-20px">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseRel11" aria-expanded="true" aria-controls="collapseRel11">
+                                                        <span class="glyphicon glyphicon-chevron-down pull-left margin-right-5px"></span>
+                                                    </a>
+                                                    Free Cover - Aceitação Grupo
+                                                </div>
+                                                <hr class="hr-blue-aqua margin-left-15px">
+                                            </div>
+                                            <div id="collapseRel11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseRel11">
+                                                <div class="row rowDadosGeraisAzulPetroleo">
+                                                    <div class="col-md-2 col-sm-2 textAlignCenter colNoPaddingLeftRight">
+                                                        <span>IS acima de 70 anos</span>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-3 textAlignCenter colNoPaddingLeftRight">
+                                                        <span>Limite Máx. Abrangência FCL</span>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 textAlignCenter colNoPaddingLeftRight">
+                                                        <span>Soma Média Segurada</span>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 textAlignCenter colNoPaddingLeftRight">
+                                                        <span>Free Cover Limit</span>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 textAlignCenter colNoPaddingLeftRight">
+                                                        <span>%Grupo</span>
+                                                    </div>
+                                                    <div class="col-md-1 col-sm-1">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row rowDadosGerais">
+                                                    <div class="col-md-2 col-sm-2 textAlignCenter colNoPaddingLeftRight">
+                                                        <span id="ISAcimaLimiteIdadeFreecover"></span>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-3 textAlignCenter colNoPaddingLeftRight">
+                                                        <span id="LimiteMaximoAbrangenciaFreecover"></span>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 textAlignCenter colNoPaddingLeftRight">
+                                                        <span id="SomaMediaSeguradaFreecover"></span>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 textAlignCenter colNoPaddingLeftRight">
+                                                        <span id="LimiteFreecover"></span>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 textAlignCenter colNoPaddingLeftRight">
+                                                        <span id="PorcentagemGrupoFreecover"></span>
+                                                    </div>
+                                                    <div class="col-md-1 col-sm-1 colNoPaddingLeftRight">
+                                                        <span class="" style="font-size: 20px; margin-top: -5px;" id="FreecoverFcl"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body col-md-12 col-sm-12">
+
+                    <div class="row padding-top-5px">
+                        <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right colNoPaddingLeftRight">
+                            <input type="button" class="btn btn-liberty-default" value="Exportar" onclick="window.RelatoriosAnaliseDeRiscoEvents.OnClickExportarFreecover()" id="exportarFreecover" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

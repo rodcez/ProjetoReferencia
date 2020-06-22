@@ -1,0 +1,53 @@
+﻿<div id="masterModal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div id="masterModalHeader" class="modal-master-header">
+                <h5 class="modal-title" id="masterModalMessageHeader"></h5>
+            </div>
+            <div class="modal-master-body">
+                <span id="masterModalMessage"></span>
+            </div>
+            <div class="modal-master-body-details">
+                <span id="masterModalDetails"></span>
+            </div>
+            <div class="modal-master-button">
+                <div id="divmasterModalOK" style="display: inline-block">
+                    <button id="masterModalOk" type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                </div>
+                <div id="divmasterModalOKCalculo" style="display: inline-block">
+                    <button id="masterModalOkCalculo" type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                </div>
+                <div id="divmasterModalYes" style="display: none">
+                    <button id="masterModalYes" type="button" class="btn btn-default" data-dismiss="modal">Sim</button>
+                </div>
+                <div id="divmasterModalNo" style="display: none">
+                    <button id="masterModalNo" type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                </div>
+                <div id="divmasterModalNoAcao" style="display: none">
+                    <button id="masterModalNoAcao" type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="masterModalWait" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-master-body">
+                <span id="masterModalWaitHeader"></span>
+                <div class="box-loader">
+                    <img src="~/images/ajax-loader.gif" alt="Aguarde" />
+                    <span id="masterModalWaitMessage">Aguarde...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="masterLoadingImage" class="master-loadingImage" style="display: none">
+    <div class="box-loader">
+        <img src="~/images/ajax-loader.gif" />
+        <span id="masterLoadingMessage">Aguarde...</span>
+    </div>
+</div>

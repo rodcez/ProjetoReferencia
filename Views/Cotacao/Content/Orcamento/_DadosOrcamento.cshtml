@@ -1,0 +1,117 @@
+﻿<div id="step-DadosOrc">
+    <section id="step-DadosOrc">
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12">
+
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">1</span>
+                        <b class="va-sub">Dados do Orçamento</b>
+                    </h3>
+                    <hr class="bordaHrForm">
+                </div>
+
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="panel panel-default corner">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <ul class="nav cenario-tabs margin-top-20px" id="cenariosDO">
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-6">
+                                        <div class="dropdown">
+                                            <span>Versão do Cálculo</span>
+                                            <div class="searchable">
+                                                <select class="form-control selAutoComplete" id="selectVersaoDadosOrcamento" onchange="window.DadosOrcamentoEvents.onChangeVersao(this)">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <div class="col-md-6 col-sm-6 nowrap pl-0">
+                                            <span>Orçamento com planos agrupados?</span>
+                                        </div>
+                                        <div class="radio-inline form-group col-md-4" id="selectPlanosAgrupados">
+                                            <div class="col-md-2" style="padding-right:45px;">
+                                                <input type="radio" id="SimPlanosAgrupadosDO" name="PlanosAgrupados" value="true" disabled/>
+                                                <label>Sim</label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="radio" id="NaoPlanosAgrupadosDO" name="PlanosAgrupados" value="false" disabled/>
+                                                <label>Não</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="card corner col-md-12 col-sm-12">
+                                        <div class="card-body col-md-12 col-sm-12">
+                                            <div class="panel panel-default corner">
+                                                <div class="row mb-0">
+                                                    <div class="col-md-8 col-sm-8 text-left">
+                                                        <label class="textBlue mb-3">Textos Padrões</label>
+                                                    </div>
+                                                </div>
+                                                <hr class="hr-blue-aqua">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-6 ">
+                                        <div class="dropdown">
+                                            <span>Afastados</span>
+                                            <div class="searchable">
+                                                <select class="form-control selAutoComplete" id="selectAfastados">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-sm-6 ">
+                                        <div class="dropdown">
+                                            <span>Aposentados</span>
+                                            <div class="searchable">
+                                                <select class="form-control selAutoComplete" id="selectAposentados">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <span>Observação</span>
+                                        <textarea class="form-control bordaInput custom-input" rows="10" id="txtObservacaoOrcamento" maxlength="10000"
+                                                  onkeyup="if (event.which == 13) { $(this).val($(this).val() + '\n')}"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right">
+                                        <input type="button" id="btnSalvarOrcamento" class="btn btn-liberty-default" value="Salvar" onclick="window.DadosOrcamentoEvents.onClickSalvar()" />
+                                        <input type="button" id="btnExportarOrcamento" class="btn btn-liberty-default" value="Exportar" onclick="window.DadosOrcamentoEvents.onClickExportar()"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+

@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="pt-br">
+    <link rel="shortcut icon" href="~/images/favicon.ico" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/css/theme.min.css" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/select2.min.css" />
+    <link rel="stylesheet" href="~/css/main.min.css" />
+    <link rel="stylesheet" href="~/css/datatables.css" />
+    @RenderSection("css", required: false)
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/jquery-ui-1.11.1.js"></script>
+    <script src="~/js/jquery.mask.min.js"></script>
+    <script src="~/js/jquery.maskMoney.min.js"></script>
+    <script src="~/js/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/select2.js"></script>
+    <script src="~/js/i18n/pt-BR.js"></script>
+    @RenderSection("scriptsTop", required: false)
+
+    @*<partial name="/Views/Shared/_GoogleAnalytics.cshtml" />*@
+    <partial name="/Views/Shared/_SessaoBrowser.cshtml" />
+
+</head>
+<body class="master-menu">
+
+    <!--Cabeçalho-->
+    <div class="header">
+        <div class="header-principal">
+            <div class="user-loginbar">
+                <div class="user-name">
+                    <span class="iconfa-user"></span>
+                </div>
+                <ul style="display: inline-block; float: left">
+                    <li class="dropdown listamensagem">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret dropdown-custom"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-custom" role="menu"></ul>
+                    </li>
+                </ul>
+                <ul class="loginbar">
+                    <li>
+                        <span class="iconfa-off"></span>@Html.ActionLink("Sair", "Logout", "Auth")
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="logo">
+                @*<a href="https://meuespacocorretor.libertyseguros.com.br/">*@
+                <a>
+                    <img id="logoCombinado" src="@Url.Content("~/images/logo.png")" alt="Liberty" />
+                </a>
+                <h1>CCF - Cotador / Controlador Faturáveis</h1>
+            </div>
+
+        </div>
+    </div>
+    <!--./Cabeçalho-->
+    @*@{
+            var classStatusMenu = (@SessionProfile.Usuario.StatusMenu == "F" ? "fecha-painel" : "abre-painel");
+            var classStatusPainel = (@SessionProfile.Usuario.StatusMenu == "F" ? "painel-aberto" : "painel-fechado");
+            var classVersoes = (@SessionProfile.Usuario.StatusMenu == "F" ? "esconde-rodape-versoes" : "");
+            var classNotificacao = (@SessionProfile.Usuario.StatusMenu == "F" ? "abre-notificacao" : "fecha-notificacao");
+        }*@
+
+    <!--Menu Lateral-->
+    <div id="painel-esquerdo" class="abre-painel">
+        <div class="navegacao-painel">
+            <input type="button" id="btnFecharMenu" class="btn-close-mobile" />
+            <h4 class="header-menu">Menu</h4>
+            <div class="conteudo-painel">
+                <div id="navegacao">
+                    <ul class="sidebar-nav">
+                        @*@Html.MontarMenu()*@
+                        <li>
+                            <ul class="sidebar-nav">
+                                <li><a class="aba-menu-mobile" href="/selecao">Cotação</a></li>                               
+                            </ul>
+                        </li>
+                        <li>
+                            <ul class="sidebar-nav">
+                                <li><a class="aba-menu-mobile" href="/consulta">Consulta</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--./Menu Lateral-->
+    <!--Corpo-->
+    <div id="painel-direito" class="painel-fechado">
+        <div class="breadcrumbs">
+            <div class="aba-menu status-menu">
+                <span class="iconfa-reorder"></span>
+            </div>
+            <div class="aba-menu-mobile status-menu">
+                <span class="iconfa-reorder"></span>
+            </div>
+            <ul>
+                @*<li>@Html.ActionImage("Index", "Home", "iconfa-home", new { Id = "" }, "Home")</li>*@
+            </ul>
+
+            @*<div class="PropostasMigalha">
+                    <img src="/Images/produtos/ico-autoPerfil.png" class="img-responsive">
+                </div>
+                <div class="PropostasMigalha">
+                    <img src="/Images/produtos/ico-autoPerfil.png" class="img-responsive">
+                </div>
+                <div class="PropostasMigalha">
+                    <img src="/Images/produtos/ico-autoPerfil.png" class="img-responsive">
+                </div>*@
+            <div class="timer">
+                @*<p>Sua sessão expira em:<span>@Session.Timeout</span></p>*@
+            </div>
+        </div>
+        <div class="conteudo-principal" onload="">
+            @RenderBody()
+            <div id="painel-notificacao" style="display:none;"></div>
+        </div>
+        <div class="rodape">
+            <p>
+                © 2015 Liberty Seguros S/A
+            </p>
+        </div>
+    </div>
+    <!--./Corpo-->
+
+
+
+    <partial name="_Modals.cshtml" />
+    <script src="~/js/site.min.js"></script>
+
+
+    @RenderSection("scripts", required: false)
+
+    @*@Html.Partial("~/Views/Shared/MEC_ManterSessao.cshtml")*@
+
+</body>
+</html>
+
+<script>
+
+    $('.status-menu').click(function () {
+        try {
+            var dataAjax = {};
+            Ajax('@Url.Action("AtualizarStatusMenu", "Cotacao")', dataAjax);
+        } catch (e) {
+            ExceptionHandling(e);
+        }
+    });
+
+    $("#masterModal").on('hidden.bs.modal', '.modal', function () {
+        $(document.body).removeClass('modal-noscrollbar');
+    })
+
+    $("#masterModal").on('show.bs.modal', '.modal', function () {
+        if ($(window).height() >= $(document).height()) {
+            $(document.body).addClass('modal-noscrollbar');
+        }
+    });
+
+
+
+    // Seta o css de acordo com o canal selecionado
+    // idCanal: codigo do canal
+    @*function SetaCssDeAcordoComCanal(idCanal) {
+        switch (idCanal) {
+
+            case "6":
+                $('link[rel=stylesheet].tema').attr({ href: '@Styles.Url("~/Content/Varejo")' });
+                $('#logoCombinado').attr({ src: '@Url.Content("~/Images/logo.png")' });
+                break;
+            case "1":
+                $('link[rel=stylesheet].tema').attr({ href: '@Styles.Url("~/Content/Concessionaria")' });
+                $('#logoCombinado').attr({ src: '@Url.Content("~/Images/logo-combinado-indiana.png")' });
+                break;
+            case "3":
+                $('link[rel=stylesheet].tema').attr({ href: '@Styles.Url("~/Content/Affinity")' });
+                $('#logoCombinado').attr({ src: '@Url.Content("~/Images/logo-combinado-affinity.png")' });
+                break;
+            case "8":
+            case "9":
+            case "89":
+                $('link[rel=stylesheet].tema').attr({ href: '@Styles.Url("~/Content/Aliro")' });
+                $('#logoCombinado').attr({ src: '@Url.Content("~/Images/logo-combinado-aliro.png")' });
+                break;
+        }
+    }*@
+
+    $('#logoCombinado').click(function () {
+        window.close();
+    });
+
+    $('#navegacao > ul > li > a[id]').next('ul').find('li').each(function (index, elem) {
+        $(elem).css("cursor", "pointer");
+        $(elem).find('a').click(function () {
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: '@Url.Action("Index", "IntegracaoDSO")' + '?' + new Date().getTime().toString(),
+                data: { idSubTipoWorkFlow: this.id }
+            }).success(function (ret) {
+                var form = $(ret).hide();
+                $("body").append(form);
+                form.submit();
+                form.remove();
+            });
+
+        });
+    });
+
+    $('#navegacao > ul > li > a[id]').css("cursor", "pointer");
+
+    $('#navegacao > ul > li > ul > li a[id]').each(function (index, elem) {
+        $(elem).css("cursor", "pointer");
+        if (elem.id == "IntegrateResidencia") {
+            $(elem).click(function () {
+                $.ajax({
+                    type: "POST",
+                    cache: false,
+                    url: '@Url.Action("Index", "CotacaoResidencia")' + '?' + new Date().getTime().toString(),
+                    data: { idSubTipoWorkFlow: this.id }
+                }).success(function (ret) {
+                    var form = $(ret).hide();
+                    $("body").append(form);
+                    form.submit();
+                    form.remove();
+                });
+
+            });
+        }
+    });
+
+
+</script>

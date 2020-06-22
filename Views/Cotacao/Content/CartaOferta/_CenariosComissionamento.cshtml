@@ -1,0 +1,60 @@
+﻿<div id="step-CenarioComisssionamento">
+    <section id="step-CenarioComisssionamento">
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12">
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">3</span>
+                        <b class="va-sub">Cenários de Comissionamento</b>
+                    </h3>
+                    <hr class="bordaHrForm">
+                </div>
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="panel panel-default corner">
+                        <div id="formPlano" name="formPlano">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="row margin-top-10px">
+                                        <div class="col-md-4 col-sm-4">
+                                            <div class="dropdown">
+                                                <span>Plano</span>
+
+                                                <div class="searchable">
+                                                    <select class="form-control selAutoComplete" id="selectPlanoCenComiss" onchange="window.CenariosComissionamentoEvents.onChangePlanoCenComiss()">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row padding-top-5px">
+                                        <div id="divTabelaCenariosComissionamento" class="col-md-12">
+                                            <table id="tabelaCenariosComissionamento" class="table table-bordered table-responsive table-hover" style="width: 100%">
+                                                <thead class="thead-light" bgcolor="#9AD9EA">
+                                                    <tr>
+                                                        <th class="no-sort" style="color: white; vertical-align: middle; text-align:center;"></th>
+                                                        <th style="color: white; vertical-align: middle; text-align:center;">Comissão %</th>
+                                                        <th style="color: white; vertical-align: middle; text-align:center;">Pró-Labore %</th>
+                                                        <th style="color: white; vertical-align: middle; text-align:center;">Agenciamento %</th>
+                                                        <th style="color: white; vertical-align: middle; text-align:center;">Taxa Média %</th>
+                                                        <th style="color: white; vertical-align: middle; text-align:right;">Estimativa Faturamento Mensal</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <span style="font-size: 13px;">* Por ser uma estimativa, pode haver variação entre os valores dessa tabela e a Carta-Oferta, prevalecendo o desta última.</span>
+                                    <div class="row">
+                                        <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right">
+                                            <input type="button" class="btn btn-liberty-default" id="btnSalvarCartaOferta" value="SALVAR" onclick="window.CenariosComissionamentoEvents.onClickSalvar()" disabled/>
+                                            <input type="button" class="btn btn-liberty-default" id="btnExportarCartaOferta" value="EXPORTAR" onclick="window.CenariosComissionamentoEvents.onClickExportar()" disabled/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

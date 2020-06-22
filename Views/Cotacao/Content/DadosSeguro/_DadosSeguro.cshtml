@@ -1,0 +1,93 @@
+﻿@model Liberty.Faturaveis.UI.ViewModel.CotacaoViewModel
+
+﻿<div id="step-3" class="posicaoStep">
+    <section id="step-3">
+
+        <div class="row">
+
+            <div class="card corner col-md-12 col-sm-12 marginTop-cards">
+                <div class="card-title">
+                    <h3 class="h3">
+                        <span class="badge">3</span>
+                        <b class="va-sub">Dados do Seguro</b>
+                    </h3>
+                    <hr class="bordaHrForm">
+                </div>
+
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="row">
+                        <div class="form-group col-md-3 col-sm-3">
+                            <span>Tipo de Seguro</span>
+                        </div>
+
+                        <div class="form-group col-md-5 col-sm-6" style="padding-left: 7%">
+                            <div class="radio-inline" id="selectTipoSeguro" name="selectTipoSeguro">
+                                <div class="col-md-5 col-sm-5">
+                                    <div class="col-md-12">
+                                        @Html.RadioButtonFor(model => model.IndicadorTransferenciaSeguradora, false, new { id = "rbIndicadorTransferenciaSeguradoraNao", @checked = @Model.IndicadorTransferenciaSeguradora == false ?  "checked"  : null })
+                                        <label class="lbl-radio-seguro">Novo</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-7" style="padding-left: 4%;">
+                                    <div class="col-md-12">
+                                        @Html.RadioButtonFor(model => model.IndicadorTransferenciaSeguradora, true, new { id = "rbIndicadorTransferenciaSeguradoraSim", @checked = @Model.IndicadorTransferenciaSeguradora == true ?  "checked"  : null})
+                                        <label class="lbl-radio-seguro">Transferência</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="formSeguradora" name="formSeguradora">
+                        <div class="row">
+                            <div class="form-group col-md-6 col-sm-6" id="formSeguradora">
+                                <div class="dropdown" id="formSeguradora">
+                                    <span>Seguradora</span>
+                                    <div class="searchable">
+                                        @Html.DropDownListFor(m => m.SeguradoraAnterior, (IEnumerable<SelectListItem>)ViewBag.Selecione, new { @class = "form-control selAutoComplete" })
+                                        @Html.HiddenFor(m => m.SeguradoraAnterior.Codigo)
+                                        @Html.HiddenFor(m => m.SeguradoraAnterior.Nome)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12 col-sm-12" id="selectHouveSinistro">
+                                    <div class="form-group col-md-5 col-sm-5">
+                                        <span>Houve Sinistro nos últimos 36 meses?</span>
+                                    </div>
+                                    <div class="form-group col-md-7 col-sm-7" style="padding-left: 6%">
+                                        <div class="col-md-4 col-sm-4">
+                                            <div class="col-md-12">
+                                                @Html.RadioButtonFor(model => model.SeguradoraAnterior.IndicadorSinistro, true, new { id = "rbIndicadorSinistroSim", @checked = @Model.SeguradoraAnterior.IndicadorSinistro == true ?  "checked" : null })
+                                                <label for="rbIndicadorSinistroSim" class="lbl-radio-seguro">Sim</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 col-sm-5">
+                                            <div class="col-md-12">
+                                                @Html.RadioButtonFor(model => model.SeguradoraAnterior.IndicadorSinistro, false, new { id = "rbIndicadorSinistroNao", @checked = @Model.SeguradoraAnterior.IndicadorSinistro == false ?  "checked" : null  })
+                                                <label for="rbIndicadorSinistroNao" class="lbl-radio-seguro">Não</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-3 col-sm-3">
+                            <div>
+                                <span id="lblSeguroDataReferencia">Data de Referência</span>
+                                @Html.TextBoxFor(m => m.DataReferencia, "{0:dd/MM/yyyy}", new { @class="form-control", @disabled="disabled", @maxlength="10", @id="inputDataReferencia" })
+                                @Html.HiddenFor(m => m.DataReferencia, new { @value = DateTime.Now.Date, id = "hdDataReferencia" })
+                            </div>
+                        </div>
+                    </div>
+                    @await Component.InvokeAsync("Questionario", new { model = Model })
+
+                    <br />
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

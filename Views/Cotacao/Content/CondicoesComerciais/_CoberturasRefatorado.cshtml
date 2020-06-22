@@ -1,0 +1,169 @@
+﻿@model Liberty.Faturaveis.UI.ViewModel.CotacaoViewModel;
+
+<div class="posicaoStep">
+    <section>
+        @*<input type="hidden" id="hdCodigoCoberturaMorte" value="@RetornarCodigoCoberturaBasicaMorte()" />*@
+        <div class="row">
+            <div class="card corner col-md-12 col-sm-12">
+                <div class="card-body col-md-12 col-sm-12">
+                    <div class="panel panel-default corner">
+                        <div class="row">
+                            <div class="card corner col-md-12 col-sm-12">
+                                <div class="card-body col-md-12 col-sm-12">
+                                    <div class="panel panel-default corner">
+                                        <div class="row mb-0">
+                                            <div class="col-md-8 col-sm-8 text-left">
+                                                <label class="textBlue mb-3">Coberturas</label>
+                                            </div>
+                                        </div>
+                                        <hr class="hr-blue-aqua" id="segundoHrCoberturas">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Coberturas básica*@
+                        <div id="CoberturaProdutoComercialBasica"></div>
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            @*Coberturas adicionais*@
+                            <div class="panel panel-default">
+                                <div class="panel-heading row" role="tab" id="headingTwo">
+                                    <h4 class="panel-title textBlue mb-3 col-md-8 col-sm-8 text-left">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                            Coberturas adicionais
+                                        </a>
+                                    </h4>
+                                    <label class="text-uppercase textBlue mb-3 col-md-3 col-sm-3 text-center">% Ind.</label>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-body">
+                                        <div id="CoberturaProdutoComercialAdicionais"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*Coberturas adicionais - diárias*@
+                            <div class="panel panel-default">
+                                <div class="panel-heading row" role="tab" id="headingThree">
+                                    <h4 class="panel-title textBlue mb-3 col-md-8 col-sm-8 text-left">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                            Coberturas adicionais - diárias
+                                        </a>
+                                    </h4>
+                                    <label class="text-uppercase textBlue mb-3">Qtd diárias</label>
+                                    <label class="text-uppercase textBlue mb-3">Valor diária</label>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                    <div class="panel-body">
+                                        <div id="CoberturaProdutoComercialAdicionaisDiarias"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*Coberturas adicionais - Funeral*@
+                            <div class="panel panel-default">
+                                <div class="panel-heading row" role="tab" id="headingFour">
+                                    <h4 class="panel-title textBlue mb-3 col-md-8 col-sm-8 text-left">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                            Coberturas adicionais - Funeral
+                                        </a>
+                                    </h4>
+                                    <label class="text-uppercase textBlue mb-3" style="padding-left: 10%;">Valor Funeral</label>
+                                </div>
+                                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                    <div class="panel-body">
+                                        <div id="CoberturaProdutoComercialAdicionaisFuneral"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*Serviços*@
+                            <div class="panel panel-default">
+                                <div class="panel-heading row" role="tab" id="headingFive">
+                                    <h4 class="panel-title textBlue mb-3 col-md-8 col-sm-8 text-left">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                                            Serviços
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                                    <div class="panel-body">
+                                        <div id="CoberturaProdutoComercialCestaBasica"></div>
+                                        <div id="CoberturaProdutoComercialCestaNatalidade"></div>
+                                        <div id="CoberturaProdutoComercialServicos"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Relacao vidas*@
+                        <div class="row">
+                            <div class="card corner col-md-12 col-sm-12">
+                                <div class="card-body col-md-12 col-sm-12">
+                                    <div class="panel panel-default corner">
+                                        <div class="row mb-0">
+                                            <div class="col-md-8 col-sm-8 text-left">
+                                                <label class="textBlue mb-3">Relação de vidas</label>
+                                            </div>
+                                        </div>
+                                        <hr class="hr-blue-aqua" id="segundoHrCoberturas">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script type="text/javascript">
+        let coberturasBasicas = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CoberturaProdutoComercial_Basica));
+        let coberturasAdicionais = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CoberturaProdutoComercial_Adicionais));
+        let coberturasAdicionaisDiarias = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CoberturaProdutoComercial_Diarias));
+        let coberturasAdicionaisFuneral = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CoberturaProdutoComercial_AdicionaisFuneral));
+        let coberturasCestaBasica = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CoberturaProdutoComercial_CestaBasica));
+        let coberturasCestaNatalidade = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CoberturaProdutoComercial_CestaNatalidade));
+        let coberturasServicos = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CoberturaProdutoComercial_Servicos));
+</script>
+
+<script id="CoberturasTemplate" type="text/x-jsrender">
+    <div class="row cobertura">
+        <div class="col-md-8 col-sm-8">
+            <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1">
+                <input type="checkbox" class="checkCobertura" name="basica" id="chk_cobertura_{{:CodigoCobertura}}">
+                @* <input type="hidden" name="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Codigo" value="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Codigo" />
+                    <input type="hidden" name="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].CodigoTipoCobertura" value="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].CodigoTipoCobertura" />
+                    <input type="hidden" name="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Nome" value="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Nome" />
+                    <input type="hidden" name="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Verbas[0]" value="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Verbas[0]" />
+                    <input type="hidden" name="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Verbas[0].Codigo" value="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Verbas[0].Codigo" />
+                    <input type="hidden" name="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Verbas[0].Nome" value="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Verbas[0].Nome" />
+                    <input type="hidden" name="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Verbas[0].PercentualIndenizacao" value="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Verbas[0].PercentualIndenizacao" id="hd_cobertura_percentualIndenizacao_{{:CodigoCobertura}}" />
+                    <input type="hidden" name="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Verbas[0].PercentualIndenizacaoValorCadastrado" value="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Verbas[0].PercentualIndenizacaoValorCadastrado" id="hd_cobertura_percentualIndenizacaoValorCadastrado_{{:CodigoCobertura}}" />
+                    <input type="hidden" name="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Selecionado" value="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Selecionado" id="hd_cobertura_selecionado_{{:CodigoCobertura}}" />*@
+            </div>
+            <label name="chk_cobertura_{{:CodigoCobertura}}" class="lbl-radio-seguro small">{{:VerbaCoberturaProdutoComercial[0].TituloAmigavel}}</label>
+        </div>
+        @*{{if tipo == "percentualIndenizacao"}}
+            <div id="divIndice" class="col-md-3 col-sm-3 col-xs-3 col-lg-3 col-xl-3">
+                <input type="text" name="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Verbas[0].PercentualIndenizacao" id="txt_cobertura_{{:CodigoCobertura}}" class="form-control bordaInput borda text-center" maxlength="3" disabled="disabled" />
+            </div>
+            {{else tipo == "diaria"}}
+            <div id="divIndice" class="col-md-2 col-sm-2 col-xs-2 col-lg-2 col-xl-2" style="padding-left: 32px;padding-right: 28px;">
+                <input type="text" name="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Verbas[0].QuantidadeDiaria" id="txt_QtdDiarias_{{:CodigoCobertura}}" class="form-control dinheiro bordaInput CorLetras text-right ValorLmiJson" maxlength="4" readonly="readonly" />
+            </div>
+            <div id="divIndice" class="col-md-2 col-sm-2 col-xs-2 col-lg-2 col-xl-2" style="padding-left: 20px;padding-right: 15px;">
+                <input type="text" name="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Verbas[0].ValorDiaria" id="txt_ValorDiarias_{{:CodigoCobertura}}" class="form-control dinheiro bordaInput CorLetras text-right ValorLmiJson" maxlength="20" readonly="readonly" />
+            </div>
+            {{else tipo == "valorImportancia"}}
+            <div id="divIndice" class="col-md-2 col-sm-2 col-xs-2 col-lg-2 col-xl-2" style="padding-left: 32px;padding-right: 28px;">
+                <input type="text" name="PlanosCondicoesComerciais[{{:indicePlano}}].Coberturas[{{:indiceCobertura}}].Verbas[0].ValorImportanciaSegurada" id="txt_cobertura_{{:CodigoCobertura}}" class="form-control dinheiro bordaInput CorLetras text-right ValorLmiJson valorImportanciaSegurada" maxlength="20" readonly="readonly" codigoCobertura="{{:cobertura.CodigoCobertura}}" />
+            </div>
+            {{/if}}
+        *@
+        {{if VerbaCoberturaProdutoComercial[0].DescricaoAmigavel}}
+        <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1 col-xl-1 paddingT10 text-center">
+            <span class="tooltip-toggle" aria-label="{{:VerbaCoberturaProdutoComercial[0].DescricaoAmigavel}}" tabindex="0">
+                <img src="~/images/duvidas.png">
+            </span>
+        </div>
+        {{/if}}
+    </div>
+    <hr class="hr-blue">
+</script>

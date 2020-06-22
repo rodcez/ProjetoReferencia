@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Liberty.Faturaveis.UI.Application.Corretores.Commands.ObterListaCorretor.ObterListaCorretorResponse>
+
+<table class="dataTable lista-selected" cellspacing="0" cellpadding="0" id="GridCorretor" >
+    <thead>
+        <tr>
+            <th class="hide"></th>
+            <th title="codigo">Código</th>
+            <th title="corretor">Corretor</th>
+            <th title="estabelecimento">Estabelecimento</th>
+            <th class="hide"></th>
+            <th class="hide"></th>
+            <th class="hide"></th>
+        </tr>
+</thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td class="hide">@Html.DisplayFor(modelItem => item.CodigoCliente)</td>
+            <td style="text-align: left; width: 15%">@Html.DisplayFor(modelItem => item.CodigoCliente)</td>
+            <td style="text-align: left; width: 70%">@Html.DisplayFor(modelItem => item.NomeCliente)</td>
+            <td style="text-align: center; width: 15%">@Html.DisplayFor(modelItem => item.Estabelecimento)</td>
+            <td class="hide">@Html.DisplayFor(modelItem => item.CodigoOperacionalCliente)</td>
+            <td class="hide">@Html.DisplayFor(modelItem => item.TipoCliente)</td>
+            <td class="hide">@Html.DisplayFor(modelItem => item.TipoPessoa)</td>
+        </tr>
+        }
+    </tbody>
+</table>

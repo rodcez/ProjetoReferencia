@@ -1,0 +1,66 @@
+﻿@model Liberty.Faturaveis.UI.ViewModel.CotacaoViewModel;
+    <div id="step-DistCapital">
+        <section id="step-DistCapital">
+            <div class="row">
+                <div class="card corner col-md-12 col-sm-12">
+                    <div class="card-title">
+                        <h3 class="h3">
+                            <span class="badge">2.3</span>
+                            <b class="va-sub">Distribuição de Capital</b>
+                        </h3>
+                        <hr class="bordaHrForm no-margin-right">
+                    </div>
+                    <div class="card-body col-md-12 col-sm-12">
+                        <div class="panel panel-default corner">
+                            <div id="formRel" name="formRel">
+                                <div class="row margin-top-20px">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                Intervalo de Capitais
+                                                <input class="form-control textAlignRight maskMoney" type="text" maxlength="13" id="txtDCIntervaloCapitais">
+                                            </div>
+                                            <div class="col-md-3">
+                                                Menor Capital
+                                                <input class="form-control textAlignRight maskMoney" type="text" maxlength="20" id="txtDCCapitalMinimo">
+                                            </div>
+                                            <div class="col-md-3">
+                                                Maior Capital
+                                                <input class="form-control textAlignRight maskMoney" type="text" maxlength="20" id="txtDCCapitalMaximo">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                Intervalo de Idade
+                                                <input class="form-control textAlignCenter mask999" type="text" maxlength="3" id="txtDCIntervaloIdade">
+                                            </div>
+                                            <div class="col-md-3">
+                                                Idade Mínima
+                                                <input class="form-control textAlignCenter mask999" type="text" maxlength="3" id="txtDCIdadeMinima">
+                                            </div>
+                                            <div class="col-md-3">
+                                                Idade Máxima
+                                                <input class="form-control textAlignCenter mask999" type="text" maxlength="3" id="txtDCIdadeMaxima">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <br>
+                                                <div class="colNoPaddingLeftRight text-right colNoPaddingLeftRight">
+                                                    <input type="button" class="btn btn-liberty-default" value="Atualizar Relatório" onclick="window.RelatoriosAnaliseDeRiscoEvents.OnClickAtualizarRelatorioDistribuicaoCapital()">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="hr-blue-aqua margin-left-15px">
+                    <div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6 text-right padding-top-5px colNoPaddingLeftRight">
+                        <input type="button" class="btn btn-liberty-default" value="Exportar" onclick="window.RelatoriosAnaliseDeRiscoEvents.OnClickExportarDistribuicaoCapital()" id="exportarDistribuicaoCapital">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>

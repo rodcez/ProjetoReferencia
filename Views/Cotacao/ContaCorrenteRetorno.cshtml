@@ -1,0 +1,171 @@
+﻿
+<!DOCTYPE html>
+<head>
+    @* <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>*@
+</head>
+<div class="form-header">
+    <div class="form-icon-small"><span class="iconfa-file"></span></div>
+    <div class="form-title-small">
+        <h4 style="color:#0866c6">Dados da Conta</h4>
+    </div>
+</div>
+<div class="form-principal-modal" style="height:400px">
+    <iframe id="iframeDadosCobranca" class="iframe-form-modal" src="" width="100%" height="100%" frameborder="0"></iframe>
+</div>
+
+
+<script type="text/javascript" charset="utf-8">
+
+
+    $(document).ready(function () {
+
+        if ("@ViewBag.fecharPopup" == "True") {
+
+            if ("@ViewBag.popup" == "dadosCobranca") {
+                var model = JSON.parse('@Html.Raw(@ViewBag.retornoDadosCobranca)');
+                console.log(model);
+                console.log(JSON.stringify(model));
+                parent.parent.$('#rdTitularConta').val(model.NomeSegurado);
+                parent.parent.$('#txtCPFCNPJTitular').val(model.CpfCnpj);
+                parent.parent.$('#cboBancoDebito').val(model.NumeroBanco);
+                parent.parent.$('#txtAgencia').val(model.NumeroAgencia);
+                parent.parent.$('#txtDigito').val(model.NumeroAgenciaDigito);
+                parent.parent.$('#txtConta').val(model.NumeroConta);
+                parent.parent.$('#txtDigitoConta').val(model.NumeroContaDV);
+                parent.parent.$('#txtTipoPessoa').val(model.TipoPessoa);
+                parent.parent.$('#codigoCliente').val();
+                parent.parent.$('#codigoClienteOperacional').val();
+
+            }
+            else if ("@ViewBag.popup" == "prolabore") {
+                var model = JSON.parse('@Html.Raw(@ViewBag.retornoProlabore)');
+                parent.parent.$('#rdTitularContaPL').val(model.NomeSegurado);
+                parent.parent.$('#txtCPFCNPJTitularPL').val(model.CpfCnpj);
+                parent.parent.$('#cboBancoDebitoPL').val(model.NumeroBanco);
+                parent.parent.$('#txtAgenciaPL').val(model.NumeroAgencia);
+                parent.parent.$('#txtDigitoPL').val(model.NumeroAgenciaDigito);
+                parent.parent.$('#txtContaPL').val(model.NumeroConta);
+                parent.parent.$('#txtDigitoContaPL').val(model.NumeroContaDV);
+                parent.parent.$('#txtTipoPessoaPL').val(model.TipoPessoa);
+            }
+
+            else if ("@ViewBag.popup" == "agenciamento") {
+                var model = JSON.parse('@Html.Raw(@ViewBag.retronoAgenciamento)');
+                parent.parent.$('#rdTitularContaAG').val(model.NomeSegurado);
+                parent.parent.$('#txtCPFCNPJTitularAG').val(model.CpfCnpj);
+                parent.parent.$('#cboBancoDebitoAG').val(model.NumeroBanco);
+                parent.parent.$('#txtAgenciaAG').val(model.NumeroAgencia);
+                parent.parent.$('#txtDigitoAG').val(model.NumeroAgenciaDigito);
+                parent.parent.$('#txtContaAG').val(model.NumeroConta);
+                parent.parent.$('#txtDigitoContaAG').val(model.NumeroContaDV);
+                parent.parent.$('#txtTipoPessoaAG').val(model.TipoPessoa);
+                parent.parent.$('#codigoClienteAG').val();
+                parent.parent.$('#codigoClienteOperacionalAG').val();
+            }
+
+            parent.parent.$('#modalDadosCobranca').modal('hide');
+        }
+        else {
+            $(".header").hide();
+            $(".breadcrumbs").hide();
+            $("#painel-direito").css({ "padding-top": "0px" });
+            $(".conteudo-principal").removeClass("conteudo-principal");
+
+            if ("@ViewBag.popup" == "dadosCobranca") {
+                obterUrlPopupDadosConta("@ViewBag.MeioRecebimento",
+                    "@ViewBag.tipoCadastro",
+                    parent.parent.$('#rdTitularConta').val(),
+                    parent.parent.$('#txtCPFCNPJTitular').val(),
+                    parent.parent.$('#cboBancoDebito').val(),
+                    parent.parent.$('#txtAgencia').val(),
+                    parent.parent.$('#txtDigito').val(),
+                    parent.parent.$('#txtConta').val(),
+                    parent.parent.$('#txtDigitoConta').val(),
+                    parent.parent.$('#txtTipoPessoa').val(),
+                    parent.parent.$('#codigoCliente').val(),
+                    parent.parent.$('#codigoClienteOperacional').val());
+            }
+            else if ("@ViewBag.popup" == "prolabore") {
+                obterUrlPopupDadosConta("@ViewBag.MeioRecebimento",
+                    "@ViewBag.tipoCadastro",
+                    parent.parent.$('#rdTitularContaPL').val(),
+                    parent.parent.$('#txtCPFCNPJTitularPL').val(),
+                    parent.parent.$('#cboBancoDebitoPL').val(),
+                    parent.parent.$('#txtAgenciaPL').val(),
+                    parent.parent.$('#txtDigitoPL').val(),
+                    parent.parent.$('#txtContaPL').val(),
+                    parent.parent.$('#txtDigitoContaPL').val(),
+                    parent.parent.$('#txtTipoPessoaPL').val(),
+                    parent.parent.$('#codigoClientePL').val(),
+                    parent.parent.$('#codigoClienteOperacionalPL').val());
+            }
+
+            else if ("@ViewBag.popup" == "agenciamento") {
+                obterUrlPopupDadosConta("@ViewBag.MeioRecebimento",
+                    "@ViewBag.tipoCadastro",
+                    parent.parent.$('#rdTitularContaAG').val(),
+                    parent.parent.$('#txtCPFCNPJTitularAG').val(),
+                    parent.parent.$('#cboBancoDebitoAG').val(),
+                    parent.parent.$('#txtAgenciaAG').val(),
+                    parent.parent.$('#txtDigitoAG').val(),
+                    parent.parent.$('#txtContaAG').val(),
+                    parent.parent.$('#txtDigitoContaAG').val(),
+                    parent.parent.$('#txtTipoPessoaAG').val(),
+                    parent.parent.$('#codigoClienteAG').val(),
+                    parent.parent.$('#codigoClienteOperacionalAG').val());
+            }
+        }
+
+        function obterUrlPopupDadosConta(MeioRecebimento, TipoCadastro, titularConta, cpfCnpjTitular, codigoBanco, agencia, digitoAgencia, conta, digitoConta, tipoPessoa, codigoCliente, codigoClienteOperacional) {
+
+            $.ajax({
+                url: '/cotacao/ContaCorrenteModal',
+                type: 'post',
+                contentType: "application/json",
+                success: function (data) {
+                    $("#iframeDadosCobranca").attr('src', data.url);
+
+                },
+                error: function (data) {
+                    closeModalWait();
+                    var errors = JSON.parse(data.responseText);
+                    for (var i = 0; i < errors.length; i++) {
+                        notification("erro", errors[i], '');
+                    }
+                },
+                data: JSON.stringify({
+                    urlRetorno: "",
+                    idSessao: "",
+                    UsuarioSistema: "",
+                    dialog: "",
+                    parameter: "",
+                    id: 0,
+                    CpfCnpjTitular: cpfCnpjTitular,
+                    CpfCnpjSegurado: cpfCnpjTitular,
+                    NumeroBanco: codigoBanco,
+                    NumeroAgencia: agencia,
+                    NumeroAgenciaDV: digitoAgencia,
+                    NumeroConta: conta,
+                    NumeroContaDV: digitoConta,
+                    NomeSegurado: titularConta,
+                    NomeSeguradoTitular: titularConta,
+                    IndicadorCorrentistaSegurado: "",
+                    Status: "",
+                    TipoPessoaTitularConta: tipoPessoa,
+                    TipoPessoaSegurado: "F",
+                    CodigoCompanhia: parent.parent.$("#Filial_CodigoCompanhia").val(),
+                    ClienteCodigo: codigoCliente,
+                    ClienteOperacionalCodigo: codigoClienteOperacional,
+                    MeioRecebimento: MeioRecebimento,
+                    TipoCadastro: TipoCadastro
+
+                })
+            })
+        };
+    });
+
+
+
+
+
+</script>
