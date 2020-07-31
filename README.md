@@ -1,7 +1,7 @@
 <h1 align="left"> Massificado Faturaveis UI </h1> 
 
 <p align="left">
-  Projeto Massificado Faturaveis Liberty Seguros.
+  
 </p>
 
 ## Tecnologias
@@ -11,4 +11,3 @@
 
 ## Copyright
 
-Esse produto é um produto [Liberty Seguros](https://www.libertyseguros.com.br).
